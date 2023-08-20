@@ -6,7 +6,7 @@
  * @module loadstate
  */
 
-import { WaitForLoadStateOptions } from 'types/optional-parameter-types';
+import { WaitForLoadStateOptions } from '../types/optional-parameter-types';
 
 /**
  * Represents the load state option for waiting for specific events during page navigation.

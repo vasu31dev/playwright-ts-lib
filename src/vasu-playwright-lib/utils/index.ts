@@ -11,6 +11,3 @@ export * from './locator-utils';
 
 // Export everything from PageUtils.ts
 export * from './page-utils';
-
-// Export everything from TimeoutConstants.ts
-export * from '../constants/timeouts';

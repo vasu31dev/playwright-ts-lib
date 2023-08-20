@@ -3,12 +3,16 @@
     "module": "commonjs",
     "target": "es6",
     "outDir": "dist",
-    "strict": true,
+    "rootDir": "src",
+    "baseUrl": "./src",
     "sourceMap": true,
+    "declarationMap": true, // Generates a sourcemap for each corresponding '.d.ts' file
+    "declaration": true, // No need to generate declaration files (.d.ts) for a test project
+    "esModuleInterop": true,
+    "strict": true,
     "strictNullChecks": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "noUnusedLocals": true,
@@ -17,9 +21,6 @@
     "strictBindCallApply": true,
     "strictFunctionTypes": true,
     "strictPropertyInitialization": true,
-    "baseUrl": "src/vasu-playwright-lib",
-    "declarationMap": false, // Generates a sourcemap for each corresponding '.d.ts' file
-    "declaration": true, // No need to generate declaration files (.d.ts) for a test project
     "downlevelIteration": true, // Enables support for iterating on objects like `Map` and `Set` in older environments
     "experimentalDecorators": true, // Enables experimental support for ES decorators
     "noImplicitOverride": true, // Ensures that overriding methods in a subclass are marked with the 'override' keyword

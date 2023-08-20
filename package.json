@@ -2,8 +2,8 @@
   "name": "playwright-ts-lib",
   "version": "0.1.0",
   "description": "Playwright Typescript Library with reusable utilities",
-  "main": "./dist/utils/index.js",
-  "types": "./dist/utils/index.d.ts",
+  "main": "./dist/vasu-playwright-lib/index.js",
+  "types": "./dist/vasu-playwright-lib/index.d.ts",
   "keywords": [
     "playwright",
     "typescript",
