@@ -1,0 +1,7 @@
+node_modules/
+/playwright/.cache/
+.env
+.vscode
+.idea
+.DS_Store
+dist

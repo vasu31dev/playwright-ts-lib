@@ -1,0 +1,10 @@
+node_modules/
+.husky/
+package-lock.json
+dist/**/*
+**/*.js
+
+.prettierignore
+*.env
+**/*.sh
+**/*.png

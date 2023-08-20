@@ -1,0 +1,80 @@
+{
+  "name": "playwright-ts-lib",
+  "version": "0.1.0",
+  "description": "Playwright Typescript Library with reusable utilities",
+  "main": "./dist/utils/index.js",
+  "types": "./dist/utils/index.d.ts",
+  "keywords": [
+    "playwright",
+    "typescript",
+    "library"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vasu31dev/playwright-ts-lib.git"
+  },
+  "author": {
+    "name": "Vasudeva Annam",
+    "email": "vasu31dev@gmail.com"
+  },
+  "homepage": "https://github.com/vasu31dev/playwright-ts-lib#readme",
+  "bugs": {
+    "url": "https://github.com/vasu31dev/playwright-ts-lib/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist"
+  ],
+  "env": {
+    "node": true,
+    "browser": true
+  },
+  "lint-staged": {
+    "*.{json,md,ts}": [
+      "prettier --write"
+    ],
+    "*.{ts}": "eslint --fix"
+  },
+  "peerDependencies": {
+    "playwright": "^1.37.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.5.0",
+    "@typescript-eslint/eslint-plugin": "^6.4.0",
+    "@typescript-eslint/parser": "^6.4.0",
+    "eslint": "^8.47.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-import-resolver-typescript": "^3.6.0",
+    "eslint-plugin-import": "^2.28.0",
+    "eslint-plugin-jsdoc": "^46.4.6",
+    "eslint-plugin-playwright": "^0.15.3",
+    "eslint-plugin-prettier": "^5.0.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.0",
+    "prettier": "^3.0.2",
+    "rimraf": "^5.0.1",
+    "tslib": "^2.6.2",
+    "typescript": "5.1.6"
+  },
+  "scripts": {
+    "clean": "rimraf dist",
+    "prebuild": "npm run clean",
+    "build": "tsc",
+    "link": "npm run build && npm link",
+    "lint": "eslint 'src/**/*.ts'",
+    "lint:fix": "eslint 'src/**/*.ts' --fix",
+    "prepare": "husky install",
+    "format": "prettier --write 'src/**/*.ts' '**/*.json' '**/*.md' '!package-lock.json' '!dist/**/*' '!build/**/*'"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
+}
