@@ -10,9 +10,6 @@
     "library"
   ],
   "license": "MIT",
-  "engines": {
-    "node": ">=16.0.0"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/vasu31dev/playwright-ts-lib.git"
@@ -31,15 +28,8 @@
   "files": [
     "dist"
   ],
-  "env": {
-    "node": true,
-    "browser": true
-  },
-  "lint-staged": {
-    "*.{json,md,ts}": [
-      "prettier --write"
-    ],
-    "*.{ts}": "eslint --fix"
+  "engines": {
+    "node": ">=16.0.0"
   },
   "peerDependencies": {
     "playwright": "^1.37.1"
@@ -76,5 +66,11 @@
     "hooks": {
       "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "*.{json,md,ts}": [
+      "prettier --write"
+    ],
+    "*.{ts}": "eslint --fix"
   }
 }

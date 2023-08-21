@@ -21,8 +21,6 @@
     "strictBindCallApply": true,
     "strictFunctionTypes": true,
     "strictPropertyInitialization": true,
-    "downlevelIteration": true, // Enables support for iterating on objects like `Map` and `Set` in older environments
-    "experimentalDecorators": true, // Enables experimental support for ES decorators
     "noImplicitOverride": true, // Ensures that overriding methods in a subclass are marked with the 'override' keyword
     "noImplicitReturns": true, // Ensures that all code paths in a function explicitly return a value
     "typeRoots": ["node_modules/@types"] // Specifies the location of type declaration files
