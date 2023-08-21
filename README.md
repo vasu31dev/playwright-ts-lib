@@ -1,7 +1,7 @@
 # Playwright TypeScript Utility Functions Library
 
 [![GitHub stars](https://img.shields.io/github/stars/vasu31dev/playwright-ts-lib)](https://github.com/vasu31dev/playwright-ts-lib/stargazers)
-![Last Commit](https://img.shields.io/github/last-commit/vasu31dev/playwright-ts) ![Pull Requests](https://img.shields.io/github/issues-pr-raw/vasu31dev/playwright-ts)
+![Last Commit](https://img.shields.io/github/last-commit/vasu31dev/playwright-ts-lib) ![Pull Requests](https://img.shields.io/github/issues-pr-raw/vasu31dev/playwright-ts-lib)
 
 ## About
 
@@ -11,7 +11,6 @@
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Contributing](#contributing)
 - [License](#license)
 
 ## Installation
@@ -19,7 +18,7 @@
 To install the library, run the following command:
 
 ```bash
-npm install playwright-ts-lib
+npm install vasu-playwright-utils
 ```
 
 ## Usage
@@ -27,18 +26,14 @@ npm install playwright-ts-lib
 Here's a simple example of how you can use the library:
 
 ```typescript
-import { LOADSTATE } from 'playwright-ts-lib';
+import { LOADSTATE } from 'vasu-playwright-utils';
 
 // Your code here
 ```
 
-## Contributing
-
-We welcome contributions from the community! Please read the [CONTRIBUTING.md](CONTRIBUTING.md) file for guidelines on how to contribute. (In Progress)
-
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details. (In Progress)
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Support and Feedback
 

@@ -1,5 +1,5 @@
 {
-  "name": "playwright-ts-lib",
+  "name": "vasu-playwright-utils",
   "version": "0.1.0",
   "description": "Playwright Typescript Library with reusable utilities",
   "main": "./dist/vasu-playwright-lib/index.js",
