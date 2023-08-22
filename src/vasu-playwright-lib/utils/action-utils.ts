@@ -2,7 +2,7 @@
  * action-utils.ts: This module provides a set of utility functions for performing various actions in Playwright tests.
  * These actions include navigation, interaction with page elements, handling of dialogs, and more.
  */
-import { Dialog, Locator, Response } from 'playwright';
+import { Dialog, Locator, Response } from '@playwright/test';
 import { getPage } from './page-utils';
 import {
   CheckOptions,

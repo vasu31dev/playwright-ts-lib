@@ -3,7 +3,7 @@
  * These utilities make it easier to interact with elements on the page, providing a layer of abstraction over Playwright's built-in locator methods.
  */
 
-import { FrameLocator, Locator, selectors } from 'playwright';
+import { FrameLocator, Locator, selectors } from '@playwright/test';
 import { getPage } from './page-utils';
 import {
   GetByPlaceholderOptions,

@@ -6,7 +6,7 @@
  */
 
 import { SMALL_TIMEOUT } from '../constants/timeouts';
-import { Page } from 'playwright';
+import { Page } from '@playwright/test';
 
 let page: Page;
 

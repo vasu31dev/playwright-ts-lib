@@ -5,7 +5,7 @@
  * interacting with elements, making it easier to perform common tasks and checks on web elements.
  */
 
-import { Locator } from 'playwright';
+import { Locator } from '@playwright/test';
 import { getPage } from './page-utils';
 import { NavigationOptions, TimeoutOption } from '../types/optional-parameter-types';
 import { getAllLocators, getLocator } from './locator-utils';

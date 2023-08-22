@@ -3,7 +3,7 @@
  * These types are based on the parameters of Playwright's built-in methods and are used to provide type safety and code completion.
  */
 
-import { Locator, Page } from 'playwright';
+import { Locator, Page } from '@playwright/test';
 
 /**
  * 1. Navigation Options: These types are used for navigation actions such as going to a URL, reloading a page, or waiting for a certain load state.
