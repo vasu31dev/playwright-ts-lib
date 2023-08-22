@@ -1,3 +1,9 @@
+## [0.4.3] - 2023-08-22
+
+### Changed
+
+- Removed page-setup library to avoid error like Playwright Test did not expect test.beforeEach()
+
 ## [0.4.2] - 2023-08-22
 
 ### Fixed
