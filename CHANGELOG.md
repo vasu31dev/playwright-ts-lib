@@ -1,3 +1,9 @@
+## [0.4.1] - 2023-08-22
+
+### Fixed
+
+- Fixed newly added libraries to be available to be imported
+
 ## [0.4.0] - 2023-08-22
 
 ### Changed
