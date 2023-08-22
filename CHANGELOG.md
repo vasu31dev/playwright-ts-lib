@@ -1,3 +1,9 @@
+## [0.4.2] - 2023-08-22
+
+### Fixed
+
+- Fixed Customlogger export to be available for import
+
 ## [0.4.1] - 2023-08-22
 
 ### Fixed
