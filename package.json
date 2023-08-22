@@ -1,6 +1,6 @@
 {
   "name": "vasu-playwright-utils",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "Playwright Typescript Library with reusable utilities",
   "main": "./dist/vasu-playwright-lib/index.js",
   "types": "./dist/vasu-playwright-lib/index.d.ts",
@@ -13,6 +13,7 @@
     "./page-utils": "./dist/vasu-playwright-lib/utils/page-utils.js",
     "./constants": "./dist/vasu-playwright-lib/constants/index.js",
     "./setup": "./dist/vasu-playwright-lib/setup/index.js",
+    "./custom-logger": "./dist/vasu-playwright-lib/setup/custom-logger.js",
     "./types": "./dist/vasu-playwright-lib/types/optional-parameter-types.js"
   },
   "keywords": [

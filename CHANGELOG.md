@@ -1,3 +1,9 @@
+## [0.4.4] - 2023-08-22
+
+### Added
+
+- export for custom-logger
+
 ## [0.4.3] - 2023-08-22
 
 ### Changed
