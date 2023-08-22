@@ -4,6 +4,15 @@
   "description": "Playwright Typescript Library with reusable utilities",
   "main": "./dist/vasu-playwright-lib/index.js",
   "types": "./dist/vasu-playwright-lib/index.d.ts",
+  "exports": {
+    ".": "./dist/vasu-playwright-lib/index.js",
+    "./action-utils": "./dist/vasu-playwright-lib/utils/action-utils.js",
+    "./element-utils": "./dist/vasu-playwright-lib/utils/element-utils.js",
+    "./locator-utils": "./dist/vasu-playwright-lib/utils/locator-utils.js",
+    "./page-utils": "./dist/vasu-playwright-lib/utils/page-utils.js",
+    "./constants": "./dist/vasu-playwright-lib/constants/index.js",
+    "./types": "./dist/vasu-playwright-lib/types/optional-parameter-types.js"
+  },
   "keywords": [
     "playwright",
     "typescript",
@@ -56,6 +65,7 @@
     "clean": "rimraf dist",
     "prebuild": "npm run clean",
     "build": "tsc",
+    "prepublish": "npm run build",
     "link": "npm run build && npm link",
     "lint": "eslint 'src/**/*.ts'",
     "lint:fix": "eslint 'src/**/*.ts' --fix",
