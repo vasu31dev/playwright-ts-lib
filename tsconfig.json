@@ -4,7 +4,7 @@
     "target": "es6",
     "outDir": "dist",
     "rootDir": "src",
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "sourceMap": true,
     "declarationMap": true, // Generates a sourcemap for each corresponding '.d.ts' file
     "declaration": true, // No need to generate declaration files (.d.ts) for a test project
