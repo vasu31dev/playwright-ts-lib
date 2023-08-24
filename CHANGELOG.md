@@ -1,3 +1,9 @@
+## [0.4.6] - 2023-08-23
+
+### Fixed
+
+- Removed postinstall script
+
 ## [0.4.5] - 2023-08-24
 
 ### Added
