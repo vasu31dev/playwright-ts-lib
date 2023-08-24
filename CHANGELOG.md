@@ -1,3 +1,9 @@
+## [0.4.5] - 2023-08-24
+
+### Added
+
+- Added export for ActionUtils, AssertUtils, ElementUtils, LocatorUtils, PageUtils, ParameterTypes, Timeouts
+
 ## [0.4.4] - 2023-08-22
 
 ### Added
