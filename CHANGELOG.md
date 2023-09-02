@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.5.2] - 2023-09-01
+
+### Fixed
+
+- Fixed `clickByJS` to work correctly with both `SVGElement` and `HTMLElement` by adding type checks.
+
 ## [0.5.1] - 2023-08-30
 
 ### Added

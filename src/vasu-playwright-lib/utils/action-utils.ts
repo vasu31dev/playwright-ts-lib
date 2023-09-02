@@ -377,5 +377,5 @@ export async function scrollLocatorIntoView(input: string | Locator, options?: T
  */
 export async function clickByJS(input: string | Locator, options?: TimeoutOption): Promise<void> {
   const locator = getLocator(input);
-  await locator.evaluate('el => el.click()', options);
+  await locator.evaluate((el: HTMLElement) => el.click(), options);
 }
