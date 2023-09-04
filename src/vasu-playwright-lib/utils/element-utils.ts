@@ -208,6 +208,12 @@ export async function isElementChecked(input: string | Locator, options?: Timeou
   return false;
 }
 
+/**
+ * Waits for an element to be stable on the page.
+ * @param input - The element or locator to wait for.
+ * @param options - Optional timeout options.
+ * @returns A promise that resolves to a boolean indicating if the element is stable.
+ */
 export async function waitForElementToBeStable(input: string | Locator, options?: TimeoutOption): Promise<boolean> {
   let result = false;
   await test.step('waitForElementToBeStable', async () => {
@@ -246,4 +252,48 @@ export async function waitForElementToBeStable(input: string | Locator, options?
     }
   });
   return result;
+}
+
+/**
+ * Waits for an element to be visible on the page.
+ * @param input - The element or locator to wait for.
+ * @param options - Optional timeout options.
+ * @returns A promise that resolves when the element is visible.
+ */
+export async function waitForElementToBeVisible(input: string | Locator, options?: TimeoutOption): Promise<void> {
+  const locator = getLocator(input);
+  await locator.waitFor({ state: 'visible', timeout: options?.timeout || SMALL_TIMEOUT });
+}
+
+/**
+ * Waits for an element to be hidden on the page or detached from the DOM.
+ * @param input - The element or locator to wait for.
+ * @param options - Optional timeout options.
+ * @returns A promise that resolves when the element is hidden.
+ */
+export async function waitForElementToBeHidden(input: string | Locator, options?: TimeoutOption): Promise<void> {
+  const locator = getLocator(input);
+  await locator.waitFor({ state: 'hidden', timeout: options?.timeout || SMALL_TIMEOUT });
+}
+
+/**
+ * Waits for an element to be attached to the DOM.
+ * @param input - The element or locator to wait for.
+ * @param options - Optional timeout options.
+ * @returns A promise that resolves when the element is attached to the DOM.
+ */
+export async function waitForElementToBeAttached(input: string | Locator, options?: TimeoutOption): Promise<void> {
+  const locator = getLocator(input);
+  await locator.waitFor({ state: 'attached', timeout: options?.timeout || SMALL_TIMEOUT });
+}
+
+/**
+ * Waits for an element to be detached from the DOM.
+ * @param input - The element or locator to wait for.
+ * @param options - Optional timeout options.
+ * @returns A promise that resolves when the element is detached from the DOM.
+ */
+export async function waitForElementToBeDetached(input: string | Locator, options?: TimeoutOption): Promise<void> {
+  const locator = getLocator(input);
+  await locator.waitFor({ state: 'detached', timeout: options?.timeout || SMALL_TIMEOUT });
 }
