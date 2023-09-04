@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.5.4] - 2023-09-03
+
+### Added
+
+- Added new utility functions in `element-util`:
+  - `waitForElementToBeAttached`: Waits for an element to be attached to the DOM.
+  - `waitForElementToBeDetached`: Waits for an element to be detached from the DOM.
+  - `waitForElementToBeVisible`: Waits for an element to be visible on the page.
+  - `waitForElementToBeHidden`: Waits for an element to be hidden on the page.
+
 ## [0.5.3] - 2023-09-03
 
 ### Added
