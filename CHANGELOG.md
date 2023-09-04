@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.5.3] - 2023-09-03
+
+### Added
+
+- Introduced `waitForElementToBeStable` function to improve element stability checks during test execution. This function waits for an element to be stable in its position before proceeding with further actions.
+
 ## [0.5.2] - 2023-09-01
 
 ### Fixed

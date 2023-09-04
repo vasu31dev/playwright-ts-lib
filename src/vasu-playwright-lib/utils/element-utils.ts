@@ -10,7 +10,9 @@ import { getPage } from './page-utils';
 import { NavigationOptions, TimeoutOption } from '../types/optional-parameter-types';
 import { getAllLocators, getLocator } from './locator-utils';
 import { INSTANT_TIMEOUT, SMALL_TIMEOUT } from '../constants/timeouts';
-import { waitForPageLoadState } from './action-utils';
+import { wait, waitForPageLoadState } from './action-utils';
+import { logger } from '../setup';
+import { test } from '@playwright/test';
 
 /**
  * 1. Retreiving Data: Use these functions to retrieve text, values, and counts from web elements.
@@ -204,4 +206,44 @@ export async function isElementChecked(input: string | Locator, options?: Timeou
     console.log(`isElementChecked- ${error instanceof Error ? error.message : String(error)}`);
   }
   return false;
+}
+
+export async function waitForElementToBeStable(input: string | Locator, options?: TimeoutOption): Promise<boolean> {
+  let result = false;
+  await test.step('waitForElementToBeStable', async () => {
+    const locator = getLocator(input);
+    const maxWaitTime = options?.timeout || SMALL_TIMEOUT;
+    let stableCounter = 0;
+
+    const initialBoundingBox = await locator.boundingBox();
+    let lastX: number | null = initialBoundingBox?.x || null;
+    let lastY: number | null = initialBoundingBox?.y || null;
+
+    const startTime = Date.now();
+    await wait(200);
+
+    while (Date.now() - startTime < maxWaitTime) {
+      const { x, y } = (await locator.boundingBox()) || { x: null, y: null };
+
+      if (x === lastX && y === lastY) {
+        stableCounter++;
+        if (stableCounter >= 3) {
+          result = true;
+          break;
+        }
+        await wait(100);
+      } else {
+        // stableCounter = 0;
+        await wait(200);
+      }
+
+      lastX = x;
+      lastY = y;
+    }
+
+    if (!result) {
+      logger.error('Max wait time exceeded. Element is not stable.');
+    }
+  });
+  return result;
 }
