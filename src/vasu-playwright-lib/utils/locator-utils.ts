@@ -3,9 +3,10 @@
  * These utilities make it easier to interact with elements on the page, providing a layer of abstraction over Playwright's built-in locator methods.
  */
 
-import { FrameLocator, Locator, selectors } from '@playwright/test';
+import { Frame, FrameLocator, Locator, selectors } from '@playwright/test';
 import { getPage } from './page-utils';
 import {
+  FrameOptions,
   GetByPlaceholderOptions,
   GetByRoleOptions,
   GetByRoleTypes,
@@ -95,6 +96,16 @@ export async function getAllLocators(input: string | Locator, options?: LocatorO
  * 2. Frames: This section contains functions and definitions related to frames.
  * Frames are used to handle and interact with iframes or frames within the web page.
  */
+
+/**
+ * Returns a Frame object based on the provided frame selector options.
+ *
+ * @param {FrameOptions} frameSelector - The options to identify the frame.
+ * @returns {null | Frame} - The Frame object if found, otherwise returns null.
+ */
+export function getFrame(frameSelector: FrameOptions): null | Frame {
+  return getPage().frame(frameSelector);
+}
 
 /**
  * Returns a FrameLocator object based on the input provided.
