@@ -8,7 +8,7 @@
 import { Expect, Locator, TestInfo, expect } from '@playwright/test';
 import { ExpectOptions, ExpectTextOptions, SoftOption } from '../types/optional-parameter-types';
 import { getLocator } from './locator-utils';
-import { getPage } from './page-utils';
+import { getAllPages, getPage } from './page-utils';
 
 /**
  * Returns an Expect object configured with the given soft option.
@@ -325,4 +325,16 @@ export async function expectPageToContainURL(url: string, options?: ExpectOption
 export async function expectPageToHaveTitle(titleOrRegExp: string | RegExp, options?: ExpectOptions): Promise<void> {
   const assert = getExpectWithSoftOption(options);
   await assert(getPage()).toHaveTitle(titleOrRegExp, options);
+}
+
+/**
+ * Asserts that the number of pages in the current context is equal to the specified size.
+ *
+ * @param {number} numberOfPages - The expected number of pages.
+ * @param {SoftOption} [options] - Optional settings for the Soft assertion.
+ * @returns {void}
+ */
+export function expectPageSizeToBeEqualTo(numberOfPages: number, options?: SoftOption): void {
+  const assert = getExpectWithSoftOption(options);
+  assert(getAllPages()).toEqual(numberOfPages);
 }

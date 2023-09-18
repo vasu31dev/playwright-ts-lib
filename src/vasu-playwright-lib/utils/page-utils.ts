@@ -27,6 +27,14 @@ export function setPage(pageInstance: Page): void {
 }
 
 /**
+ * Returns an array of all pages within the current context.
+ * @returns {Page[]} An array of Page objects.
+ */
+export function getAllPages(): Page[] {
+  return page.context().pages();
+}
+
+/**
  * Switches to a different page by its index (1-based).
  * If the desired page isn't immediately available, this function will wait and retry for up to 'SMALL_TIMEOUT' seconds.
  * @param {number} winNum - The index of the page to switch to.
