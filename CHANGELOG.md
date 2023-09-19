@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.6.1] - 2023-09-19
+
+### Fixed
+
+- Fixed the assertions for page size.
+
 ## [0.6.0] - 2023-09-19
 
 ### Added
