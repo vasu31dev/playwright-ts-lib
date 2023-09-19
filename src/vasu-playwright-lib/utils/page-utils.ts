@@ -50,7 +50,9 @@ export async function switchPage(winNum: number, options?: SwitchPageOptions): P
   }
 
   // Assert that the desired page number exists
-  expect(getAllPages(), `Page number ${winNum} not found after ${timeoutInMs} seconds`).toBeGreaterThanOrEqual(winNum);
+  expect(getAllPages().length, `Page number ${winNum} not found after ${timeoutInMs} seconds`).toBeGreaterThanOrEqual(
+    winNum,
+  );
 
   // Switch to the desired page and wait for it to load
   const pageInstance = getAllPages()[winNum - 1];

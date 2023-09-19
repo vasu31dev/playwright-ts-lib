@@ -336,5 +336,5 @@ export async function expectPageToHaveTitle(titleOrRegExp: string | RegExp, opti
  */
 export function expectPageSizeToBeEqualTo(numberOfPages: number, options?: SoftOption): void {
   const assert = getExpectWithSoftOption(options);
-  assert(getAllPages()).toEqual(numberOfPages);
+  assert(getAllPages().length).toEqual(numberOfPages);
 }
