@@ -6,7 +6,8 @@
  */
 
 import { SMALL_TIMEOUT } from '../constants/timeouts';
-import { Page } from '@playwright/test';
+import { Page, expect } from '@playwright/test';
+import { SwitchPageOptions } from '../types/optional-parameter-types';
 
 let page: Page;
 
@@ -40,16 +41,20 @@ export function getAllPages(): Page[] {
  * @param {number} winNum - The index of the page to switch to.
  * @throws {Error} If the desired page isn't found within 'SMALL_TIMEOUT' seconds.
  */
-export async function switchPage(winNum: number): Promise<void> {
+export async function switchPage(winNum: number, options?: SwitchPageOptions): Promise<void> {
   const startTime = Date.now();
-  while (page.context().pages().length < winNum && Date.now() - startTime < SMALL_TIMEOUT) {
+  const timeoutInMs = options?.timeout || SMALL_TIMEOUT;
+  // Wait until the desired page number exists or timeout is reached
+  while (getAllPages().length < winNum && Date.now() - startTime < timeoutInMs) {
     await new Promise(resolve => setTimeout(resolve, 100));
   }
-  if (page.context().pages().length < winNum) {
-    throw new Error(`Page number ${winNum} not found after ${SMALL_TIMEOUT} seconds`);
-  }
-  const pageInstance = page.context().pages()[winNum - 1];
-  await pageInstance.waitForLoadState();
+
+  // Assert that the desired page number exists
+  expect(getAllPages(), `Page number ${winNum} not found after ${timeoutInMs} seconds`).toBeGreaterThanOrEqual(winNum);
+
+  // Switch to the desired page and wait for it to load
+  const pageInstance = getAllPages()[winNum - 1];
+  await pageInstance.waitForLoadState(options?.loadState || 'load');
   setPage(pageInstance);
 }
 
@@ -57,8 +62,10 @@ export async function switchPage(winNum: number): Promise<void> {
  * Switches back to the default page (the first one).
  */
 export async function switchToDefaultPage(): Promise<void> {
-  const pageInstance = page.context().pages()[0];
-  if (pageInstance) {
+  const allPages = getAllPages();
+  const noOfWindows = allPages.length;
+  if (noOfWindows > 0) {
+    const pageInstance = allPages[0];
     await pageInstance.bringToFront();
     setPage(pageInstance);
   }
@@ -75,9 +82,13 @@ export async function closePage(winNum: number): Promise<void> {
     await page.close();
     return;
   }
-  const noOfWindows = page.context().pages().length;
-  const pageInstance = page.context().pages()[winNum - 1];
-  await pageInstance.close();
+  expect(winNum, 'Window number should be Valid').toBeGreaterThan(0);
+  const allPages = getAllPages();
+  const noOfWindows = allPages.length;
+  if (noOfWindows >= 1) {
+    const pageInstance = allPages[winNum - 1];
+    await pageInstance.close();
+  }
   if (noOfWindows > 1) {
     await switchToDefaultPage();
   }

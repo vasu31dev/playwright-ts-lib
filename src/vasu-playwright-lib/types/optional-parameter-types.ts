@@ -45,6 +45,11 @@ export type ExpectTextOptions = {
   useInnerText?: boolean;
 };
 
+export type SwitchPageOptions = {
+  loadState?: 'load' | 'domcontentloaded' | 'networkidle';
+  timeout?: number;
+};
+
 /**
  * 4. Locator Options: These types are used for locating elements on a page.
  * They are based on the parameters of Playwright's built-in locator methods.
