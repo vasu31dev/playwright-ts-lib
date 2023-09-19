@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.6.0] - 2023-09-19
+
+### Added
+
+- Added `getAllPages` and `expectPageSizeToBeEqualTo` reusable functions.
+- Added `getFrame` reusable function.
+
+### Changed
+
+- `saveStorageState` function will now return the storage state instead of `void`.
+
+### Updated
+
+- Updated all the dependencies to the latest versions.
+
+### Optimized
+
+- Optimized `page-utils` with better error handling for `switchPage`, `switchToDefaultPage`, `closePage` functions.
+- Added `SwitchPageOptions` optional parameter type to `switchPage`.
+
 ## [0.5.4] - 2023-09-03
 
 ### Added
