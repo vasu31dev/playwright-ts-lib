@@ -5,7 +5,7 @@
  * interacting with elements, making it easier to perform common tasks and checks on web elements.
  */
 
-import { Locator } from '@playwright/test';
+import { BrowserContext, Locator } from '@playwright/test';
 import { getPage } from './page-utils';
 import { NavigationOptions, TimeoutOption } from '../types/optional-parameter-types';
 import { getAllLocators, getLocator } from './locator-utils';
@@ -80,12 +80,28 @@ export async function getAttribute(
 }
 
 /**
- * Saves the storage state of the page.
- * @param {string} [path] - Optional path to save the storage state to.
- * @returns {Promise<void>}
+ * Saves the storage state of the current page.
+ *
+ * This function captures the storage state of the page, which includes cookies,
+ * local storage, and session storage. The state can be saved to a file if a path is provided.
+ *
+ * @param {string} [path] - The optional file path where the storage state will be saved.
+ * If not provided, the state will only be returned but not saved to a file.
+ *
+ * @returns {Promise<ReturnType<BrowserContext['storageState']>>} - A promise that resolves to the storage state.
+ *
+ * @example
+ *
+ * // Save storage state to a file
+ * saveStorageState('./state.json');
+ *
+ * // Get storage state without saving to a file
+ * const state = await saveStorageState();
+ *
+ * @see {@link https://playwright.dev/docs/api/class-browsercontext#browser-context-storage-state | Playwright BrowserContext.storageState}
  */
-export async function saveStorageState(path?: string): Promise<void> {
-  await getPage().context().storageState({ path: path });
+export async function saveStorageState(path?: string): Promise<ReturnType<BrowserContext['storageState']>> {
+  return await getPage().context().storageState({ path: path });
 }
 
 /**
