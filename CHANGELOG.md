@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.6.2] - 2023-09-25
+
+### Fixed
+
+- **`closePage` Function**: Resolved an issue where the optional parameter was not being handled correctly. This fix enhances the function's reliability and prevents unexpected behavior.
+
 ## [0.6.1] - 2023-09-19
 
 ### Fixed

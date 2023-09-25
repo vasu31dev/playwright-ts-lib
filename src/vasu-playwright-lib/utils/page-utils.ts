@@ -79,7 +79,7 @@ export async function switchToDefaultPage(): Promise<void> {
  * If there are other pages open, it will switch back to the default page.
  * @param {number} winNum - The index of the page to close.
  */
-export async function closePage(winNum: number): Promise<void> {
+export async function closePage(winNum?: number): Promise<void> {
   if (!winNum) {
     await page.close();
     return;
