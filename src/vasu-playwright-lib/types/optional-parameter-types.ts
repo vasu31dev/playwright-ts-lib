@@ -21,7 +21,7 @@ export type ClickOptions = Parameters<Locator['click']>[0] & {
   loadState?: WaitForLoadStateOptions;
 };
 export type FillOptions = Parameters<Locator['fill']>[1];
-export type TypeOptions = Parameters<Locator['type']>[1];
+export type PressSequentiallyOptions = Parameters<Locator['pressSequentially']>[1];
 export type ClearOptions = Parameters<Locator['clear']>[0];
 export type SelectValues = Parameters<Locator['selectOption']>[0];
 export type SelectOptions = Parameters<Locator['selectOption']>[1];

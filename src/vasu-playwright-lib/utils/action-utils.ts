@@ -14,9 +14,9 @@ import {
   GotoOptions,
   HoverOptions,
   NavigationOptions,
+  PressSequentiallyOptions,
   SelectOptions,
   TimeoutOption,
-  TypeOptions,
   UploadOptions,
   UploadValues,
   WaitForLoadStateOptions,
@@ -133,14 +133,18 @@ export async function fillAndEnter(input: string | Locator, value: string, optio
 }
 
 /**
- * Types a value into a specified element.
- * @param {string | Locator} input - The element to type into.
- * @param {string} value - The value to type.
- * @param {TypeOptions} options - The type options.
+ * Types a value into a specified element, simulating keystrokes character by character.
+ * @param {string | Locator} input - The element into which the value will be typed. This can be either a string representing the selector or a Locator object.
+ * @param {string} value - The string value to be typed into the element, character by character.
+ * @param {PressSequentiallyOptions} [options] - Optional configuration for the typing action.
  */
-export async function type(input: string | Locator, value: string, options?: TypeOptions): Promise<void> {
+export async function pressSequentially(
+  input: string | Locator,
+  value: string,
+  options?: PressSequentiallyOptions,
+): Promise<void> {
   const locator = getLocator(input);
-  await locator.type(value, options);
+  await locator.pressSequentially(value, options);
 }
 
 /**

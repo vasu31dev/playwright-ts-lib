@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.7.0] - 2023-09-25
+
+### Breaking Changes
+
+- Replaced the `type` reusable function with `pressSequentially`. This change enhances the typing simulation but may require updates to existing test scripts that use the `type` function.
+
+### Updated
+
+- Upgraded the Playwright dependency from version 1.37.1 to 1.38.1 to leverage new features and performance improvements.
+
 ## [0.6.3] - 2023-09-25
 
 ### Updated
