@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.6.3] - 2023-09-25
+
+### Updated
+
+- Upgraded all dependencies to their latest stable versions.
+
 ## [0.6.2] - 2023-09-25
 
 ### Fixed

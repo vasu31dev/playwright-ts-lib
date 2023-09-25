@@ -1,6 +1,6 @@
 {
   "name": "vasu-playwright-utils",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "description": "Playwright Typescript Library with reusable utilities",
   "main": "./dist/vasu-playwright-lib/index.js",
   "types": "./dist/vasu-playwright-lib/index.d.ts",
@@ -48,20 +48,19 @@
     "@playwright/test": "^1.37.1"
   },
   "dependencies": {
-    "dotenv": "^16.3.1",
-    "winston": "^3.10.0",
-    "axios": "1.5.0",
+    "@types/node": "^20.6.5",
+    "@typescript-eslint/eslint-plugin": "^6.7.3",
+    "@typescript-eslint/parser": "^6.7.3",
     "allure-commandline": "^2.24.0",
     "allure-playwright": "^2.8.1",
-    "@types/node": "^20.6.2",
-    "@typescript-eslint/eslint-plugin": "^6.7.2",
-    "@typescript-eslint/parser": "^6.7.2",
+    "axios": "^1.5.0",
     "cross-env": "^7.0.3",
-    "eslint": "^8.49.0",
+    "dotenv": "^16.3.1",
+    "eslint": "^8.50.0",
     "eslint-config-prettier": "^9.0.0",
-    "eslint-import-resolver-typescript": "^3.6.0",
+    "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-import": "^2.28.1",
-    "eslint-plugin-jsdoc": "^46.8.1",
+    "eslint-plugin-jsdoc": "^46.8.2",
     "eslint-plugin-playwright": "^0.16.0",
     "eslint-plugin-prettier": "^5.0.0",
     "husky": "^8.0.3",
@@ -69,7 +68,8 @@
     "prettier": "^3.0.3",
     "rimraf": "^5.0.1",
     "tslib": "^2.6.2",
-    "typescript": "5.2.2"
+    "typescript": "5.2.2",
+    "winston": "^3.10.0"
   },
   "scripts": {
     "clean": "rimraf dist",
