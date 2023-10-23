@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.7.2] - 2023-10-24
+
+### Updated
+
+- Updated package versions. Major updates to current latest versions include `@typescript-eslint/eslint-plugin`, `@typescript-eslint/parser`, `allure-playwright`, and `lint-staged`.
+
+## [0.7.1] - 2023-10-23
+
 ### Updated
 
 - Changed the version specifier for the `@playwright/test` peer dependency from `^1.38.1` to `~1.38.1` to pin to patch releases and avoid a known issue in version 1.39.0. For more details on the issue, see [microsoft/playwright#27733](https://github.com/microsoft/playwright/issues/27733).
