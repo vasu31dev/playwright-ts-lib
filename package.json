@@ -1,6 +1,6 @@
 {
   "name": "vasu-playwright-utils",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "Playwright Typescript Library with reusable utilities",
   "main": "./dist/vasu-playwright-lib/index.js",
   "types": "./dist/vasu-playwright-lib/index.d.ts",
@@ -45,7 +45,7 @@
     "node": ">=16.0.0"
   },
   "peerDependencies": {
-    "@playwright/test": "^1.38.1"
+    "@playwright/test": "~1.38.1"
   },
   "dependencies": {
     "@types/node": "^20.6.5",

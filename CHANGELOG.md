@@ -1,5 +1,9 @@
 # Changelog
 
+### Updated
+
+- Changed the version specifier for the `@playwright/test` peer dependency from `^1.38.1` to `~1.38.1` to pin to patch releases and avoid a known issue in version 1.39.0. For more details on the issue, see [microsoft/playwright#27733](https://github.com/microsoft/playwright/issues/27733).
+
 ## [0.7.0] - 2023-09-25
 
 ### Breaking Changes
