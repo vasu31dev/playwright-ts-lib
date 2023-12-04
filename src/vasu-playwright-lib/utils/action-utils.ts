@@ -148,6 +148,22 @@ export async function pressSequentially(
 }
 
 /**
+ * Simulates the action of pressing a key or a combination of keys on the specified element.
+ * This function is useful for scenarios where you need to simulate key presses like 'Enter', 'Tab', etc.
+ * @param {string | Locator} input - The element on which the key press action will be performed. This can be either a string representing the selector or a Locator object.
+ * @param {string} key - The key or combination of keys to be pressed. For example, 'Enter', 'Tab', or 'Control+A'.
+ * @param {PressSequentiallyOptions} [options] - Optional configuration for the key press action. This can include options like delay between key presses.
+ */
+export async function pressKeyboard(
+  input: string | Locator,
+  key: string,
+  options?: PressSequentiallyOptions,
+): Promise<void> {
+  const locator = getLocator(input);
+  await locator.press(key, options);
+}
+
+/**
  * Clears the value of a specified element.
  * @param {string | Locator} input - The element to clear.
  * @param {ClearOptions} options - The clear options.

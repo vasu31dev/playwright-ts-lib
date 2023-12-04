@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.3] - 2023-12-03
+
+### Added
+
+- Added `pressKeyboard` method to simulate keyboard interactions, such as pressing keys or key combinations.
+- Added `getWindowSize` method to retrieve the current size of the browser window, including width and height.
+
 ## [0.7.2] - 2023-10-24
 
 ### Updated

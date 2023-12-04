@@ -313,3 +313,17 @@ export async function waitForElementToBeDetached(input: string | Locator, option
   const locator = getLocator(input);
   await locator.waitFor({ state: 'detached', timeout: options?.timeout || SMALL_TIMEOUT });
 }
+
+/**
+ * Retrieves the size of the browser window. This function uses the `evaluate` method to execute code in the context of the page,
+ * allowing it to access the `window` object and retrieve the current window dimensions.
+ * @returns A promise that resolves to an object containing the width and height of the window.
+ */
+export async function getWindowSize(): Promise<{ width: number; height: number }> {
+  return await getPage().evaluate(() => {
+    return {
+      width: window.innerWidth,
+      height: window.innerHeight,
+    };
+  });
+}
