@@ -1,5 +1,30 @@
 # Changelog
 
+## [0.8.0] - 2023-12-03
+
+### Changed
+
+- Moved `playwright` from peer dependencies to dependencies section and updated from version `1.38.1` to `1.40.1`.
+- Updated all corresponding dependencies to their latest versions.
+
+### Updated Dependencies
+
+- `@types/node` from `^20.8.7` to `^20.10.3`
+- `@typescript-eslint/eslint-plugin` from `^6.8.0` to `^6.13.1`
+- `@typescript-eslint/parser` from `^6.8.0` to `^6.13.1`
+- `axios` from `^1.5.1` to `^1.6.2`
+- `eslint` from `^8.52.0` to `^8.55.0`
+- `eslint-config-prettier` from `^9.0.0` to `^9.1.0`
+- `eslint-plugin-jsdoc` from `^46.8.2` to `^46.9.0`
+- `eslint-plugin-playwright` from `^0.18.0` to `^0.19.0`
+- `lint-staged` from `^15.0.2` to `^15.2.0`
+- `prettier` from `^3.0.3` to `^3.1.0`
+- `typescript` from `5.2.2` to `5.3.2`
+
+### Notes
+
+- This update includes significant dependency upgrades and a change in the way Playwright is included in the project. It is recommended to test existing functionalities thoroughly to ensure compatibility with the new versions.
+
 ## [0.7.3] - 2023-12-03
 
 ### Added
