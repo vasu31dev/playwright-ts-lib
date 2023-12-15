@@ -98,13 +98,20 @@ export async function getAllLocators(input: string | Locator, options?: LocatorO
  */
 
 /**
- * Returns a Frame object based on the provided frame selector options.
- *
+ * Returns a Frame object based on the provided frame selector options. If the frame is not found, an error is thrown unless the 'force' option is set to true.
  * @param {FrameOptions} frameSelector - The options to identify the frame.
- * @returns {null | Frame} - The Frame object if found, otherwise returns null.
+ * @param {{ force?: boolean }} options - Additional options for frame retrieval.
+ * - force (boolean): If true, returns the frame (or null) without throwing an error if the frame is not found.
+ * @returns {null | Frame} - The Frame object if found, otherwise null (if 'force' is true).
+ * @throws {Error} - Throws an error if the frame is not found and 'force' is false.
  */
-export function getFrame(frameSelector: FrameOptions): null | Frame {
-  return getPage().frame(frameSelector);
+export function getFrame(frameSelector: FrameOptions, { force = false }: { force?: boolean }): null | Frame {
+  const frame = getPage().frame(frameSelector);
+  if (force) return frame;
+  if (!frame) {
+    throw new Error(`Frame not found with selector: ${JSON.stringify(frameSelector)}`);
+  }
+  return frame;
 }
 
 /**
