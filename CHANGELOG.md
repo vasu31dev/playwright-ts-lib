@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.1] - 2023-12-14
+
+### Updated
+
+- `getFrame` method now throws an error if the frame is not found. Added an optional `force` parameter for conditional error handling.
+- Updated all corresponding dependencies to their latest versions.
+
 ## [0.8.0] - 2023-12-03
 
 ### Changed
