@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.9.0] - 2024-01-09
+
+### Added
+
+- `expectElementNotToBeInViewport` reusable method for asserting an element's absence in the current viewport.
+- `onlyVisible` parameter to locators in action-utils for enhanced stability and precision. `setDefaultLocatorFilterVisibility` to allow dynamic configuration.
+- Getter and setter functions for `defaultLoadState` to allow dynamic configuration.
+
 ## [0.8.1] - 2023-12-14
 
 ### Updated
