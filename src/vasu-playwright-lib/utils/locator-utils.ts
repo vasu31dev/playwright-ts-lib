@@ -26,7 +26,8 @@ import {
  * @returns {Locator} - The created Locator object.
  */
 export function getLocator(input: string | Locator, options?: LocatorOptions): Locator {
-  return typeof input === 'string' ? getPage().locator(input, options) : input;
+  const locator = typeof input === 'string' ? getPage().locator(input, options) : input;
+  return options?.onlyVisible ? locator.locator('visible=true') : locator;
 }
 
 /**

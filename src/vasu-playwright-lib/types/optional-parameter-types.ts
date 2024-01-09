@@ -17,20 +17,22 @@ export type WaitForLoadStateOptions = Parameters<Page['waitForLoadState']>[0];
  * 2. Action Options: These types are used for actions such as clicking, filling input fields, typing, etc.
  * They are based on the parameters of Playwright's built-in action methods.
  */
-export type ClickOptions = Parameters<Locator['click']>[0] & {
-  loadState?: WaitForLoadStateOptions;
-};
-export type FillOptions = Parameters<Locator['fill']>[1];
-export type PressSequentiallyOptions = Parameters<Locator['pressSequentially']>[1];
-export type ClearOptions = Parameters<Locator['clear']>[0];
-export type SelectValues = Parameters<Locator['selectOption']>[0];
-export type SelectOptions = Parameters<Locator['selectOption']>[1];
-export type CheckOptions = Parameters<Locator['check']>[0];
-export type HoverOptions = Parameters<Locator['hover']>[0];
-export type UploadValues = Parameters<Locator['setInputFiles']>[0];
-export type UploadOptions = Parameters<Locator['setInputFiles']>[1];
-export type DragOptions = Parameters<Locator['dragTo']>[1];
-export type DoubleClickOptions = Parameters<Locator['dblclick']>[0];
+export type VisibilityOption = { onlyVisible?: boolean };
+export type ClickOptions = Parameters<Locator['click']>[0] &
+  VisibilityOption & {
+    loadState?: WaitForLoadStateOptions;
+  };
+export type FillOptions = Parameters<Locator['fill']>[1] & VisibilityOption;
+export type PressSequentiallyOptions = Parameters<Locator['pressSequentially']>[1] & VisibilityOption;
+export type ClearOptions = Parameters<Locator['clear']>[0] & VisibilityOption;
+export type SelectValues = Parameters<Locator['selectOption']>[0] & VisibilityOption;
+export type SelectOptions = Parameters<Locator['selectOption']>[1] & VisibilityOption;
+export type CheckOptions = Parameters<Locator['check']>[0] & VisibilityOption;
+export type HoverOptions = Parameters<Locator['hover']>[0] & VisibilityOption;
+export type UploadValues = Parameters<Locator['setInputFiles']>[0] & VisibilityOption;
+export type UploadOptions = Parameters<Locator['setInputFiles']>[1] & VisibilityOption;
+export type DragOptions = Parameters<Locator['dragTo']>[1] & VisibilityOption;
+export type DoubleClickOptions = Parameters<Locator['dblclick']>[0] & VisibilityOption;
 
 /**
  * 3. Expect Options: These types are used for assertions, Timeouts, etc in tests.
@@ -54,11 +56,11 @@ export type SwitchPageOptions = {
  * 4. Locator Options: These types are used for locating elements on a page.
  * They are based on the parameters of Playwright's built-in locator methods.
  */
-export type LocatorOptions = Parameters<Page['locator']>[1];
-export type GetByTextOptions = Parameters<Locator['getByText']>[1];
-export type GetByRoleTypes = Parameters<Locator['getByRole']>[0];
-export type GetByRoleOptions = Parameters<Locator['getByRole']>[1];
-export type GetByLabelOptions = Parameters<Locator['getByLabel']>[1];
-export type GetByPlaceholderOptions = Parameters<Locator['getByPlaceholder']>[1];
+export type LocatorOptions = Parameters<Page['locator']>[1] & VisibilityOption;
+export type GetByTextOptions = Parameters<Locator['getByText']>[1] & VisibilityOption;
+export type GetByRoleTypes = Parameters<Locator['getByRole']>[0] & VisibilityOption;
+export type GetByRoleOptions = Parameters<Locator['getByRole']>[1] & VisibilityOption;
+export type GetByLabelOptions = Parameters<Locator['getByLabel']>[1] & VisibilityOption;
+export type GetByPlaceholderOptions = Parameters<Locator['getByPlaceholder']>[1] & VisibilityOption;
 
 export type FrameOptions = Parameters<Page['frame']>[0];

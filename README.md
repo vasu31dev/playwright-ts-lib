@@ -26,7 +26,7 @@ npm install vasu-playwright-utils
 Here's a simple example of how you can use the library:
 
 ```typescript
-import { LOADSTATE } from 'vasu-playwright-utils';
+import { getDefaultLoadState } from 'vasu-playwright-utils';
 
 // Your code here
 ```
