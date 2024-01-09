@@ -85,6 +85,16 @@ export async function expectElementToBeInViewport(input: string | Locator, optio
 }
 
 /**
+ * Asserts that the given element is not present in the DOM or not visible in the viewport of the page.
+ * @param {string | Locator} input - Either a string (selector) or a Locator object.
+ * @param {ExpectOptions} options - The options to pass to the expect function.
+ */
+export async function expectElementNotToBeInViewport(input: string | Locator, options?: ExpectOptions): Promise<void> {
+  const { locator, assert } = getLocatorAndAssert(input, options);
+  await assert(locator, options).not.toBeInViewport(options);
+}
+
+/**
  * Asserts that the given element is checked.
  * @param {string | Locator} input - Either a string (selector) or a Locator object.
  * @param {ExpectOptions} options - The options to pass to the expect function.
