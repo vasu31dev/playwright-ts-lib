@@ -5,12 +5,11 @@
  * interacting with elements, making it easier to perform common tasks and checks on web elements.
  */
 
-import { BrowserContext, Locator } from '@playwright/test';
-import { getPage } from './page-utils';
-import { NavigationOptions, TimeoutOption } from '../types/optional-parameter-types';
+import { Locator } from '@playwright/test';
+import { TimeoutOption } from '../types/optional-parameter-types';
 import { getAllLocators, getLocator } from './locator-utils';
 import { INSTANT_TIMEOUT, SMALL_TIMEOUT } from '../constants/timeouts';
-import { wait, waitForPageLoadState } from './action-utils';
+import { wait } from './page-utils';
 import { logger } from '../setup';
 import { test } from '@playwright/test';
 
@@ -77,46 +76,6 @@ export async function getAttribute(
 ): Promise<null | string> {
   const locator = getLocator(input);
   return await locator.getAttribute(attributeName, options);
-}
-
-/**
- * Saves the storage state of the current page.
- *
- * This function captures the storage state of the page, which includes cookies,
- * local storage, and session storage. The state can be saved to a file if a path is provided.
- *
- * @param {string} [path] - The optional file path where the storage state will be saved.
- * If not provided, the state will only be returned but not saved to a file.
- *
- * @returns {Promise<ReturnType<BrowserContext['storageState']>>} - A promise that resolves to the storage state.
- *
- * @example
- *
- * // Save storage state to a file
- * saveStorageState('./state.json');
- *
- * // Get storage state without saving to a file
- * const state = await saveStorageState();
- *
- * @see {@link https://playwright.dev/docs/api/class-browsercontext#browser-context-storage-state | Playwright BrowserContext.storageState}
- */
-export async function saveStorageState(path?: string): Promise<ReturnType<BrowserContext['storageState']>> {
-  return await getPage().context().storageState({ path: path });
-}
-
-/**
- * Returns the URL of the page.
- * @param {NavigationOptions} [options] - Optional navigation options.
- * @returns {Promise<string>} - The URL of the page.
- */
-export async function getURL(options: NavigationOptions = { waitUntil: 'load' }): Promise<string> {
-  try {
-    await waitForPageLoadState(options);
-    return getPage().url();
-  } catch (error) {
-    console.log(`getURL- ${error instanceof Error ? error.message : String(error)}`);
-    return '';
-  }
 }
 
 /**
@@ -312,18 +271,4 @@ export async function waitForElementToBeAttached(input: string | Locator, option
 export async function waitForElementToBeDetached(input: string | Locator, options?: TimeoutOption): Promise<void> {
   const locator = getLocator(input);
   await locator.waitFor({ state: 'detached', timeout: options?.timeout || SMALL_TIMEOUT });
-}
-
-/**
- * Retrieves the size of the browser window. This function uses the `evaluate` method to execute code in the context of the page,
- * allowing it to access the `window` object and retrieve the current window dimensions.
- * @returns A promise that resolves to an object containing the width and height of the window.
- */
-export async function getWindowSize(): Promise<{ width: number; height: number }> {
-  return await getPage().evaluate(() => {
-    return {
-      width: window.innerWidth,
-      height: window.innerHeight,
-    };
-  });
 }

@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.10.1] - 2024-01-18
+
+### Changed
+
+- Moved page related functions from `action-utils` and `element-utils` to `page-utils`.
+- `action-utils` to `page-utils` : `gotoURL`, `waitForPageLoadState`, `reloadPage`, `goBack`, `wait`
+- - `element-utils` to `page-utils` : `getURL`, `getWindowSize`, `saveStorageState`
+
 ## [0.10.0] - 2024-01-17
 
 ### Updated Dependencies

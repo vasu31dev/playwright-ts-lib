@@ -2,7 +2,7 @@
  * action-utils.ts: This module provides a set of utility functions for performing various actions in Playwright tests.
  * These actions include navigation, interaction with page elements, handling of dialogs, and more.
  */
-import { Dialog, Locator, Response } from '@playwright/test';
+import { Dialog, Locator } from '@playwright/test';
 import { getPage } from './page-utils';
 import {
   CheckOptions,
@@ -11,82 +11,20 @@ import {
   DoubleClickOptions,
   DragOptions,
   FillOptions,
-  GotoOptions,
   HoverOptions,
-  NavigationOptions,
   PressSequentiallyOptions,
   SelectOptions,
   TimeoutOption,
   UploadOptions,
   UploadValues,
   VisibilityOption,
-  WaitForLoadStateOptions,
 } from '../types/optional-parameter-types';
 import { STANDARD_TIMEOUT } from '../constants/timeouts';
 import { getLocator } from './locator-utils';
 import { defaultVisibleOnlyOption, getDefaultLoadState } from '../constants/loadstate';
 
 /**
- * 1. Navigations: This section contains functions for navigating within a web page or between web pages.
- * These functions include going to a URL, waiting for a page to load, reloading a page, and going back to a previous page.
- */
-
-/**
- * Navigates to the specified URL.
- * @param {string} path - The URL to navigate to.
- * @param {GotoOptions} options - The navigation options.
- * @returns {Promise<null | Response>} - The navigation response or null if no response.
- */
-export async function gotoURL(
-  path: string,
-  options: GotoOptions = { waitUntil: getDefaultLoadState() },
-): Promise<null | Response> {
-  return await getPage().goto(path, options);
-}
-
-/**
- * Waits for a specific page load state.
- * @param {NavigationOptions} options - The navigation options.
- */
-export async function waitForPageLoadState(options?: NavigationOptions): Promise<void> {
-  let waitUntil: WaitForLoadStateOptions = getDefaultLoadState();
-
-  if (options?.waitUntil && options.waitUntil !== 'commit') {
-    waitUntil = options.waitUntil;
-  }
-
-  await getPage().waitForLoadState(waitUntil);
-}
-
-/**
- * Reloads the current page.
- * @param {NavigationOptions} options - The navigation options.
- */
-export async function reloadPage(options?: NavigationOptions): Promise<void> {
-  await Promise.all([getPage().reload(options), getPage().waitForEvent('framenavigated')]);
-  await waitForPageLoadState(options);
-}
-
-/**
- * Navigates back to the previous page.
- * @param {NavigationOptions} options - The navigation options.
- */
-export async function goBack(options?: NavigationOptions): Promise<void> {
-  await Promise.all([getPage().goBack(options), getPage().waitForEvent('framenavigated')]);
-  await waitForPageLoadState(options);
-}
-
-/**
- * Waits for a specified amount of time.
- * @param {number} ms - The amount of time to wait in milliseconds.
- */
-export async function wait(ms: number): Promise<void> {
-  // eslint-disable-next-line playwright/no-wait-for-timeout
-  await getPage().waitForTimeout(ms);
-}
-
-/**
- * 2. Actions: This section contains functions for interacting with elements on a web page.
+ * 1. Actions: This section contains functions for interacting with elements on a web page.
  * These functions include clicking, filling input fields, typing, clearing input fields, checking and unchecking checkboxes, selecting options in dropdowns, and more.
  */
 
@@ -246,7 +184,7 @@ export async function selectByIndex(input: string | Locator, index: number, opti
 }
 
 /**
- * 3. Alerts: This section contains functions for handling alert dialogs.
+ * 2. Alerts: This section contains functions for handling alert dialogs.
  * These functions include accepting and dismissing alerts, and getting the text of an alert.
  * Note: These functions currently have some repetition and could be optimized by applying the DRY (Don't Repeat Yourself) principle.
  */
@@ -390,7 +328,7 @@ export async function scrollLocatorIntoView(input: string | Locator, options?: T
 }
 
 /**
- * 4. JS: This section contains functions that use JavaScript to interact with elements on a web page.
+ * 3. JS: This section contains functions that use JavaScript to interact with elements on a web page.
  * These functions include clicking on an element using JavaScript.
  */
 

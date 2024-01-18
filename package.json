@@ -1,6 +1,6 @@
 {
   "name": "vasu-playwright-utils",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "description": "Playwright Typescript Library with reusable utilities",
   "main": "./dist/vasu-playwright-lib/index.js",
   "types": "./dist/vasu-playwright-lib/index.d.ts",
@@ -74,6 +74,7 @@
     "prebuild": "npm run clean",
     "build": "tsc",
     "prepublishOnly": "npm run build",
+    "postpublish": "npm run clean",
     "ready": "rimraf dist node_modules package-lock.json && npm i",
     "prepare": "husky install",
     "link": "npm run build && npm link",
@@ -90,6 +91,9 @@
     "*.{json,md,ts}": [
       "cross-env prettier --write"
     ],
-    "*.{ts}": "cross-env eslint --fix"
+    "*.{ts}": [
+      "tsc --noEmit",
+      "cross-env eslint --fix"
+    ]
   }
 }
