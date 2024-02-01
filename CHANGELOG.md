@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.11.1] - 2024-01-31
+
+### Fixed
+
+- Corrected the path of the compiled `dist` folder by adjusting the `exports` section in `package.json` to properly include the `src` folder. This ensures correct resolution of module paths when the package is consumed.
+
 ## [0.11.0] - 2024-01-31
 
 ### Added
