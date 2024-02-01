@@ -1,11 +1,19 @@
 {
   "semi": true,
   "trailingComma": "all",
+  "overrides": [
+    {
+      "files": ["*.json", ".eslintrc"],
+      "options": {
+        "trailingComma": "none"
+      }
+    }
+  ],
   "singleQuote": true,
   "quoteProps": "as-needed",
   "printWidth": 120,
   "tabWidth": 2,
   "bracketSpacing": true,
   "arrowParens": "avoid",
-  "endOfLine": "lf"
+  "endOfLine": "auto"
 }

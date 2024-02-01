@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.11.0] - 2024-01-31
+
+### Added
+
+- Added Tests within the repository to ensure library updates function as expected.
+
+### Changed
+
+- Configuration to publish only the `src` folder, excluding test-related files and directories from the npm package.
+
 ## [0.10.1] - 2024-01-18
 
 ### Changed

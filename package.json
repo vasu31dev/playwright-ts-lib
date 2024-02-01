@@ -1,6 +1,6 @@
 {
   "name": "vasu-playwright-utils",
-  "version": "0.10.1",
+  "version": "0.11.0",
   "description": "Playwright Typescript Library with reusable utilities",
   "main": "./dist/vasu-playwright-lib/index.js",
   "types": "./dist/vasu-playwright-lib/index.d.ts",
@@ -38,11 +38,10 @@
     "access": "public"
   },
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18.0.0"
   },
   "dependencies": {
     "@playwright/test": "~1.41.0",
@@ -72,15 +71,27 @@
   "scripts": {
     "clean": "rimraf dist",
     "prebuild": "npm run clean",
-    "build": "tsc",
+    "build": "tsc -p tsconfig.build.json",
+    "validate": "tsc --noEmit",
     "prepublishOnly": "npm run build",
     "postpublish": "npm run clean",
-    "ready": "rimraf dist node_modules package-lock.json && npm i",
-    "prepare": "husky install",
+    "ready": "rimraf dist node_modules package-lock.json && npm i && npm run validate && npm run build",
+    "test": "playwright test",
+    "test:chromium": "playwright test --retries 0 --project=chromiumheadless",
+    "test:chromium-headed": "playwright test -j 1 --retries 0 --headed --project=chromium",
+    "local": "playwright test -j 1 --retries 0 --headed --project=chromium",
+    "test:reg": "playwright test --project=chromiumheadless -g '@reg'",
+    "test:smoke": "playwright test --project=chromiumheadless -g '@smoke'",
+    "report": "playwright show-report playwright-report",
+    "ui": "playwright test --project=chromiumheadless --ui-port 0",
+    "trace": "playwright show-trace --port 0",
+    "allure": "allure generate ./allure-results --clean && allure open ./allure-report",
     "link": "npm run build && npm link",
-    "lint": "cross-env eslint 'src/**/*.ts'",
-    "lint:fix": "cross-env eslint 'src/**/*.ts' --fix",
-    "format": "cross-env prettier --write 'src/**/*.ts' '**/*.json' '**/*.md' '!package-lock.json' '!dist/**/*' '!build/**/*'"
+    "lint": "cross-env eslint 'src/**/*.ts' 'tests/**/*.ts' 'test-setup/**/*.ts' 'playwright.config.ts'",
+    "lint:fix": "cross-env eslint 'src/**/*.ts' 'tests/**/*.ts' 'test-setup/**/*.ts' 'playwright.config.ts' --fix",
+    "prepare": "husky install",
+    "format": "cross-env prettier --write 'src/**/*.ts' 'tests/**/*.ts' 'test-setup/**/*.ts' 'playwright.config.ts' '**/*.json' '**/*.md' '!package-lock.json' '!dist/**/*' '!build/**/*'",
+    "postinstall": "playwright install"
   },
   "husky": {
     "hooks": {
@@ -92,7 +103,6 @@
       "cross-env prettier --write"
     ],
     "*.{ts}": [
-      "tsc --noEmit",
       "cross-env eslint --fix"
     ]
   }

@@ -1,20 +1,36 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    // Language and Environment
     "target": "es6",
-    "outDir": "dist",
-    "rootDir": "src",
+
+    // Modules
+    "module": "commonjs",
     "baseUrl": ".",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "paths": {
+      "@pages/*": ["./tests/pages/*"],
+      "@testdata/*": ["./tests/testdata/*"],
+      "@pagesetup": ["./test-setup/page-setup"],
+      "@constants/*": ["./src/vasu-playwright-lib/constants/*"],
+      "@utils/*": ["src/vasu-playwright-lib/utils/*"]
+    }, // Sets up custom path mappings, enabling to import modules with convenient shorter paths
+
+    // Emit
+    "outDir": "dist",
+    "rootDir": ".",
     "sourceMap": true,
-    "declarationMap": true, // Generates a sourcemap for each corresponding '.d.ts' file
-    "declaration": true, // No need to generate declaration files (.d.ts) for a test project
+    "declaration": true, // Generates declaration files (.d.ts)
+    "declarationMap": true, // Generates a sourcemap for each corresponding '.d.ts' file for easy debugging using the original source code
+    "importHelpers": true,
+
+    // Interop Constraints
     "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+
+    // Type Checking
     "strict": true,
     "strictNullChecks": true,
-    "moduleResolution": "node",
-    "importHelpers": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
@@ -23,8 +39,11 @@
     "strictPropertyInitialization": true,
     "noImplicitOverride": true, // Ensures that overriding methods in a subclass are marked with the 'override' keyword
     "noImplicitReturns": true, // Ensures that all code paths in a function explicitly return a value
-    "typeRoots": ["node_modules/@types"] // Specifies the location of type declaration files
+    "typeRoots": ["node_modules/@types"], // Specifies the location of type declaration files
+
+    // Completeness
+    "skipLibCheck": true // Skip type checking of all declaration files (*.d.ts) for faster compilation times
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "tests/**/*.ts", "test-setup/**/*.ts", "playwright.config.ts"],
   "exclude": ["node_modules"]
 }

@@ -1,7 +1,11 @@
 node_modules/
-/playwright/.cache/
+test-results/
+playwright-report/
+playwright/.cache/
+playwright/.auth/
 .env
 .vscode
 .idea
 .DS_Store
+allure*
 dist
