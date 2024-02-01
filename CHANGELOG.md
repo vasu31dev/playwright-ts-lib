@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.11.3] - 2024-01-31
+
+### Added
+
+- Published the `src` folder in the npm package to facilitate easier debugging by consumers of the library.
+
 ## [0.11.2] - 2024-01-31
 
 ### Updated Dependencies
