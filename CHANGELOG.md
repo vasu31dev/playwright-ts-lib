@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.11.4] - 2024-02-01
+
+### Updated Dependencies
+
+- Updated `playwright` from version `1.40.1` to `1.41.2`.
+- Updated all corresponding dependencies to their latest versions.
+
+### Enhancements
+
+- **`acceptAlert`, `dismissAlert`, `getAlertText` Function**: Improved the functions to efficiently handle the alert dialogs. It now ensures that the function does not hang if an alert is not triggered after the specified timeout period.
+
+### Added
+
+- **`expectAlertToHaveText` Function**: Introduced a new function for asserting that the text from an alert dialog exactly matches a provided string.
+
+- **`expectAlertToMatchText` Function**: Added a new function that allows assertions against the text from an alert dialog to be made using either a string for partial matches or a regular expression for pattern matching.
+
 ## [0.11.3] - 2024-01-31
 
 ### Added

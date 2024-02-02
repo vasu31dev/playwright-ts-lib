@@ -6,9 +6,10 @@
  */
 
 import { Expect, Locator, TestInfo, expect } from '@playwright/test';
-import { ExpectOptions, ExpectTextOptions, SoftOption } from '../types/optional-parameter-types';
+import { ExpectOptions, ExpectTextOptions, SoftOption, TimeoutOption } from '../types/optional-parameter-types';
 import { getLocator } from './locator-utils';
 import { getAllPages, getPage } from './page-utils';
+import { getAlertText } from './action-utils';
 
 /**
  * Returns an Expect object configured with the given soft option.
@@ -347,4 +348,36 @@ export async function expectPageToHaveTitle(titleOrRegExp: string | RegExp, opti
 export function expectPageSizeToBeEqualTo(numberOfPages: number, options?: SoftOption): void {
   const assert = getExpectWithSoftOption(options);
   assert(getAllPages().length).toEqual(numberOfPages);
+}
+
+/**
+ * Asserts that the text from an alert equals the provided string.
+ * @param {string | Locator} input - Either a string (selector) or a Locator object from which to trigger the alert and retrieve its text.
+ * @param {string} text - The string to match against the alert's text.
+ * @param {ExpectOptions & TimeoutOption} [options] - Optional. The options to configure the expectation, including timeout settings.
+ */
+
+export async function expectAlertToHaveText(
+  input: string | Locator,
+  text: string,
+  options?: ExpectOptions & TimeoutOption,
+): Promise<void> {
+  const { locator, assert } = getLocatorAndAssert(input, options);
+  assert(await getAlertText(locator, options)).toBe(text);
+}
+
+/**
+ * Asserts that the text from an alert matches the provided string or regular expression.
+ * @param {string | Locator} input - Either a string (selector) or a Locator object from which to trigger the alert and retrieve its text.
+ * @param {string | RegExp} text - The string or RegExp to test against the alert's text. If a string is provided, the alert text should contain the expected text. If a RegExp is provided, the text must match the pattern.
+ * @param {ExpectOptions & TimeoutOption} [options] - Optional. The options to configure the expectation, including timeout settings.
+ */
+
+export async function expectAlertToMatchText(
+  input: string | Locator,
+  text: string | RegExp,
+  options?: ExpectOptions & TimeoutOption,
+): Promise<void> {
+  const { locator, assert } = getLocatorAndAssert(input, options);
+  assert(await getAlertText(locator, options)).toMatch(text);
 }

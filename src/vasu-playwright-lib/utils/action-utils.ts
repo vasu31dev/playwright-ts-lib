@@ -2,7 +2,7 @@
  * action-utils.ts: This module provides a set of utility functions for performing various actions in Playwright tests.
  * These actions include navigation, interaction with page elements, handling of dialogs, and more.
  */
-import { Dialog, Locator } from '@playwright/test';
+import { Locator } from '@playwright/test';
 import { getPage } from './page-utils';
 import {
   CheckOptions,
@@ -19,7 +19,7 @@ import {
   UploadValues,
   VisibilityOption,
 } from '../types/optional-parameter-types';
-import { STANDARD_TIMEOUT } from '../constants/timeouts';
+import { SMALL_TIMEOUT, STANDARD_TIMEOUT } from '../constants/timeouts';
 import { getLocator } from './locator-utils';
 import { defaultVisibleOnlyOption, getDefaultLoadState } from '../constants/loadstate';
 
@@ -192,57 +192,99 @@ export async function selectByIndex(input: string | Locator, index: number, opti
 /**
  * Accepts an alert dialog.
  * @param {string | Locator} input - The element to click to trigger the alert.
- * @param {string} promptText - The text to enter into a prompt dialog.
+ * @param {string} [options.promptText] - The text to enter into a prompt dialog. Optional.
+ * @param {number} [options.timeout] - Maximum time to wait for the alert to appear in milliseconds. Optional.
  * @returns {Promise<string>} - The message of the dialog.
  */
-export async function acceptAlert(input: string | Locator, promptText?: string): Promise<string> {
+export async function acceptAlert(
+  input: string | Locator,
+  options?: { promptText?: string } & TimeoutOption,
+): Promise<string> {
+  const timeoutInMs = options?.timeout || SMALL_TIMEOUT;
   const locator = getLocator(input);
   let dialogMessage = '';
-  getPage().once('dialog', dialog => {
-    dialogMessage = dialog.message();
-    dialog.accept(promptText).catch(e => console.error('Error accepting dialog:', e));
-  });
+
+  const dialogPromise = getPage()
+    .waitForEvent('dialog', { timeout: timeoutInMs })
+    .then(async dialog => {
+      dialogMessage = dialog.message();
+      return await dialog.accept(options?.promptText);
+    })
+    .catch(() => {
+      throw new Error(`No dialog appeared after waiting for ${timeoutInMs} ms.`);
+    });
+
   await locator.click();
-  // temporary fix to alerts - Need to be fixed
-  // await getPage().waitForEvent('dialog');
+  await dialogPromise;
   return dialogMessage;
 }
 
 /**
  * Dismisses an alert dialog.
  * @param {string | Locator} input - The element to click to trigger the alert.
+ * @param {number} [options.timeout] - Maximum time to wait for the alert to appear in milliseconds. Optional.
  * @returns {Promise<string>} - The message of the dialog.
  */
-export async function dismissAlert(input: string | Locator): Promise<string> {
+export async function dismissAlert(input: string | Locator, options?: TimeoutOption): Promise<string> {
+  const timeoutInMs = options?.timeout || SMALL_TIMEOUT;
   const locator = getLocator(input);
   let dialogMessage = '';
-  getPage().once('dialog', dialog => {
-    dialogMessage = dialog.message();
-    dialog.dismiss().catch(e => console.error('Error dismissing dialog:', e));
-  });
-  await locator.click({ noWaitAfter: true });
-  // temporary fix for alerts - Need to be fixed
-  // await getPage().waitForEvent('dialog');
+
+  const dialogPromise = getPage()
+    .waitForEvent('dialog', { timeout: timeoutInMs })
+    .then(async dialog => {
+      dialogMessage = dialog.message();
+      return await dialog.dismiss();
+    })
+    .catch(() => {
+      throw new Error(`No dialog appeared after waiting for ${timeoutInMs} ms.`);
+    });
+
+  await locator.click();
+  await dialogPromise;
   return dialogMessage;
 }
 
 /**
- * Gets the text of an alert dialog.
+ * Gets the text of an alert dialog and dismisses the alert triggered.
  * @param {string | Locator} input - The element to click to trigger the alert.
+ * @param {number} [options.timeout] - Maximum time to wait for the alert to appear in milliseconds. Optional.
  * @returns {Promise<string>} - The message of the dialog.
  */
-export async function getAlertText(input: string | Locator): Promise<string> {
+
+export async function getAlertText(input: string | Locator, options?: TimeoutOption): Promise<string> {
+  const timeoutInMs = options?.timeout || SMALL_TIMEOUT;
+  const locator = getLocator(input);
+  let dialogMessage = '';
+
+  const dialogPromise = getPage()
+    .waitForEvent('dialog', { timeout: timeoutInMs })
+    .then(async dialog => {
+      dialogMessage = dialog.message();
+      return await dialog.dismiss();
+    })
+    .catch(() => {
+      throw new Error(`No dialog appeared after waiting for ${timeoutInMs} ms.`);
+    });
+
+  await locator.click();
+  await dialogPromise;
+  return dialogMessage;
+}
+
+// This function will hang when the alert is not triggered
+/* export async function getAlertText(input: string | Locator): Promise<string> {
   const locator = getLocator(input);
   let dialogMessage = '';
   const dialogHandler = (dialog: Dialog) => {
     dialogMessage = dialog.message();
+    dialog.dismiss().catch(e => console.error('Error dismissing dialog:', e));
   };
   getPage().once('dialog', dialogHandler);
   await locator.click();
-  await getPage().waitForEvent('dialog');
   getPage().off('dialog', dialogHandler);
   return dialogMessage;
-}
+} */
 
 /**
  * Hovers over a specified element.
