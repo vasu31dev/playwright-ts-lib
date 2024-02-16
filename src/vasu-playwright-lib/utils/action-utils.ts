@@ -384,11 +384,31 @@ export async function scrollLocatorIntoView(input: string | Locator, options?: T
  */
 
 /**
- * Clicks on a specified element using JavaScript.
- * @param {string | Locator} input - The element to click on.
- * @param {TimeoutOption} options - The timeout options.
+ * Clicks on a specified element using JavaScript execution.
+ * This method is particularly useful in tests where the standard Playwright `click` function fails to trigger the click event properly.
+ * It directly invokes the `click` method on the HTMLElement, bypassing any potential issues with CSS, visibility, or DOM events.
+ * @param {string | Locator} input - The element to click on. Can be a string selector or a Playwright `Locator` object.
+ * @param {TimeoutOptions} options - Currently the timeout options for evaluate is not taking effect.
  */
 export async function clickByJS(input: string | Locator, options?: TimeoutOption): Promise<void> {
   const locator = getLocator(input);
   await locator.evaluate((el: HTMLElement) => el.click(), options);
+}
+
+/**
+ * Clears the value of an input element and triggers an input event.
+ * This method is particularly useful in tests where the standard clear or fill functions fail to clear the text.
+ * The `input` event is dispatched with the `bubbles` option set to true,
+ * allowing the event to bubble up through the DOM, which can trigger event
+ * listeners attached to parent elements, ensuring the application reacts as expected.
+ * @param {string | Locator} input - The element whose input value is to be cleared. Can be a string selector or a Playwright Locator.
+ *  * @param {TimeoutOptions} options - Currently the timeout options for evaluate is not taking effect.
+ */
+export async function clearByJS(input: string | Locator, options?: TimeoutOption): Promise<void> {
+  const locator = getLocator(input);
+  await locator.evaluate(element => {
+    (element as HTMLInputElement).value = '';
+    element.dispatchEvent(new Event('input', { bubbles: true }));
+    element.dispatchEvent(new Event('change', { bubbles: true }));
+  }, options);
 }
