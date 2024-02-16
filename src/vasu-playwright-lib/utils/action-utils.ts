@@ -99,13 +99,23 @@ export async function pressSequentially(
 }
 
 /**
- * Simulates the action of pressing a key or a combination of keys on the specified element.
- * This function is useful for scenarios where you need to simulate key presses like 'Enter', 'Tab', etc.
- * @param {string | Locator} input - The element on which the key press action will be performed. This can be either a string representing the selector or a Locator object.
+ * Simulates the action of pressing a key or a combination of keys on the page.
+ * This function is useful for scenarios where you need to simulate key presses like 'Enter', 'Tab', etc on the page..
  * @param {string} key - The key or combination of keys to be pressed. For example, 'Enter', 'Tab', or 'Control+A'.
  * @param {PressSequentiallyOptions} [options] - Optional configuration for the key press action. This can include options like delay between key presses.
  */
-export async function pressKeyboard(
+export async function pressPageKeyboard(key: string, options?: PressSequentiallyOptions): Promise<void> {
+  await getPage().keyboard.press(key, options);
+}
+
+/**
+ * Simulates the action of pressing a key or a combination of keys on a specified element.
+ * This function is useful for scenarios where you need to simulate key presses like 'Enter', 'Tab', etc on a specified element..
+ * @param {string} key - The key or combination of keys to be pressed. For example, 'Enter', 'Tab', or 'Control+A'.
+ * @param {string | Locator} input - The element on which the key press action will be performed. This can be either a string representing the selector or a Locator object.
+ * @param {PressSequentiallyOptions} [options] - Optional configuration for the key press action. This can include options like delay between key presses.
+ */
+export async function pressLocatorKeyboard(
   input: string | Locator,
   key: string,
   options?: PressSequentiallyOptions,
