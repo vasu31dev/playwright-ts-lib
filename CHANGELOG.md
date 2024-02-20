@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.12.1] - 2024-02-19
+
+### Updated Dependencies
+
+- Updated all corresponding dependencies to their latest versions.
+
 ## [0.12.0] - 2024-02-19
 
 ### Added
