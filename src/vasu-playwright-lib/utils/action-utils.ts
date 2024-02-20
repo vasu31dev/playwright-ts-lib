@@ -424,7 +424,7 @@ export async function clickByJS(input: string | Locator, options?: TimeoutOption
  * allowing the event to bubble up through the DOM, which can trigger event
  * listeners attached to parent elements, ensuring the application reacts as expected.
  * @param {string | Locator} input - The element whose input value is to be cleared. Can be a string selector or a Playwright Locator.
- *  * @param {TimeoutOptions} options - Currently the timeout options for evaluate is not taking effect.
+ * @param {TimeoutOptions} options - Currently the timeout options for evaluate is not taking effect.
  */
 export async function clearByJS(input: string | Locator, options?: TimeoutOption): Promise<void> {
   const locator = getLocator(input);
