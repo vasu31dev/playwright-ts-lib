@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.12.0] - 2024-02-19
+
+### Added
+
+- New method `clearByJS` in case Playwright's clear function doesn't work as expected. This method provides an alternative way to clear input fields using JavaScript.
+- `clickAndNavigate` function now throws a more descriptive error message to facilitate easier debugging.
+- Added new method `fillAndTab` in `action-utils` for filling input fields and simulating a tab press, improving form handling automation.
+- New method `getContext` added in `page-utils`, offering a straightforward way to retrieve the browser context for advanced testing scenarios.
+
+### Changed
+
+- `pressKeyboard` function is now divided into `pressPageKeyboard` and `pressLocatorKeyboard` functions to provide more targeted keyboard interaction capabilities. This change allows for more precise control over where keyboard inputs are sent, whether to the page or specific element locators.
+
+### Breaking Changes
+
+- Splitting `pressKeyboard` into `pressPageKeyboard` and `pressLocatorKeyboard` may require updates to existing tests that utilize the original `pressKeyboard` method. This modification aims to enhance test script specificity and efficiency but will necessitate changes to maintain compatibility.
+
 ## [0.11.4] - 2024-02-01
 
 ### Updated Dependencies
