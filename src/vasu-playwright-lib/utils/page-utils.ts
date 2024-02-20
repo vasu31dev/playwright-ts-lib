@@ -25,6 +25,10 @@ export function getPage(): Page {
   return page;
 }
 
+export function getContext(): BrowserContext {
+  return page.context();
+}
+
 /**
  * Sets the current Page.
  * @param {Page} pageInstance - The Page instance to set as the current Page.
