@@ -84,6 +84,18 @@ export async function fillAndEnter(input: string | Locator, value: string, optio
 }
 
 /**
+ * Fills a specified element with a value and press Tab.
+ * @param {string | Locator} input - The element to fill.
+ * @param {string} value - The value to fill the element with.
+ * @param {FillOptions} options - The fill options.
+ */
+export async function fillAndTab(input: string | Locator, value: string, options?: FillOptions): Promise<void> {
+  const locator = getLocator(input, { ...defaultVisibleOnlyOption, ...options });
+  await locator.fill(value, options);
+  await locator.press('Tab');
+}
+
+/**
  * Types a value into a specified element, simulating keystrokes character by character.
  * @param {string | Locator} input - The element into which the value will be typed. This can be either a string representing the selector or a Locator object.
  * @param {string} value - The string value to be typed into the element, character by character.
