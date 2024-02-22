@@ -86,12 +86,13 @@ export async function switchToDefaultPage(): Promise<void> {
 /**
  * Closes a page by its index (1-based).
  * If no index is provided, the current page is closed.
- * If there are other pages open, it will switch back to the default page.
+ * If there are other pages open, it will switch back to the default page (Intial Page 1) if available.
  * @param {number} winNum - The index of the page to close.
  */
 export async function closePage(winNum?: number): Promise<void> {
   if (!winNum) {
     await page.close();
+    await switchToDefaultPage();
     return;
   }
   expect(winNum, 'Window number should be Valid').toBeGreaterThan(0);
@@ -101,9 +102,7 @@ export async function closePage(winNum?: number): Promise<void> {
     const pageInstance = allPages[winNum - 1];
     await pageInstance.close();
   }
-  if (noOfWindows > 1) {
-    await switchToDefaultPage();
-  }
+  await switchToDefaultPage();
 }
 
 /**

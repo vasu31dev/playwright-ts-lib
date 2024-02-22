@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.12.2] - 2024-02-21
+
+### Fixed
+
+- Improved the `closePage` method for enhanced reliability and usability. The method now automatically invokes `switchToDefaultPage` when such a page is available.
+
 ## [0.12.1] - 2024-02-19
 
 ### Updated Dependencies
