@@ -31,10 +31,14 @@ import { getDefaultLoadState } from 'vasu-playwright-utils';
 // Your code here
 ```
 
+## Issues and Feedback
+
+If you encounter any issues or have feedback, please [Raise an Issue](https://github.com/vasu31dev/playwright-ts-lib/issues) on GitHub.
+
+## Contributions
+
+We welcome contributions! Feel free to submit a [Pull Request](https://github.com/vasu31dev/playwright-ts-lib/pulls) on GitHub.
+
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-## Support and Feedback
-
-If you encounter any issues or have feedback, please [create an issue](https://github.com/vasu31dev/playwright-ts-lib/issues) on GitHub.
