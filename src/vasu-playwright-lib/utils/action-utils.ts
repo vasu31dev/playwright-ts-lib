@@ -5,6 +5,7 @@
 import { Locator } from '@playwright/test';
 import { getPage } from './page-utils';
 import {
+  ActionOptions,
   CheckOptions,
   ClearOptions,
   ClickOptions,
@@ -14,14 +15,16 @@ import {
   HoverOptions,
   PressSequentiallyOptions,
   SelectOptions,
+  StabilityOption,
   TimeoutOption,
   UploadOptions,
   UploadValues,
   VisibilityOption,
 } from '../types/optional-parameter-types';
 import { SMALL_TIMEOUT, STANDARD_TIMEOUT } from '../constants/timeouts';
-import { getLocator } from './locator-utils';
-import { defaultVisibleOnlyOption, getDefaultLoadState } from '../constants/loadstate';
+import { getLocator, getVisibleLocator } from './locator-utils';
+import { getDefaultLoadState } from '../constants/loadstate';
+import { waitForElementToBeStable } from './element-utils';
 
 /**
  * 1. Actions: This section contains functions for interacting with elements on a web page.
@@ -29,12 +32,33 @@ import { defaultVisibleOnlyOption, getDefaultLoadState } from '../constants/load
  */
 
 /**
+ * Returns a locator, ensuring visibility by default, with the option to override visibility and stability checks.
+ * Intended for internal use, this function facilitates retrieving locators under specific conditions—
+ * visibility (enabled by default) and stability (optional), as per the requirements for further actions.
+ * Users have the flexibility to adjust these checks via the `options` parameter.
+ *
+ * @param input - The selector string or Locator object used to find the element. This serves as the base for locating the element.
+ * @param options - Optional. Configuration for locator retrieval. Allows overriding the default behavior for visibility and enables stability checks.
+ * Use `{ onlyVisible: false }` to include non-visible elements and `{ stable: true }` to wait for the element to stabilize.
+ * @returns A Promise that resolves to a Locator. This locator has been checked for visibility (enabled by default) and,
+ * if specified in `options`, for stability, ensuring it meets the specified conditions.
+ */
+async function getLocatorWithStableAndVisibleOptions(
+  input: string | Locator,
+  options?: ActionOptions,
+): Promise<Locator> {
+  const locator = getVisibleLocator(input, options);
+  if (options?.stable) await waitForElementToBeStable(input, options);
+  return locator;
+}
+
+/**
  * Clicks on a specified element.
  * @param {string | Locator} input - The element to click on.
  * @param {ClickOptions} options - The click options.
  */
 export async function click(input: string | Locator, options?: ClickOptions): Promise<void> {
-  const locator = getLocator(input, { ...defaultVisibleOnlyOption, ...options });
+  const locator = await getLocatorWithStableAndVisibleOptions(input, options);
   await locator.click(options);
 }
 
@@ -67,7 +91,7 @@ export async function clickAndNavigate(input: string | Locator, options?: ClickO
  * @param {FillOptions} options - The fill options.
  */
 export async function fill(input: string | Locator, value: string, options?: FillOptions): Promise<void> {
-  const locator = getLocator(input, { ...defaultVisibleOnlyOption, ...options });
+  const locator = await getLocatorWithStableAndVisibleOptions(input, options);
   await locator.fill(value, options);
 }
 
@@ -78,7 +102,7 @@ export async function fill(input: string | Locator, value: string, options?: Fil
  * @param {FillOptions} options - The fill options.
  */
 export async function fillAndEnter(input: string | Locator, value: string, options?: FillOptions): Promise<void> {
-  const locator = getLocator(input, { ...defaultVisibleOnlyOption, ...options });
+  const locator = await getLocatorWithStableAndVisibleOptions(input, options);
   await locator.fill(value, options);
   await locator.press('Enter');
 }
@@ -90,7 +114,7 @@ export async function fillAndEnter(input: string | Locator, value: string, optio
  * @param {FillOptions} options - The fill options.
  */
 export async function fillAndTab(input: string | Locator, value: string, options?: FillOptions): Promise<void> {
-  const locator = getLocator(input, { ...defaultVisibleOnlyOption, ...options });
+  const locator = await getLocatorWithStableAndVisibleOptions(input, options);
   await locator.fill(value, options);
   await locator.press('Tab');
 }
@@ -106,7 +130,7 @@ export async function pressSequentially(
   value: string,
   options?: PressSequentiallyOptions,
 ): Promise<void> {
-  const locator = getLocator(input, { ...defaultVisibleOnlyOption, ...options });
+  const locator = await getLocatorWithStableAndVisibleOptions(input, options);
   await locator.pressSequentially(value, options);
 }
 
@@ -132,7 +156,7 @@ export async function pressLocatorKeyboard(
   key: string,
   options?: PressSequentiallyOptions,
 ): Promise<void> {
-  const locator = getLocator(input, { ...defaultVisibleOnlyOption, ...options });
+  const locator = await getLocatorWithStableAndVisibleOptions(input, options);
   await locator.press(key, options);
 }
 
@@ -142,7 +166,7 @@ export async function pressLocatorKeyboard(
  * @param {ClearOptions} options - The clear options.
  */
 export async function clear(input: string | Locator, options?: ClearOptions): Promise<void> {
-  const locator = getLocator(input, { ...defaultVisibleOnlyOption, ...options });
+  const locator = await getLocatorWithStableAndVisibleOptions(input, options);
   await locator.clear(options);
 }
 
@@ -152,7 +176,7 @@ export async function clear(input: string | Locator, options?: ClearOptions): Pr
  * @param {CheckOptions} options - The check options.
  */
 export async function check(input: string | Locator, options?: CheckOptions): Promise<void> {
-  const locator = getLocator(input, { ...defaultVisibleOnlyOption, ...options });
+  const locator = await getLocatorWithStableAndVisibleOptions(input, options);
   await locator.check(options);
 }
 
@@ -162,7 +186,7 @@ export async function check(input: string | Locator, options?: CheckOptions): Pr
  * @param {CheckOptions} options - The uncheck options.
  */
 export async function uncheck(input: string | Locator, options?: CheckOptions): Promise<void> {
-  const locator = getLocator(input, { ...defaultVisibleOnlyOption, ...options });
+  const locator = await getLocatorWithStableAndVisibleOptions(input, options);
   await locator.uncheck(options);
 }
 
@@ -173,7 +197,7 @@ export async function uncheck(input: string | Locator, options?: CheckOptions): 
  * @param {SelectOptions} options - The select options.
  */
 export async function selectByValue(input: string | Locator, value: string, options?: SelectOptions): Promise<void> {
-  const locator = getLocator(input, { ...defaultVisibleOnlyOption, ...options });
+  const locator = await getLocatorWithStableAndVisibleOptions(input, options);
   await locator.selectOption({ value: value }, options);
 }
 
@@ -188,7 +212,7 @@ export async function selectByValues(
   value: Array<string>,
   options?: SelectOptions,
 ): Promise<void> {
-  const locator = getLocator(input, { ...defaultVisibleOnlyOption, ...options });
+  const locator = await getLocatorWithStableAndVisibleOptions(input, options);
   await locator.selectOption(value, options);
 }
 
@@ -199,7 +223,7 @@ export async function selectByValues(
  * @param {SelectOptions} options - The select options.
  */
 export async function selectByText(input: string | Locator, text: string, options?: SelectOptions): Promise<void> {
-  const locator = getLocator(input, { ...defaultVisibleOnlyOption, ...options });
+  const locator = await getLocatorWithStableAndVisibleOptions(input, options);
   await locator.selectOption({ label: text }, options);
 }
 
@@ -210,7 +234,7 @@ export async function selectByText(input: string | Locator, text: string, option
  * @param {SelectOptions} options - The select options.
  */
 export async function selectByIndex(input: string | Locator, index: number, options?: SelectOptions): Promise<void> {
-  const locator = getLocator(input, { ...defaultVisibleOnlyOption, ...options });
+  const locator = await getLocatorWithStableAndVisibleOptions(input, options);
   await locator.selectOption({ index: index }, options);
 }
 
@@ -323,7 +347,7 @@ export async function getAlertText(input: string | Locator, options?: TimeoutOpt
  * @param {HoverOptions} options - The hover options.
  */
 export async function hover(input: string | Locator, options?: HoverOptions): Promise<void> {
-  const locator = getLocator(input, { ...defaultVisibleOnlyOption, ...options });
+  const locator = await getLocatorWithStableAndVisibleOptions(input, options);
   await locator.hover(options);
 }
 
@@ -332,8 +356,11 @@ export async function hover(input: string | Locator, options?: HoverOptions): Pr
  * @param {string | Locator} input - The element to focus on.
  * @param {TimeoutOption} options - The timeout options.
  */
-export async function focus(input: string | Locator, options?: TimeoutOption & VisibilityOption): Promise<void> {
-  const locator = getLocator(input, { ...defaultVisibleOnlyOption, ...options });
+export async function focus(
+  input: string | Locator,
+  options?: TimeoutOption & VisibilityOption & StabilityOption,
+): Promise<void> {
+  const locator = await getLocatorWithStableAndVisibleOptions(input, options);
   await locator.focus(options);
 }
 
@@ -348,8 +375,8 @@ export async function dragAndDrop(
   dest: string | Locator,
   options?: DragOptions,
 ): Promise<void> {
-  const drag = getLocator(input, { ...defaultVisibleOnlyOption, ...options });
-  const drop = getLocator(dest, { ...defaultVisibleOnlyOption, ...options });
+  const drag = await getLocatorWithStableAndVisibleOptions(input, options);
+  const drop = await getLocatorWithStableAndVisibleOptions(dest, options);
   await drag.dragTo(drop, options);
 }
 
@@ -359,7 +386,7 @@ export async function dragAndDrop(
  * @param {DoubleClickOptions} options - The double click options.
  */
 export async function doubleClick(input: string | Locator, options?: DoubleClickOptions): Promise<void> {
-  const locator = getLocator(input, { ...defaultVisibleOnlyOption, ...options });
+  const locator = await getLocatorWithStableAndVisibleOptions(input, options);
   await locator.dblclick(options);
 }
 
@@ -369,7 +396,7 @@ export async function doubleClick(input: string | Locator, options?: DoubleClick
  * @param {string} path - The path to save the downloaded file to.
  */
 export async function downloadFile(input: string | Locator, path: string, options?: ClickOptions): Promise<void> {
-  const locator = getLocator(input, { ...defaultVisibleOnlyOption, ...options });
+  const locator = await getLocatorWithStableAndVisibleOptions(input, options);
   const downloadPromise = getPage().waitForEvent('download');
   await click(locator, options);
   const download = await downloadPromise;
@@ -386,7 +413,7 @@ export async function downloadFile(input: string | Locator, path: string, option
  * @param {UploadOptions} options - The upload options.
  */
 export async function uploadFiles(input: string | Locator, path: UploadValues, options?: UploadOptions): Promise<void> {
-  const locator = getLocator(input, { ...defaultVisibleOnlyOption, ...options });
+  const locator = await getLocatorWithStableAndVisibleOptions(input, options);
   await locator.setInputFiles(path, options);
 }
 

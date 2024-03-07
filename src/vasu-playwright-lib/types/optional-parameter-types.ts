@@ -18,21 +18,30 @@ export type WaitForLoadStateOptions = Parameters<Page['waitForLoadState']>[0];
  * They are based on the parameters of Playwright's built-in action methods.
  */
 export type VisibilityOption = { onlyVisible?: boolean };
-export type ClickOptions = Parameters<Locator['click']>[0] &
-  VisibilityOption & {
-    loadState?: WaitForLoadStateOptions;
-  };
-export type FillOptions = Parameters<Locator['fill']>[1] & VisibilityOption;
-export type PressSequentiallyOptions = Parameters<Locator['pressSequentially']>[1] & VisibilityOption;
-export type ClearOptions = Parameters<Locator['clear']>[0] & VisibilityOption;
-export type SelectValues = Parameters<Locator['selectOption']>[0] & VisibilityOption;
-export type SelectOptions = Parameters<Locator['selectOption']>[1] & VisibilityOption;
-export type CheckOptions = Parameters<Locator['check']>[0] & VisibilityOption;
-export type HoverOptions = Parameters<Locator['hover']>[0] & VisibilityOption;
+export type StabilityOption = { stable?: boolean };
+export type LoadstateOption = { loadState?: WaitForLoadStateOptions };
+export type ClickOptions = Parameters<Locator['click']>[0] & VisibilityOption & StabilityOption & LoadstateOption;
+export type FillOptions = Parameters<Locator['fill']>[1] & VisibilityOption & StabilityOption;
+export type PressSequentiallyOptions = Parameters<Locator['pressSequentially']>[1] & VisibilityOption & StabilityOption;
+export type ClearOptions = Parameters<Locator['clear']>[0] & VisibilityOption & StabilityOption;
+export type SelectOptions = Parameters<Locator['selectOption']>[1] & VisibilityOption & StabilityOption;
+export type CheckOptions = Parameters<Locator['check']>[0] & VisibilityOption & StabilityOption;
+export type HoverOptions = Parameters<Locator['hover']>[0] & VisibilityOption & StabilityOption;
+export type UploadOptions = Parameters<Locator['setInputFiles']>[1] & VisibilityOption & StabilityOption;
 export type UploadValues = Parameters<Locator['setInputFiles']>[0] & VisibilityOption;
-export type UploadOptions = Parameters<Locator['setInputFiles']>[1] & VisibilityOption;
-export type DragOptions = Parameters<Locator['dragTo']>[1] & VisibilityOption;
-export type DoubleClickOptions = Parameters<Locator['dblclick']>[0] & VisibilityOption;
+export type DragOptions = Parameters<Locator['dragTo']>[1] & VisibilityOption & StabilityOption;
+export type DoubleClickOptions = Parameters<Locator['dblclick']>[0] & VisibilityOption & StabilityOption;
+export type ActionOptions =
+  | ClickOptions
+  | FillOptions
+  | PressSequentiallyOptions
+  | ClearOptions
+  | SelectOptions
+  | CheckOptions
+  | HoverOptions
+  | UploadOptions
+  | DragOptions
+  | DoubleClickOptions;
 
 /**
  * 3. Expect Options: These types are used for assertions, Timeouts, etc in tests.

@@ -191,7 +191,6 @@ export async function isElementChecked(input: string | Locator, options?: Timeou
  */
 export async function waitForElementToBeStable(input: string | Locator, options?: TimeoutOption): Promise<boolean> {
   let result = false;
-  // eslint-disable-next-line playwright/require-top-level-describe
   await test.step('waitForElementToBeStable', async () => {
     const locator = getLocator(input);
     const maxWaitTime = options?.timeout || SMALL_TIMEOUT;

@@ -13,6 +13,7 @@ import {
   GetByTextOptions,
   LocatorOptions,
 } from '../types/optional-parameter-types';
+import { defaultVisibleOnlyOption } from '..';
 
 /**
  * 1. Locators: This section contains functions and definitions related to locators.
@@ -28,6 +29,21 @@ import {
 export function getLocator(input: string | Locator, options?: LocatorOptions): Locator {
   const locator = typeof input === 'string' ? getPage().locator(input, options) : input;
   return options?.onlyVisible ? locator.locator('visible=true') : locator;
+}
+
+/**
+ * Returns a locator pointing to only visible element based on the input provided.
+ * By default, it returns locators that are visible. This behavior can be customized
+ * via the `options` parameter, allowing for more specific locator configurations.
+ *
+ * @param input - The selector string or Locator object to identify the element.
+ * @param options - Optional. Configuration options for the locator. Use `{ onlyVisible: false }`
+ * to include non-visible elements in the locator's search criteria.
+ * @returns A `Locator` instance pointing to an element that matches the specified
+ * criteria, prioritizing visibility unless overridden by `options`.
+ */
+export function getVisibleLocator(input: string | Locator, options?: LocatorOptions): Locator {
+  return getLocator(input, { ...defaultVisibleOnlyOption, ...options });
 }
 
 /**
@@ -106,9 +122,9 @@ export async function getAllLocators(input: string | Locator, options?: LocatorO
  * @returns {null | Frame} - The Frame object if found, otherwise null (if 'force' is true).
  * @throws {Error} - Throws an error if the frame is not found and 'force' is false.
  */
-export function getFrame(frameSelector: FrameOptions, { force = false }: { force?: boolean }): null | Frame {
+export function getFrame(frameSelector: FrameOptions, options = { force: false }): null | Frame {
   const frame = getPage().frame(frameSelector);
-  if (force) return frame;
+  if (options.force) return frame;
   if (!frame) {
     throw new Error(`Frame not found with selector: ${JSON.stringify(frameSelector)}`);
   }
