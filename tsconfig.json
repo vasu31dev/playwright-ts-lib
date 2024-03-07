@@ -44,6 +44,6 @@
     // Completeness
     "skipLibCheck": true // Skip type checking of all declaration files (*.d.ts) for faster compilation times
   },
-  "include": ["src/**/*.ts", "tests/**/*.ts", "test-setup/**/*.ts", "playwright.config.ts"],
+  "include": ["src/**/*.ts", "tests/**/*.ts", "test-setup/**/*.ts", "playwright.config.ts", ".eslintrc.js"],
   "exclude": ["node_modules"]
 }
