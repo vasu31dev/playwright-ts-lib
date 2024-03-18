@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.13.0] - 2024-03-18
+
+### Added
+
+- Stable optional parameter for `action-util` functions like `click`, `fill`, `check`, etc., to increase the reliability of actions performed in tests.
+- Enhanced `getFrame` functionality to throw an error if the frame is not found when the optional `force` parameter is set to `true`. Defaults to `false`.
+
+### Changed
+
+- Moved `@playwright/test` dependency to `peerDependencies` to provide more flexibility in version management for users of the library. The required version is now `>=1.41.1`.
+- Updated all packages to their latest versions to incorporate the latest features and security updates.
+
+### Replaced
+
+- `.eslintrc` configuration file with `.eslintrc.js` to allow for more dynamic and programmable ESLint configurations.
+
 ## [0.12.2] - 2024-02-21
 
 ### Fixed
