@@ -8,3 +8,5 @@ export * as LocatorUtils from './locator-utils';
 export * from './locator-utils';
 export * as PageUtils from './page-utils';
 export * from './page-utils';
+export * as APIUtils from './api-utils';
+export * from './api-utils';

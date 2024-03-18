@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.14.0] - 2024-03-18
+
+### Added
+
+- API Utils for enhanced network interaction within tests. Includes utility functions for performing HTTP requests (GET, POST, PUT, DELETE) using Playwright's `APIRequestContext`. This addition simplifies the process of interacting with APIs directly from test scripts, providing a more integrated and efficient testing workflow.
+  - `getAPIRequestContext()`: Retrieves the `APIRequestContext` from the current page, equivalent to the request object from Playwright's fixture, enabling seamless network operations within tests.
+  - `getRequest(url: string, options?)`: Performs a GET request to the specified URL with optional configuration.
+  - `postRequest(url: string, options?)`: Allows sending POST requests to a specified URL, supporting optional parameters for body content and headers.
+  - `putRequest(url: string, options?)`: Facilitates PUT requests for updating resources at the specified URL, with support for optional configuration.
+  - `deleteRequest(url: string, options?)`: Implements DELETE requests to remove resources from the specified URL, also supporting optional parameters.
+
 ## [0.13.0] - 2024-03-18
 
 ### Added
