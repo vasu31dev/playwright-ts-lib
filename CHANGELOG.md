@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.14.1] - 2024-03-25
+
+- Fix API utils module under exports in package.json
+
 ## [1.14.0] - 2024-03-18
 
 ### Added
