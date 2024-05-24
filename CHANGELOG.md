@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.15.0] - 2024-05-24
+
+### Updated Dependencies
+
+- Updated `playwright` from version `1.41.2` to `1.44.1`.
+- Updated all corresponding dependencies to their latest versions.
+
 ## [1.14.1] - 2024-03-25
 
 - Fix API utils module under exports in package.json
