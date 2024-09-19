@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.16.0] - 2024-05-24
+
+### Updated Dependencies
+
+- Updated `playwright` from version `1.44.1` to `1.47.1`.
+- Updated all corresponding dependencies to their latest versions.
+
 ## [1.15.0] - 2024-05-24
 
 ### Updated Dependencies
