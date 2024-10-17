@@ -1,6 +1,18 @@
 # Changelog
 
-## [1.16.0] - 2024-05-24
+## [1.17.0] - 2024-10-17
+
+### Updated Dependencies
+
+- Updated `playwright` from version `1.44.1` to `1.48.1`.
+- Updated all corresponding dependencies to their latest versions.
+
+### Added
+
+- New GitHub workflow to run tests on pushes to the main branch.
+- New GitHub workflow to publish the package to npm.
+
+## [1.16.0] - 2024-09-19
 
 ### Updated Dependencies
 
