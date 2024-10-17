@@ -6,9 +6,9 @@
  */
 
 import { Locator } from '@playwright/test';
-import { TimeoutOption } from '../types/optional-parameter-types';
+import { LocatorWaitOptions, TimeoutOption } from '../types/optional-parameter-types';
 import { getAllLocators, getLocator } from './locator-utils';
-import { INSTANT_TIMEOUT, SMALL_TIMEOUT } from '../constants/timeouts';
+import { SMALL_TIMEOUT } from '../constants/timeouts';
 import { wait } from './page-utils';
 import { logger } from '../setup';
 import { test } from '@playwright/test';
@@ -27,7 +27,7 @@ import { test } from '@playwright/test';
  */
 export async function getText(input: string | Locator, options?: TimeoutOption): Promise<string> {
   const locator = getLocator(input);
-  return await locator.innerText(options);
+  return (await locator.innerText(options)).trim();
 }
 
 /**
@@ -35,9 +35,10 @@ export async function getText(input: string | Locator, options?: TimeoutOption):
  * @param {string | Locator} input - The input to create the Locator from.
  * @returns {Promise<Array<string>>} - The inner text of all Locator objects.
  */
-export async function getAllTexts(input: string | Locator): Promise<Array<string>> {
+export async function getAllTexts(input: string | Locator, options?: LocatorWaitOptions): Promise<Array<string>> {
+  await waitForFirstElementToBeAttached(input, options);
   const locator = getLocator(input);
-  return await locator.allInnerTexts();
+  return (await locator.allInnerTexts()).map(text => text.trim());
 }
 
 /**
@@ -48,7 +49,7 @@ export async function getAllTexts(input: string | Locator): Promise<Array<string
  */
 export async function getInputValue(input: string | Locator, options?: TimeoutOption): Promise<string> {
   const locator = getLocator(input);
-  return await locator.inputValue(options);
+  return (await locator.inputValue(options)).trim();
 }
 
 /**
@@ -75,7 +76,7 @@ export async function getAttribute(
   options?: TimeoutOption,
 ): Promise<null | string> {
   const locator = getLocator(input);
-  return await locator.getAttribute(attributeName, options);
+  return (await locator.getAttribute(attributeName, options))?.trim() || null;
 }
 
 /**
@@ -84,12 +85,9 @@ export async function getAttribute(
  * @param {TimeoutOption} [options] - Optional timeout options.
  * @returns {Promise<number>} - The count of the Locator objects.
  */
-export async function getLocatorCount(input: string | Locator, options?: TimeoutOption): Promise<number> {
-  const timeoutInMs = options?.timeout || INSTANT_TIMEOUT;
+export async function getLocatorCount(input: string | Locator, options?: LocatorWaitOptions): Promise<number> {
   try {
-    if (await isElementAttached(input, { timeout: timeoutInMs })) {
-      return (await getAllLocators(input)).length;
-    }
+    return (await getAllLocators(input, options)).length;
   } catch (error) {
     console.log(`getLocatorCount- ${error instanceof Error ? error.message : String(error)}`);
   }
@@ -260,6 +258,24 @@ export async function waitForElementToBeHidden(input: string | Locator, options?
 export async function waitForElementToBeAttached(input: string | Locator, options?: TimeoutOption): Promise<void> {
   const locator = getLocator(input);
   await locator.waitFor({ state: 'attached', timeout: options?.timeout || SMALL_TIMEOUT });
+}
+
+/**
+ * Ensures that the first element of the locator is attached to the DOM if the waitForLocator option is true.
+ * @param {string | Locator} input - The input to create the Locator from. It can be a string or a Locator.
+ * @param {LocatorWaitOptions} [options] - Optional parameters for Locator waiting options.
+ * @returns {Promise<void>} - A promise that resolves when the element is attached or immediately if waitForLocator is false.
+ */
+export async function waitForFirstElementToBeAttached(
+  input: string | Locator,
+  options?: LocatorWaitOptions,
+): Promise<void> {
+  const locator = getLocator(input);
+  const waitForLocator = options?.waitForLocator ?? true;
+  // If waitForLocator is true, wait for the element to be attached before returning the locators
+  if (waitForLocator) {
+    await waitForElementToBeAttached(locator.first(), options);
+  }
 }
 
 /**

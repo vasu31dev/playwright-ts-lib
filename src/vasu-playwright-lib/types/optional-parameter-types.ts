@@ -66,6 +66,7 @@ export type SwitchPageOptions = {
  * They are based on the parameters of Playwright's built-in locator methods.
  */
 export type LocatorOptions = Parameters<Page['locator']>[1] & VisibilityOption;
+export type LocatorWaitOptions = { waitForLocator?: boolean } & TimeoutOption;
 export type GetByTextOptions = Parameters<Locator['getByText']>[1] & VisibilityOption;
 export type GetByRoleTypes = Parameters<Locator['getByRole']>[0] & VisibilityOption;
 export type GetByRoleOptions = Parameters<Locator['getByRole']>[1] & VisibilityOption;

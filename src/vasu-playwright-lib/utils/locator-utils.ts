@@ -12,8 +12,10 @@ import {
   GetByRoleTypes,
   GetByTextOptions,
   LocatorOptions,
+  LocatorWaitOptions,
 } from '../types/optional-parameter-types';
-import { defaultVisibleOnlyOption } from '..';
+import { defaultVisibleOnlyOption } from '@constants/loadstate';
+import { waitForFirstElementToBeAttached } from '@utils/element-utils';
 
 /**
  * 1. Locators: This section contains functions and definitions related to locators.
@@ -105,7 +107,11 @@ export function getLocatorByPlaceholder(text: string | RegExp, options?: GetByPl
  * @param {LocatorOptions} options - Optional parameters for the Locators.
  * @returns {Promise<Locator[]>} - The created Locator objects.
  */
-export async function getAllLocators(input: string | Locator, options?: LocatorOptions): Promise<Locator[]> {
+export async function getAllLocators(
+  input: string | Locator,
+  options?: LocatorOptions & LocatorWaitOptions,
+): Promise<Locator[]> {
+  await waitForFirstElementToBeAttached(input, options);
   return typeof input === 'string' ? await getPage().locator(input, options).all() : await input.all();
 }
 
