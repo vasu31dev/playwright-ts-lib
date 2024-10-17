@@ -20,10 +20,10 @@ import {
   UploadOptions,
   UploadValues,
   VisibilityOption,
-} from '../types/optional-parameter-types';
-import { SMALL_TIMEOUT, STANDARD_TIMEOUT } from '../constants/timeouts';
+} from '@parameterTypes';
+import { SMALL_TIMEOUT, STANDARD_TIMEOUT } from '@constants/timeouts';
 import { getLocator, getVisibleLocator } from './locator-utils';
-import { getDefaultLoadState } from '../constants/loadstate';
+import { getDefaultLoadState } from '@constants/loadstate';
 import { waitForElementToBeStable } from './element-utils';
 
 /**

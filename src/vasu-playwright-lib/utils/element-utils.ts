@@ -6,9 +6,9 @@
  */
 
 import { Locator } from '@playwright/test';
-import { LocatorWaitOptions, TimeoutOption } from '../types/optional-parameter-types';
+import { LocatorWaitOptions, TimeoutOption } from '@parameterTypes';
 import { getAllLocators, getLocator } from './locator-utils';
-import { SMALL_TIMEOUT } from '../constants/timeouts';
+import { SMALL_TIMEOUT } from '@constants/timeouts';
 import { wait } from './page-utils';
 import { logger } from '../setup';
 import { test } from '@playwright/test';

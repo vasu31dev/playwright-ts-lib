@@ -13,7 +13,7 @@ import {
   GetByTextOptions,
   LocatorOptions,
   LocatorWaitOptions,
-} from '../types/optional-parameter-types';
+} from '@parameterTypes';
 import { defaultVisibleOnlyOption } from '@constants/loadstate';
 import { waitForFirstElementToBeAttached } from '@utils/element-utils';
 
