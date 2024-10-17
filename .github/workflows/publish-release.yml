@@ -16,11 +16,6 @@ jobs:
           node-version: '22'
           registry-url: 'https://registry.npmjs.org/'
           always-auth: true
-      # Debug step to verify npm login
-      - name: Verify npm login
-        run: npm whoami
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - run: npm ci
       - run: npm publish
         env:
