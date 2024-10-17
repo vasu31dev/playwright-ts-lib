@@ -9,3 +9,4 @@ playwright/.auth/
 .DS_Store
 allure*
 dist
+.secrets
