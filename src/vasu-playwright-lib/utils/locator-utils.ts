@@ -14,8 +14,8 @@ import {
   LocatorOptions,
   LocatorWaitOptions,
 } from '../types/optional-parameter-types';
-import { defaultVisibleOnlyOption } from 'src/vasu-playwright-lib/constants';
-import { waitForFirstElementToBeAttached } from 'src/vasu-playwright-lib/utils/element-utils';
+import { defaultVisibleOnlyOption } from '../constants';
+import { waitForFirstElementToBeAttached } from './element-utils';
 
 /**
  * 1. Locators: This section contains functions and definitions related to locators.
