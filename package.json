@@ -1,6 +1,6 @@
 {
   "name": "vasu-playwright-utils",
-  "version": "1.18.2",
+  "version": "1.18.3",
   "description": "Playwright Typescript Library with reusable utilities",
   "main": "./dist/src/vasu-playwright-lib/index.js",
   "types": "./dist/src/vasu-playwright-lib/index.d.ts",
@@ -47,8 +47,8 @@
   },
   "dependencies": {
     "@types/node": "^22.7.6",
-    "@typescript-eslint/eslint-plugin": "^8.9.0",
-    "@typescript-eslint/parser": "^8.9.0",
+    "@typescript-eslint/eslint-plugin": "^8.10.0",
+    "@typescript-eslint/parser": "^8.10.0",
     "allure-commandline": "^2.30.0",
     "allure-playwright": "^3.0.5",
     "axios": "^1.7.7",
