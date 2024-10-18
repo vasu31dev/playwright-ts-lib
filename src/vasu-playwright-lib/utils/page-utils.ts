@@ -7,8 +7,13 @@
 
 import { SMALL_TIMEOUT } from '../constants/timeouts';
 import { BrowserContext, Page, Response, expect } from '@playwright/test';
-import { GotoOptions, NavigationOptions, SwitchPageOptions, WaitForLoadStateOptions } from '@parameterTypes';
-import { getDefaultLoadState } from '@constants/loadstate';
+import {
+  GotoOptions,
+  NavigationOptions,
+  SwitchPageOptions,
+  WaitForLoadStateOptions,
+} from '../types/optional-parameter-types';
+import { getDefaultLoadState } from '../constants';
 
 let page: Page;
 

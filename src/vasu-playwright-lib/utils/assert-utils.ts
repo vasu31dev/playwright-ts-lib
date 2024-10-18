@@ -6,7 +6,7 @@
  */
 
 import { Expect, Locator, TestInfo, expect } from '@playwright/test';
-import { ExpectOptions, ExpectTextOptions, SoftOption, TimeoutOption } from '@parameterTypes';
+import { ExpectOptions, ExpectTextOptions, SoftOption, TimeoutOption } from '../types/optional-parameter-types';
 import { getLocator } from './locator-utils';
 import { getAllPages, getPage } from './page-utils';
 import { getAlertText } from './action-utils';
