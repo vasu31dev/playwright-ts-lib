@@ -12,7 +12,6 @@
       "@pages/*": ["./tests/pages/*"],
       "@testdata/*": ["./tests/testdata/*"],
       "@pagesetup": ["./test-setup/page-setup"],
-      "@constants/*": ["./src/vasu-playwright-lib/constants/*"],
       "@utils/*": ["src/vasu-playwright-lib/utils/*"]
     }, // Sets up custom path mappings, enabling to import modules with convenient shorter paths
 
