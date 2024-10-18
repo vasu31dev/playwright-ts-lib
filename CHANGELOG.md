@@ -5,7 +5,6 @@
 ### Updated Dependencies
 
 - Updating getAllLocators, getAllTexts, getLocatorCount to auto wait by adding waitForFirstElementToBeAttached method
-- Adding and updating alias paths in tsconfig for constants and utils
 
 ## [1.17.0] - 2024-10-17
 
