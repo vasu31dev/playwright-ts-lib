@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.19.0] - 2024-10-21
+
+### Updated
+
+- Improved the `clickAndNavigate` method to handle element staleness and navigation errors more robustly. The method now waits for the element clicked to become hidden or stale after navigation and includes enhanced error handling for better debugging.
+
 ## [1.18.0] - 2024-10-17
 
 ### Updated Dependencies

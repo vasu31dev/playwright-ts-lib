@@ -69,16 +69,19 @@ export async function click(input: string | Locator, options?: ClickOptions): Pr
  */
 export async function clickAndNavigate(input: string | Locator, options?: ClickOptions): Promise<void> {
   const timeout = options?.timeout || STANDARD_TIMEOUT;
+  const elementHandle = await getLocator(input).elementHandle(options);
   try {
     // Adding 100 ms to the framenavigated timeout prioritizes locator error during click over navigation error, aiding in accurate debugging.
     await Promise.all([click(input, options), getPage().waitForEvent('framenavigated', { timeout: timeout + 100 })]);
     await getPage().waitForLoadState(options?.loadState || getDefaultLoadState(), {
       timeout: timeout,
     });
+    // Wait for the element to be hidden or stale after navigation. If stale then catch the error and return.
+    await elementHandle?.waitForElementState('hidden', { timeout });
   } catch (error) {
     if (error instanceof Error && error.name === 'TimeoutError' && error.message.includes('framenavigated')) {
       throw new Error(`After the click action, the page did not navigate to a new page\n ${error.message}`);
-    } else {
+    } else if (error instanceof Error && !error.message.includes('elementHandle.waitForElementState')) {
       throw error;
     }
   }
