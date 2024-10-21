@@ -2,7 +2,7 @@
  * action-utils.ts: This module provides a set of utility functions for performing various actions in Playwright tests.
  * These actions include navigation, interaction with page elements, handling of dialogs, and more.
  */
-import { Locator } from '@playwright/test';
+import test, { Locator } from '@playwright/test';
 import { getPage } from './page-utils';
 import {
   ActionOptions,
@@ -77,7 +77,13 @@ export async function clickAndNavigate(input: string | Locator, options?: ClickO
       timeout: timeout,
     });
     // Wait for the element to be hidden or stale after navigation. If stale then catch the error and return.
-    await elementHandle?.waitForElementState('hidden', { timeout });
+    await test.step(
+      'Wait for element to be stale/hidden after navigation and ignore any errors in this step',
+      async () => {
+        await elementHandle?.waitForElementState('hidden', { timeout });
+      },
+      { box: true },
+    );
   } catch (error) {
     if (error instanceof Error && error.name === 'TimeoutError' && error.message.includes('framenavigated')) {
       throw new Error(`After the click action, the page did not navigate to a new page\n ${error.message}`);
