@@ -20,7 +20,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           # renovate: node-version
-          node-version: '18.19.1'
+          node-version: '22'
 
       - name: Install Playwright Deps
         run: npx playwright install-deps chromium
