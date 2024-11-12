@@ -9,13 +9,11 @@ import { defineConfig, devices } from '@playwright/test';
 import dotenv from 'dotenv';
 dotenv.config({ path: '.env' });
 import os from 'os';
-// import path from 'path';
 
 const BASE_URL = process.env.URL || 'https://www.saucedemo.com/';
 const startLocalHost = process.env.URL && process.env.URL.includes('localhost');
 export const LOCAL_HOST_URL = 'https://localhost:9002'; // Update the URL to match your local dev server URL
-// export const STORAGE_STATE_LOGIN = path.join(__dirname, 'playwright/.auth/user-login.json');
-// export const EMPTY_STORAGE_STATE = path.join(__dirname, './tests/testdata/empty-storage-state.json');
+const customLoggerPath = require.resolve('src/vasu-playwright-lib/setup/custom-logger');
 
 export default defineConfig({
   /**
@@ -48,7 +46,7 @@ export default defineConfig({
    * The reporter to use. This can be set to use a different value on CI.
    * See https://playwright.dev/docs/test-reporters
    */
-  reporter: [['html', { open: 'never' }], ['dot']],
+  reporter: [[customLoggerPath], ['html', { open: 'never' }], ['dot']],
   /**
    * Shared settings for all the projects below.
    * See https://playwright.dev/docs/api/class-testoptions
@@ -67,7 +65,7 @@ export default defineConfig({
     },
     ignoreHTTPSErrors: true,
     acceptDownloads: true,
-    testIdAttribute: 'qa-target',
+    testIdAttribute: 'data-testid',
     /**
      * The base URL to be used in navigation actions such as `await page.goto('/')`.
      * This allows for shorter and more readable navigation commands in the tests.
@@ -88,30 +86,13 @@ export default defineConfig({
    * See https://playwright.dev/docs/test-configuration#projects
    */
   projects: [
-    // {
-    //   name: 'setup',
-    //   testMatch: '**/*.setup.ts',
-    //   use: {
-    //     ...devices['Desktop Chrome'],
-    //     viewport: { width: 1600, height: 1000 },
-    //     launchOptions: {
-    //       args: ['--disable-web-security'],
-    //       slowMo: 0,
-    //     },
-    //   },
-    // },
-
     /** Due to different view ports in Head and Headless, created 2 projects one for head mode and the same browser for headless. */
     {
       name: 'chromium',
-      // dependencies: ['setup'],
       use: {
         viewport: null,
-        // storageState: STORAGE_STATE_LOGIN,
         launchOptions: {
           args: ['--disable-web-security', '--start-maximized'],
-          /* --auto-open-devtools-for-tabs option is used to open a test with Network tab for debugging. It can help in analyzing network requests and responses.*/
-          // args: ["--disable-web-security","--auto-open-devtools-for-tabs"],
           // channel: 'chrome',
           slowMo: 0,
           headless: false,
@@ -121,11 +102,9 @@ export default defineConfig({
 
     {
       name: 'chromiumheadless',
-      // dependencies: ['setup'],
       use: {
         ...devices['Desktop Chrome'],
         viewport: { width: 1920, height: 1080 },
-        // storageState: STORAGE_STATE_LOGIN,
         launchOptions: {
           args: ['--disable-web-security'],
           // channel: 'chrome',
