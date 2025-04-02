@@ -20,7 +20,7 @@
 To install the library, run the following command:
 
 ```bash
-npm install vasu-playwright-utils
+npm install vasu-playwright-utils  --save-dev
 ```
 
 ## Usage
