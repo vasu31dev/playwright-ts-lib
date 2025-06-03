@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.20.0] - 2025-06-03
+
+### Updated Dependencies
+
+- Updated `playwright` from version `1.48.1` to `1.52.0`.
+- Updated all corresponding dependencies to their latest versions.
+
+### Updated
+
+- New ESLint v9 configuration
+- Added @eslint/js dependency
+- Removed .eslintrc.js and .eslintignore (ESLint v8 configuration)
+
 ## [1.19.0] - 2024-10-21
 
 ### Updated

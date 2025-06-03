@@ -36,7 +36,7 @@ function getLocatorAndAssert(input: string | Locator, options?: SoftOption): { l
  * Use this function to assert all the soft assertions.
  * @param {TestInfo} testInfo - The TestInfo object containing the test's information.
  */
-export function assertAllSoftAssertions(testInfo: TestInfo) {
+export function assertAllSoftAssertions(testInfo: TestInfo): void {
   expect(testInfo.errors).toHaveLength(0);
 }
 
