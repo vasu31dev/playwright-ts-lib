@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.21.0] - 2025-02-06
+
+### Updated Dependencies
+
+#### Major Updates
+
+- **Playwright**: Updated peer dependency from `>=1.52.0` to `>=1.58.2`
+- **ESLint**: Updated `@eslint/js` and `eslint` to `9.39.2` (v10 not compatible with `@typescript-eslint/eslint-plugin`)
+
+#### Updated to Latest Versions
+
+- **TypeScript Tooling**: `@types/node`, `@typescript-eslint/eslint-plugin`, `@typescript-eslint/parser`, `typescript`
+- **Testing & Reporting**: `allure-commandline`, `allure-playwright`
+- **Utilities**: `axios`, `cross-env`, `dotenv`, `winston`
+- **Code Quality**: `eslint-config-prettier`, `eslint-import-resolver-typescript`, `eslint-plugin-import`, `eslint-plugin-jsdoc`, `eslint-plugin-playwright`, `eslint-plugin-prettier`, `lint-staged`, `prettier`
+- **Build Tools**: `rimraf`
+
+### Notes
+
+- ESLint v10 intentionally not used due to compatibility requirements with TypeScript ESLint plugin ecosystem
+
 ## [1.20.0] - 2025-06-03
 
 ### Updated Dependencies
