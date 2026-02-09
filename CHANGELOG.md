@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.22.1] - 2026-02-09
+
+### Breaking changes
+
+- **`getLocatorByTestId` (locator-utils) update:** The optional `attributeName` parameter has been removed. The method now always uses Playwright’s default test id attribute (configured in `playwright.config.ts`). If you relied on a custom attribute name by passing attributeName, replace it with an alternate Playwright locator or use a CSS selector (e.g.
+  `[data-testid="id"]`) or XPath as needed.
+
+  ### Updated Dependencies
+
+- Updated `@typescript-eslint/eslint-plugin` and`@typescript-eslint/parser` from `^8.54.0` to `^8.55.0`.
+
 ## [1.22.0] - 2026-02-09
 
 ### Release

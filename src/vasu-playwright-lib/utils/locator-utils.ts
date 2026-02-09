@@ -3,7 +3,7 @@
  * These utilities make it easier to interact with elements on the page, providing a layer of abstraction over Playwright's built-in locator methods.
  */
 
-import { Frame, FrameLocator, Locator, selectors } from '@playwright/test';
+import { Frame, FrameLocator, Locator } from '@playwright/test';
 import { getPage } from './page-utils';
 import {
   FrameOptions,
@@ -54,10 +54,7 @@ export function getVisibleLocator(input: string | Locator, options?: LocatorOpti
  * @param {string} [attributeName] - Optional attribute name for the testId. If provided, this will override the default 'testId' attribute value set in the playwright.config.ts file only for this instance.
  * @returns {Locator} - The created Locator object.
  */
-export function getLocatorByTestId(testId: string | RegExp, attributeName?: string): Locator {
-  if (attributeName) {
-    selectors.setTestIdAttribute(attributeName);
-  }
+export function getLocatorByTestId(testId: string | RegExp): Locator {
   return getPage().getByTestId(testId);
 }
 
