@@ -68,14 +68,15 @@ export async function click(input: string | Locator, options?: ClickOptions): Pr
  * @param {ClickOptions} options - The click options.
  */
 export async function clickAndNavigate(input: string | Locator, options?: ClickOptions): Promise<void> {
-  const timeout = options?.timeout || STANDARD_TIMEOUT;
+  const timeout = options?.timeout ?? STANDARD_TIMEOUT;
   const elementHandle = await getLocator(input).elementHandle(options);
   try {
     // Adding 100 ms to the framenavigated timeout prioritizes locator error during click over navigation error, aiding in accurate debugging.
     await Promise.all([click(input, options), getPage().waitForEvent('framenavigated', { timeout: timeout + 100 })]);
-    await getPage().waitForLoadState(options?.loadState || getDefaultLoadState(), {
-      timeout: timeout,
+    await getPage().waitForLoadState(options?.loadState ?? getDefaultLoadState(), {
+      timeout,
     });
+
     // Wait for the element to be hidden or stale after navigation. If stale then catch the error and return.
     await test.step(
       'Wait for element to be stale/hidden after navigation and ignore any errors in this step',
@@ -207,7 +208,7 @@ export async function uncheck(input: string | Locator, options?: CheckOptions): 
  */
 export async function selectByValue(input: string | Locator, value: string, options?: SelectOptions): Promise<void> {
   const locator = await getLocatorWithStableAndVisibleOptions(input, options);
-  await locator.selectOption({ value: value }, options);
+  await locator.selectOption({ value }, options);
 }
 
 /**
@@ -244,7 +245,7 @@ export async function selectByText(input: string | Locator, text: string, option
  */
 export async function selectByIndex(input: string | Locator, index: number, options?: SelectOptions): Promise<void> {
   const locator = await getLocatorWithStableAndVisibleOptions(input, options);
-  await locator.selectOption({ index: index }, options);
+  await locator.selectOption({ index }, options);
 }
 
 /**
@@ -264,7 +265,7 @@ export async function acceptAlert(
   input: string | Locator,
   options?: { promptText?: string } & TimeoutOption,
 ): Promise<string> {
-  const timeoutInMs = options?.timeout || SMALL_TIMEOUT;
+  const timeoutInMs = options?.timeout ?? SMALL_TIMEOUT;
   const locator = getLocator(input);
   let dialogMessage = '';
 
@@ -290,7 +291,7 @@ export async function acceptAlert(
  * @returns {Promise<string>} - The message of the dialog.
  */
 export async function dismissAlert(input: string | Locator, options?: TimeoutOption): Promise<string> {
-  const timeoutInMs = options?.timeout || SMALL_TIMEOUT;
+  const timeoutInMs = options?.timeout ?? SMALL_TIMEOUT;
   const locator = getLocator(input);
   let dialogMessage = '';
 
@@ -317,7 +318,7 @@ export async function dismissAlert(input: string | Locator, options?: TimeoutOpt
  */
 
 export async function getAlertText(input: string | Locator, options?: TimeoutOption): Promise<string> {
-  const timeoutInMs = options?.timeout || SMALL_TIMEOUT;
+  const timeoutInMs = options?.timeout ?? SMALL_TIMEOUT;
   const locator = getLocator(input);
   let dialogMessage = '';
 
@@ -410,7 +411,7 @@ export async function downloadFile(input: string | Locator, path: string, option
   await click(locator, options);
   const download = await downloadPromise;
   // Wait for the download process to complete
-  console.log(await download.path());
+  console.info(await download.path());
   // Save downloaded file somewhere
   await download.saveAs(path);
 }

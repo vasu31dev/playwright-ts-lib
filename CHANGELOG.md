@@ -1,6 +1,32 @@
 # Changelog
 
-## [1.21.0] - 2025-02-06
+## [1.22.0] - 2026-02-09
+
+### Release
+
+- Updated npm publish workflow to use Node.js `24`.
+- Added `id-token: write` GitHub Actions permission.
+- Switched publish step to `npm publish --provenance --access public`.
+
+### Linting and Quality
+
+- Enforced stricter ESLint and TypeScript rules, including nullish-coalescing and async safety checks.
+- Added Playwright recommended rule set from `plugin:playwright/playwright-test`.
+- Tightened import and general best-practice rules (`import/first`, `no-var`, `prefer-const`, `eqeqeq`, and others).
+
+### Refactors
+
+- Refactored utility functions to prefer nullish coalescing (`??`) over logical OR (`||`) where fallback-on-null/undefined is required.
+
+### Updated Dependencies
+
+- Updated `@types/node` from `^25.2.1` to `^25.2.2` and`eslint-plugin-jsdoc` from `^62.5.3` to `^62.5.4`.
+
+### Removed Dependencies
+
+- Removed `allure-commandline`, `allure-playwright`, `axios`.
+
+## [1.21.0] - 2026-02-06
 
 ### Updated Dependencies
 
