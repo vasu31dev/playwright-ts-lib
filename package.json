@@ -1,6 +1,6 @@
 {
   "name": "vasu-playwright-utils",
-  "version": "1.21.0",
+  "version": "1.22.0",
   "description": "Playwright Typescript Library with reusable utilities",
   "main": "./dist/src/vasu-playwright-lib/index.js",
   "types": "./dist/src/vasu-playwright-lib/index.d.ts",
@@ -25,7 +25,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vasu31dev/playwright-ts-lib.git"
+    "url": "git+https://github.com/vasu31dev/playwright-ts-lib.git"
   },
   "author": {
     "name": "Vasudeva Annam",
@@ -47,19 +47,16 @@
   },
   "dependencies": {
     "@eslint/js": "^9.39.2",
-    "@types/node": "^25.2.1",
+    "@types/node": "^25.2.2",
     "@typescript-eslint/eslint-plugin": "^8.54.0",
     "@typescript-eslint/parser": "^8.54.0",
-    "allure-commandline": "^2.36.0",
-    "allure-playwright": "^3.4.5",
-    "axios": "^1.13.4",
     "cross-env": "^10.1.0",
     "dotenv": "^17.2.4",
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-jsdoc": "^62.5.3",
+    "eslint-plugin-jsdoc": "^62.5.4",
     "eslint-plugin-playwright": "^2.5.1",
     "eslint-plugin-prettier": "^5.5.5",
     "husky": "^9.1.7",

@@ -5,13 +5,12 @@
  * interacting with elements, making it easier to perform common tasks and checks on web elements.
  */
 
-import { Locator } from '@playwright/test';
+import test, { Locator } from '@playwright/test';
 import { LocatorWaitOptions, TimeoutOption } from '../types/optional-parameter-types';
 import { getAllLocators, getLocator } from './locator-utils';
 import { SMALL_TIMEOUT } from '../constants/timeouts';
 import { wait } from './page-utils';
 import { logger } from '../setup';
-import { test } from '@playwright/test';
 
 /**
  * 1. Retreiving Data: Use these functions to retrieve text, values, and counts from web elements.
@@ -76,6 +75,7 @@ export async function getAttribute(
   options?: TimeoutOption,
 ): Promise<null | string> {
   const locator = getLocator(input);
+  /* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing -- empty string should become null */
   return (await locator.getAttribute(attributeName, options))?.trim() || null;
 }
 
@@ -89,7 +89,7 @@ export async function getLocatorCount(input: string | Locator, options?: Locator
   try {
     return (await getAllLocators(input, options)).length;
   } catch (error) {
-    console.log(`getLocatorCount- ${error instanceof Error ? error.message : String(error)}`);
+    console.error(`getLocatorCount- ${error instanceof Error ? error.message : String(error)}`);
   }
   return 0;
 }
@@ -107,13 +107,13 @@ export async function getLocatorCount(input: string | Locator, options?: Locator
  */
 export async function isElementAttached(input: string | Locator, options?: TimeoutOption): Promise<boolean> {
   const locator = getLocator(input); // Assuming getLocator returns a Playwright Locator
-  const timeoutInMs = options?.timeout || SMALL_TIMEOUT;
+  const timeoutInMs = options?.timeout ?? SMALL_TIMEOUT;
 
   try {
     await locator.waitFor({ state: 'attached', timeout: timeoutInMs });
     return true;
   } catch (error) {
-    console.log(`isElementAttached- ${error instanceof Error ? error.message : String(error)}`);
+    console.error(`isElementAttached- ${error instanceof Error ? error.message : String(error)}`);
     return false;
   }
 }
@@ -126,7 +126,7 @@ export async function isElementAttached(input: string | Locator, options?: Timeo
  */
 export async function isElementVisible(input: string | Locator, options?: TimeoutOption): Promise<boolean> {
   const locator = getLocator(input);
-  const timeoutInMs = options?.timeout || SMALL_TIMEOUT;
+  const timeoutInMs = options?.timeout ?? SMALL_TIMEOUT;
   const startTime = Date.now();
   try {
     while (Date.now() - startTime < timeoutInMs) {
@@ -136,7 +136,7 @@ export async function isElementVisible(input: string | Locator, options?: Timeou
       await new Promise(resolve => setTimeout(resolve, 100));
     }
   } catch (error) {
-    console.log(`isElementVisible- ${error instanceof Error ? error.message : String(error)}`);
+    console.error(`isElementVisible- ${error instanceof Error ? error.message : String(error)}`);
   }
   return false;
 }
@@ -149,7 +149,7 @@ export async function isElementVisible(input: string | Locator, options?: Timeou
  */
 export async function isElementHidden(input: string | Locator, options?: TimeoutOption): Promise<boolean> {
   const locator = getLocator(input);
-  const timeoutInMs = options?.timeout || SMALL_TIMEOUT;
+  const timeoutInMs = options?.timeout ?? SMALL_TIMEOUT;
   const startTime = Date.now();
   try {
     while (Date.now() - startTime < timeoutInMs) {
@@ -159,7 +159,7 @@ export async function isElementHidden(input: string | Locator, options?: Timeout
       await new Promise(resolve => setTimeout(resolve, 100));
     }
   } catch (error) {
-    console.log(`isElementHidden- ${error instanceof Error ? error.message : String(error)}`);
+    console.error(`isElementHidden- ${error instanceof Error ? error.message : String(error)}`);
   }
   return false;
 }
@@ -176,7 +176,7 @@ export async function isElementChecked(input: string | Locator, options?: Timeou
       return await getLocator(input).isChecked(options);
     }
   } catch (error) {
-    console.log(`isElementChecked- ${error instanceof Error ? error.message : String(error)}`);
+    console.error(`isElementChecked- ${error instanceof Error ? error.message : String(error)}`);
   }
   return false;
 }
@@ -189,20 +189,22 @@ export async function isElementChecked(input: string | Locator, options?: Timeou
  */
 export async function waitForElementToBeStable(input: string | Locator, options?: TimeoutOption): Promise<boolean> {
   let result = false;
+
+  // eslint-disable-next-line complexity
   await test.step('waitForElementToBeStable', async () => {
     const locator = getLocator(input);
-    const maxWaitTime = options?.timeout || SMALL_TIMEOUT;
+    const maxWaitTime = options?.timeout ?? SMALL_TIMEOUT;
     let stableCounter = 0;
 
     const initialBoundingBox = await locator.boundingBox();
-    let lastX: number | null = initialBoundingBox?.x || null;
-    let lastY: number | null = initialBoundingBox?.y || null;
+    let lastX: number | null = initialBoundingBox?.x ?? null;
+    let lastY: number | null = initialBoundingBox?.y ?? null;
 
     const startTime = Date.now();
     await wait(200);
 
     while (Date.now() - startTime < maxWaitTime) {
-      const { x, y } = (await locator.boundingBox()) || { x: null, y: null };
+      const { x, y } = (await locator.boundingBox()) ?? { x: null, y: null };
 
       if (x === lastX && y === lastY) {
         stableCounter++;
@@ -224,6 +226,7 @@ export async function waitForElementToBeStable(input: string | Locator, options?
       logger.error('Max wait time exceeded. Element is not stable.');
     }
   });
+
   return result;
 }
 
@@ -235,7 +238,7 @@ export async function waitForElementToBeStable(input: string | Locator, options?
  */
 export async function waitForElementToBeVisible(input: string | Locator, options?: TimeoutOption): Promise<void> {
   const locator = getLocator(input);
-  await locator.waitFor({ state: 'visible', timeout: options?.timeout || SMALL_TIMEOUT });
+  await locator.waitFor({ state: 'visible', timeout: options?.timeout ?? SMALL_TIMEOUT });
 }
 
 /**
@@ -246,7 +249,7 @@ export async function waitForElementToBeVisible(input: string | Locator, options
  */
 export async function waitForElementToBeHidden(input: string | Locator, options?: TimeoutOption): Promise<void> {
   const locator = getLocator(input);
-  await locator.waitFor({ state: 'hidden', timeout: options?.timeout || SMALL_TIMEOUT });
+  await locator.waitFor({ state: 'hidden', timeout: options?.timeout ?? SMALL_TIMEOUT });
 }
 
 /**
@@ -257,7 +260,7 @@ export async function waitForElementToBeHidden(input: string | Locator, options?
  */
 export async function waitForElementToBeAttached(input: string | Locator, options?: TimeoutOption): Promise<void> {
   const locator = getLocator(input);
-  await locator.waitFor({ state: 'attached', timeout: options?.timeout || SMALL_TIMEOUT });
+  await locator.waitFor({ state: 'attached', timeout: options?.timeout ?? SMALL_TIMEOUT });
 }
 
 /**
@@ -286,5 +289,5 @@ export async function waitForFirstElementToBeAttached(
  */
 export async function waitForElementToBeDetached(input: string | Locator, options?: TimeoutOption): Promise<void> {
   const locator = getLocator(input);
-  await locator.waitFor({ state: 'detached', timeout: options?.timeout || SMALL_TIMEOUT });
+  await locator.waitFor({ state: 'detached', timeout: options?.timeout ?? SMALL_TIMEOUT });
 }

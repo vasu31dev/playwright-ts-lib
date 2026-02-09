@@ -53,7 +53,7 @@ export function getAllPages(): Page[] {
  */
 export async function switchPage(winNum: number, options?: SwitchPageOptions): Promise<void> {
   const startTime = Date.now();
-  const timeoutInMs = options?.timeout || SMALL_TIMEOUT;
+  const timeoutInMs = options?.timeout ?? SMALL_TIMEOUT;
   // Wait until the desired page number exists or timeout is reached
   while (getAllPages().length < winNum && Date.now() - startTime < timeoutInMs) {
     await new Promise(resolve => setTimeout(resolve, 100));
@@ -66,7 +66,7 @@ export async function switchPage(winNum: number, options?: SwitchPageOptions): P
 
   // Switch to the desired page and wait for it to load
   const pageInstance = getAllPages()[winNum - 1];
-  await pageInstance.waitForLoadState(options?.loadState || 'load');
+  await pageInstance.waitForLoadState(options?.loadState ?? 'load');
   setPage(pageInstance);
 }
 
@@ -133,7 +133,7 @@ export async function getURL(options: NavigationOptions = { waitUntil: 'load' })
     await waitForPageLoadState(options);
     return getPage().url();
   } catch (error) {
-    console.log(`getURL- ${error instanceof Error ? error.message : String(error)}`);
+    console.error(`getURL- ${error instanceof Error ? error.message : String(error)}`);
     return '';
   }
 }
@@ -215,5 +215,5 @@ export async function getWindowSize(): Promise<{ width: number; height: number }
  * @see {@link https://playwright.dev/docs/api/class-browsercontext#browser-context-storage-state | Playwright BrowserContext.storageState}
  */
 export async function saveStorageState(path?: string): Promise<ReturnType<BrowserContext['storageState']>> {
-  return await getPage().context().storageState({ path: path });
+  return await getPage().context().storageState({ path });
 }

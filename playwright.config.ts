@@ -6,12 +6,13 @@
 
 import { ACTION_TIMEOUT, EXPECT_TIMEOUT, NAVIGATION_TIMEOUT, TEST_TIMEOUT } from '@constants/timeouts';
 import { defineConfig, devices } from '@playwright/test';
+import os from 'os';
 import dotenv from 'dotenv';
 dotenv.config({ path: '.env' });
-import os from 'os';
 
+// eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
 const BASE_URL = process.env.URL || 'https://www.saucedemo.com/';
-const startLocalHost = process.env.URL && process.env.URL.includes('localhost');
+const startLocalHost = process.env.URL?.includes('localhost');
 export const LOCAL_HOST_URL = 'https://localhost:9002'; // Update the URL to match your local dev server URL
 const customLoggerPath = require.resolve('src/vasu-playwright-lib/setup/custom-logger');
 
@@ -60,8 +61,8 @@ export default defineConfig({
   use: {
     /* Sets extra headers for CloudFlare. */
     extraHTTPHeaders: {
-      'CF-Access-Client-Id': process.env.CF_CLIENT_ID || '',
-      'CF-Access-Client-Secret': process.env.CF_CLIENT_SECRET || '',
+      'CF-Access-Client-Id': process.env.CF_CLIENT_ID ?? '',
+      'CF-Access-Client-Secret': process.env.CF_CLIENT_SECRET ?? '',
     },
     ignoreHTTPSErrors: true,
     acceptDownloads: true,
