@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.22.2] - 2026-02-10
+
+### Fixed
+
+- **downloadFile (action-utils):** Removed use of `download.path()`, which is unavailable when connecting to a remote browser (e.g. Docker or cloud). The method now uses only `saveAs(savePath)`, so file downloads work both locally and when connecting remotely.
+
+### Updated
+
+- **downloadFile (action-utils):** Now returns the suggested filename (or a fallback from `savePath`) for use in assertions or logging. Added explicit failure check before save and improved JSDoc and examples.
+
 ## [1.22.1] - 2026-02-09
 
 ### Breaking changes

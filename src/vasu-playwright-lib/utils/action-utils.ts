@@ -401,19 +401,35 @@ export async function doubleClick(input: string | Locator, options?: DoubleClick
 }
 
 /**
- * Downloads a file from a specified element.
- * @param {string | Locator} input - The element to download the file from.
- * @param {string} path - The path to save the downloaded file to.
+ * Triggers a file download by clicking the given element and saves the file to `savePath`.
+ *
+ * Uses `saveAs()` only (no `download.path()`), so it works locally and when connecting
+ * to a remote browser (e.g. Docker or cloud).
+ *
+ * @param {string | Locator} input - Selector or locator for the element that starts the download (e.g. download button).
+ * @param {string} savePath - Full path where the file should be saved along with file extension
+ * @returns {Promise<string>}The suggested filename from the response, or the last segment of `savePath` if empty. Use for assertions or logging.
+ * @throws If the element is not found, the click fails, the download fails, or save fails.
+ * @example
+ * const filename = await downloadFile('#download-btn', '/tmp/report.pdf');
+ * expect(filename).toBe('report.pdf');
+ *
+ * const filename = await downloadFile(myLocator, path.join(downloadDir, 'file.zip'), { timeout: 30000 });
  */
-export async function downloadFile(input: string | Locator, path: string, options?: ClickOptions): Promise<void> {
+export async function downloadFile(input: string | Locator, savePath: string, options?: ClickOptions): Promise<string> {
   const locator = await getLocatorWithStableAndVisibleOptions(input, options);
   const downloadPromise = getPage().waitForEvent('download');
   await click(locator, options);
   const download = await downloadPromise;
-  // Wait for the download process to complete
-  console.info(await download.path());
-  // Save downloaded file somewhere
-  await download.saveAs(path);
+
+  const failure = await download.failure();
+  if (failure) {
+    throw new Error(`Download failed: ${failure}`);
+  }
+
+  await download.saveAs(savePath);
+  const suggestedFilename = download.suggestedFilename();
+  return suggestedFilename;
 }
 
 /**
