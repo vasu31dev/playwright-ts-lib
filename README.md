@@ -13,6 +13,7 @@
 
 - [Installation](#installation)
 - [Usage](#usage)
+- [ESLint](#eslint)
 - [License](#license)
 
 ## Installation
@@ -32,6 +33,53 @@ import { click, fill } from 'vasu-playwright-utils';
 
 // Your code here
 ```
+
+## ESLint
+
+This library ships a shareable ESLint config for Playwright TypeScript projects. Install the library (it includes the required ESLint plugins), then extend the config in your project and override any rules as needed.
+
+### Using the config
+
+1. Use **ESLint 9 flat config** (`eslint.config.js` at your project root).
+
+2. In your `eslint.config.js`, spread the library config:
+
+```javascript
+const playwrightLibConfig = require('vasu-playwright-utils/eslint');
+
+module.exports = [...playwrightLibConfig];
+```
+
+3. Ensure your project has a `tsconfig.json` at the root (the config uses it for TypeScript parsing).
+
+### Overriding rules
+
+Add config objects after the spread to override or relax rules:
+
+```javascript
+const playwrightLibConfig = require('vasu-playwright-utils/eslint');
+
+module.exports = [
+  ...playwrightLibConfig,
+  // Override specific rules
+  {
+    rules: {
+      'playwright/no-focused-test': 'warn',
+      'playwright/no-wait-for-timeout': 'off',
+      'no-console': 'off',
+    },
+  },
+  // Or override only for certain files
+  {
+    files: ['tests/**/*.ts'],
+    rules: {
+      'playwright/expect-expect': 'error',
+    },
+  },
+];
+```
+
+Later entries in the config array override earlier ones, so your overrides take precedence.
 
 ## Issues and Feedback
 

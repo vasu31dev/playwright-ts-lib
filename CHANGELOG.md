@@ -1,5 +1,30 @@
 # Changelog
 
+## [1.23.0] - 2026-02-13
+
+### Added
+
+- **Shareable ESLint config:** New flat config at `config/eslint.config.cjs` for Playwright TypeScript projects. Consume it via `vasu-playwright-utils/eslint` in your `eslint.config.js` and override rules as needed.
+- **README:** New [ESLint](#eslint) section with usage, spreading the config, and examples for overriding rules and file-specific overrides.
+- **Sample config:** `eslint.config.sample.mjs` (ESM) showing how to extend the shareable config and override rules.
+
+### Changed
+
+- **Engines:** Node.js requirement updated from `>=18.0.0` to `>=20.0.0`.
+- **Package:** Export `"./eslint"` added;
+- **Shareable ESLint config:** JSDoc rules `jsdoc/check-alignment` and `jsdoc/check-indentation` set to `off`. Project root resolution fixed to use `require('process').cwd()` to avoid lint errors in the config file.
+- **Local ESLint (eslint.config.js):** JSDoc rules `jsdoc/check-alignment` and `jsdoc/check-indentation` overridden to `warn` in this repo (base config stays `off` for consumers).
+
+### Updated Dependencies
+
+- `@types/node`: ^25.2.3 → ^25.3.1
+- `@typescript-eslint/eslint-plugin`, `@typescript-eslint/parser`: ^8.55.0 → ^8.56.1
+- `dotenv`: ^17.2.4 → ^17.3.1
+- `eslint`: ^9.39.2 → ^9.39.3
+- `eslint-plugin-jsdoc`: ^62.5.4 → ^62.7.1
+- `eslint-plugin-playwright`: ^2.5.1 → ^2.7.1
+- `rimraf`: ^6.1.2 → ^6.1.3
+
 ## [1.22.2] - 2026-02-10
 
 ### Fixed
