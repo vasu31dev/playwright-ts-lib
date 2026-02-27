@@ -1,12 +1,12 @@
 {
   "name": "vasu-playwright-utils",
-  "version": "1.23.0",
+  "version": "1.23.1",
   "description": "Playwright Typescript Library with reusable utilities",
   "main": "./dist/src/vasu-playwright-lib/index.js",
   "types": "./dist/src/vasu-playwright-lib/index.d.ts",
   "exports": {
     ".": "./dist/src/vasu-playwright-lib/index.js",
-    "./eslint": "./eslint.config.base.js",
+    "./eslint": "./eslint.config.base.mjs",
     "./action-utils": "./dist/src/vasu-playwright-lib/utils/action-utils.js",
     "./assert-utils": "./dist/src/vasu-playwright-lib/utils/assert-utils.js",
     "./element-utils": "./dist/src/vasu-playwright-lib/utils/element-utils.js",
@@ -42,14 +42,14 @@
   "files": [
     "dist",
     "src",
-    "eslint.config.base.js"
+    "eslint.config.base.mjs"
   ],
   "engines": {
     "node": ">=20.0.0"
   },
   "dependencies": {
-    "@eslint/js": "^9.39.2",
-    "@types/node": "^25.3.1",
+    "@eslint/js": "^9.39.3",
+    "@types/node": "^25.3.2",
     "@typescript-eslint/eslint-plugin": "^8.56.1",
     "@typescript-eslint/parser": "^8.56.1",
     "cross-env": "^10.1.0",

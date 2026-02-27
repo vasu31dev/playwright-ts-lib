@@ -3,7 +3,7 @@
  * To use: copy this file to eslint.config.mjs (or eslint.config.js if your project uses "type": "module").
  */
 // In your project: import from 'vasu-playwright-utils/eslint'
-import playwrightLibConfig from './eslint.config.base.js';
+import playwrightLibConfig from './eslint.config.base.mjs';
 
 export default [
   ...playwrightLibConfig,

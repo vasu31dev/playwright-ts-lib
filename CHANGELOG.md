@@ -1,19 +1,28 @@
 # Changelog
 
+## [1.23.1] - 2026-02-13
+
+### Changed
+
+- **ESLint config as ESM:** Converted `eslint.config.js` and `eslint.config.base.js` to `.mjs` (ES module) to fix the "CommonJS module; may be converted to an ES module" lint warning. Single source of truth is now `eslint.config.base.mjs`; this repo uses `eslint.config.mjs` (base + local overrides).
+- **Package:** Export `"./eslint"` now points to `eslint.config.base.mjs`; published `files` include `eslint.config.base.mjs`.
+- **Consumers:** Use `eslint.config.mjs` with `import playwrightLibConfig from 'vasu-playwright-utils/eslint'` and `export default [...]`. `require()` is not supported for the published ESM config.
+- **README:** ESLint section updated to document ESM usage (`eslint.config.mjs`, `import` / `export default`).
+
 ## [1.23.0] - 2026-02-13
 
 ### Added
 
-- **Shareable ESLint config:** New flat config at `config/eslint.config.cjs` for Playwright TypeScript projects. Consume it via `vasu-playwright-utils/eslint` in your `eslint.config.js` and override rules as needed.
+- **Shareable ESLint config:** New flat config for Playwright TypeScript projects. Consume via `vasu-playwright-utils/eslint` in your `eslint.config.mjs` and override rules as needed.
 - **README:** New [ESLint](#eslint) section with usage, spreading the config, and examples for overriding rules and file-specific overrides.
 - **Sample config:** `eslint.config.sample.mjs` (ESM) showing how to extend the shareable config and override rules.
 
 ### Changed
 
 - **Engines:** Node.js requirement updated from `>=18.0.0` to `>=20.0.0`.
-- **Package:** Export `"./eslint"` added;
-- **Shareable ESLint config:** JSDoc rules `jsdoc/check-alignment` and `jsdoc/check-indentation` set to `off`. Project root resolution fixed to use `require('process').cwd()` to avoid lint errors in the config file.
-- **Local ESLint (eslint.config.js):** JSDoc rules `jsdoc/check-alignment` and `jsdoc/check-indentation` overridden to `warn` in this repo (base config stays `off` for consumers).
+- **Package:** Export `"./eslint"` added; config included in published `files`.
+- **Shareable ESLint config:** Single source; JSDoc rules `jsdoc/check-alignment` and `jsdoc/check-indentation` set to `off`. Project root via `process.cwd()` for portability.
+- **Local ESLint:** JSDoc rules `jsdoc/check-alignment` and `jsdoc/check-indentation` overridden to `warn` in this repo (base stays `off` for consumers).
 
 ### Updated Dependencies
 

@@ -1,28 +1,29 @@
 /**
  * Shareable ESLint config for Playwright TypeScript projects.
- * Single source of truth: used by this repo (via eslint.config.js) and by consumers (vasu-playwright-utils/eslint).
+ * Single source of truth: used by this repo (via eslint.config.mjs) and by consumers (vasu-playwright-utils/eslint).
  *
  * @example
- * // eslint.config.js (in your project)
- * const playwrightLibConfig = require('vasu-playwright-utils/eslint');
- * module.exports = [
+ * // eslint.config.mjs (in your project)
+ * import playwrightLibConfig from 'vasu-playwright-utils/eslint';
+ * export default [
  *   ...playwrightLibConfig,
  *   { rules: { 'playwright/no-focused-test': 'warn' } },
  * ];
  */
 
-const typescript = require('@typescript-eslint/eslint-plugin');
-const typescriptParser = require('@typescript-eslint/parser');
-const prettier = require('eslint-plugin-prettier');
-const importPlugin = require('eslint-plugin-import');
-const jsdoc = require('eslint-plugin-jsdoc');
-const playwright = require('eslint-plugin-playwright');
-const js = require('@eslint/js');
+import typescript from '@typescript-eslint/eslint-plugin';
+import typescriptParser from '@typescript-eslint/parser';
+import prettier from 'eslint-plugin-prettier';
+import importPlugin from 'eslint-plugin-import';
+import jsdoc from 'eslint-plugin-jsdoc';
+import playwright from 'eslint-plugin-playwright';
+import js from '@eslint/js';
+import process from 'node:process';
 
-// Works in this repo and when required from other projects (consumer's cwd)
-const projectRoot = require('process').cwd();
+// Works in this repo and when imported from other projects (consumer's cwd)
+const projectRoot = process.cwd();
 
-module.exports = [
+export default [
   {
     ignores: [
       'node_modules/**',

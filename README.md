@@ -40,14 +40,14 @@ This library ships a shareable ESLint config for Playwright TypeScript projects.
 
 ### Using the config
 
-1. Use **ESLint 9 flat config** (`eslint.config.js` at your project root).
+1. Use **ESLint 9 flat config** (`eslint.config.mjs` at your project root).
 
-2. In your `eslint.config.js`, spread the library config:
+2. In your `eslint.config.mjs`, spread the library config:
 
 ```javascript
-const playwrightLibConfig = require('vasu-playwright-utils/eslint');
+import playwrightLibConfig from 'vasu-playwright-utils/eslint';
 
-module.exports = [...playwrightLibConfig];
+export default [...playwrightLibConfig];
 ```
 
 3. Ensure your project has a `tsconfig.json` at the root (the config uses it for TypeScript parsing).
@@ -57,9 +57,9 @@ module.exports = [...playwrightLibConfig];
 Add config objects after the spread to override or relax rules:
 
 ```javascript
-const playwrightLibConfig = require('vasu-playwright-utils/eslint');
+import playwrightLibConfig from 'vasu-playwright-utils/eslint';
 
-module.exports = [
+export default [
   ...playwrightLibConfig,
   // Override specific rules
   {
