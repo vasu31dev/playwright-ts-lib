@@ -1,5 +1,5 @@
 ---
-description: Project-wide instructions and conventions for vasu-playwright-utils
+description: Project-wide instructions and conventions
 globs: ["**/*"]
 ---
 

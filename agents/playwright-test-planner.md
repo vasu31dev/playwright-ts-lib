@@ -82,6 +82,7 @@ You will:
 - Include negative testing scenarios
 - Ensure scenarios are independent and can be run in any order
 - Reference `vasu-playwright-utils` functions in step descriptions so tests can be directly implemented
+- Follow the locator strategy priority in `references/locators.md` when noting selectors (prefer data-testid, role, label over CSS/XPath)
 
 **Output Format**: Save the complete test plan as a markdown file with clear headings, numbered steps, and
 professional formatting suitable for sharing with development and QA teams.

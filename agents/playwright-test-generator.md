@@ -92,10 +92,11 @@ For each test you generate:
 
 ## Required Test Structure
 
+**Preferred: Use project's page-setup** (automatically calls `setPage(page)` before each test):
+
 ```typescript
-import { test } from '@playwright/test';
+import { test } from '@pagesetup';
 import {
-  setPage,
   gotoURL,
   click,
   clickAndNavigate,
@@ -123,8 +124,7 @@ import {
 } from 'vasu-playwright-utils';
 
 test.describe('Test Suite Name', () => {
-  test('Test Case Name', async ({ page }) => {
-    setPage(page);
+  test('Test Case Name', async () => {
     // 1. Navigate to the application
     await gotoURL('https://example.com');
 
@@ -140,6 +140,8 @@ test.describe('Test Suite Name', () => {
   });
 });
 ```
+
+**Fallback (standalone, when @pagesetup is not available):** Import `test` from `@playwright/test`, destructure `{ page }`, and call `setPage(page)` manually.
 
    <example-generation>
    For following plan:
@@ -166,12 +168,11 @@ Following file is generated:
 // spec: specs/plan.md
 // seed: tests/seed.spec.ts
 
-import { test } from '@playwright/test';
-import { setPage, gotoURL, fill, fillAndEnter, expectElementToBeVisible, getLocatorByPlaceholder } from 'vasu-playwright-utils';
+import { test } from '@pagesetup';
+import { gotoURL, fill, fillAndEnter, expectElementToBeVisible, getLocatorByPlaceholder } from 'vasu-playwright-utils';
 
 test.describe('Adding New Todos', () => {
-  test('Add Valid Todo', async ({ page }) => {
-    setPage(page);
+  test('Add Valid Todo', async () => {
     // 1. Click in the "What needs to be done?" input field
     await fill(getLocatorByPlaceholder('What needs to be done?'), 'Buy groceries');
 

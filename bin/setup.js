@@ -124,6 +124,27 @@ if (INSTALL_SKILLS) {
     path.join(cursorRulesDir, 'vasu-playwright-utils.mdc'),
     path.join(projectRoot, '.cursor', 'rules', 'vasu-playwright-utils.mdc'),
   );
+
+  // Copy CLAUDE.md template if consumer doesn't have one (or --force)
+  const claudeMdSrc = path.join(pkgDir, 'templates', 'CLAUDE.md');
+  if (fs.existsSync(claudeMdSrc)) {
+    const claudeMdDest = path.join(projectRoot, 'CLAUDE.md');
+    console.log(`\n${step++}. Installing CLAUDE.md template:`);
+    const rel = path.relative(projectRoot, claudeMdDest);
+    if (!FORCE && fs.existsSync(claudeMdDest)) {
+      console.log(`  [skip] ${rel} (exists, use --force to overwrite)`);
+    } else {
+      fs.copyFileSync(claudeMdSrc, claudeMdDest);
+      console.log(`  [copy] ${rel}`);
+    }
+  }
+
+  // Install CLAUDE.md loader for Cursor (so Cursor reads the same project instructions as Claude Code)
+  console.log(`\n${step++}. Linking CLAUDE.md for Cursor:`);
+  installCursorRule(
+    path.join(cursorRulesDir, 'project.mdc'),
+    path.join(projectRoot, '.cursor', 'rules', 'project.mdc'),
+  );
 }
 
 if (INSTALL_AGENTS) {
@@ -138,15 +159,6 @@ if (INSTALL_AGENTS) {
   installCursorRule(
     path.join(cursorRulesDir, 'playwright-agents.mdc'),
     path.join(projectRoot, '.cursor', 'rules', 'playwright-agents.mdc'),
-  );
-}
-
-// Install CLAUDE.md loader for Cursor (so Cursor reads the same project instructions as Claude Code)
-if (fs.existsSync(path.join(projectRoot, 'CLAUDE.md'))) {
-  console.log(`\n${step++}. Linking CLAUDE.md for Cursor:`);
-  installCursorRule(
-    path.join(cursorRulesDir, 'project.mdc'),
-    path.join(projectRoot, '.cursor', 'rules', 'project.mdc'),
   );
 }
 

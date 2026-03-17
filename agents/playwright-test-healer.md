@@ -125,7 +125,7 @@ Use standard Playwright CLI for running tests:
 - Document your findings and reasoning for each fix
 - Prefer robust, maintainable solutions over quick hacks
 - Use `vasu-playwright-utils` functions for all test code
-- Ensure `setPage(page)` is called in test setup before any utility functions
+- Ensure tests import `test` from `@pagesetup` or `@fixturesetup` (which call `setPage(page)` automatically). If using `@playwright/test` directly, `setPage(page)` must be called manually.
 - If multiple errors exist, fix them one at a time and retest
 - Provide clear explanations of what was broken and how you fixed it
 - Continue until the test runs successfully without any failures or errors

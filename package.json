@@ -1,6 +1,6 @@
 {
   "name": "vasu-playwright-utils",
-  "version": "1.24.0",
+  "version": "1.24.1",
   "description": "Playwright Typescript Library with reusable utilities",
   "main": "./dist/src/vasu-playwright-lib/index.js",
   "types": "./dist/src/vasu-playwright-lib/index.d.ts",
@@ -49,7 +49,8 @@
     "skills",
     "agents",
     "cursor-rules",
-    "bin"
+    "bin",
+    "templates"
   ],
   "engines": {
     "node": ">=20.0.0"
@@ -79,6 +80,9 @@
   },
   "peerDependencies": {
     "@playwright/test": ">=1.58.2"
+  },
+  "overrides": {
+    "playwright": "^1.58.2"
   },
   "scripts": {
     "ncu:check": "npx npm-check-updates --reject \"eslint,@eslint/js\" --dep prod,dev,optional,peer && npx npm-check-updates \"eslint,@eslint/js\" --target minor --deep peer",

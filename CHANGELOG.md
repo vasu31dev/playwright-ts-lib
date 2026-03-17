@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.24.1] - 2026-03-17
+
+### Added
+
+- **CLAUDE.md template:** New `templates/CLAUDE.md` with project overview, structure, conventions, and AI tooling for Playwright TypeScript projects. Setup script copies it to the project root when installing skills (unless one exists; use `--force` to overwrite).
+- **Setup (bin/setup.js):** When installing skills, setup now installs the CLAUDE.md template and links the Cursor project rule so Cursor and Claude Code share the same project instructions.
+
+### Changed
+
+- **Locators skill (references/locators.md):** Priority reordered so unique **XPath/CSS with stable attributes** come before **role/text** locators. Prefer stable selectors so failures distinguish "element missing" (bug) from "copy/locale changed." Added checkout-complete example using `[data-test="complete-header"]` and asserting text separately.
+- **Sauce Demo checkout page:** `orderCompleteMessage` now uses stable selector `getLocator('[data-test="complete-header"]')` instead of `getLocatorByRole('heading', { name: /thank you for your order/i })`; text is still asserted in `expectElementToContainText`.
+- **Package:** `overrides` added so `playwright` resolves to stable only (`^1.58.2`) when using `@playwright/cli`; `templates` included in published `files`.
+- **Agents:** Minor updates to playwright-test-generator, playwright-test-healer, and playwright-test-planner.
+- **Cursor rules / README:** Small updates for project and docs.
+
 ## [1.24.0] - 2026-03-16
 
 ### Added

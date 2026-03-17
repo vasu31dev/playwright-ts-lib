@@ -10,7 +10,7 @@ const lastNameInput = () => getLocator('#last-name');
 const postalCodeInput = () => getLocator('#postal-code');
 const continueButton = () => getLocatorByRole('button', { name: 'Continue' });
 const finishButton = () => getLocatorByRole('button', { name: 'Finish' });
-const orderCompleteMessage = () => getLocatorByRole('heading', { name: /thank you for your order/i });
+const orderCompleteMessage = () => getLocator('[data-test="complete-header"]');
 
 export async function goToCart() {
   await clickAndNavigate(cartLink());

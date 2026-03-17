@@ -93,10 +93,11 @@ This library ships with AI skills and agent workflows for [Claude Code](https://
 | **Skills** — API docs, locator strategy, function references | `.claude/skills/vasu-playwright-utils/` | Claude Code, Cursor |
 | **Playwright CLI skills** — browser automation commands      | `.claude/skills/playwright-cli/`        | Claude Code, Cursor |
 | **Agents** — test planner, generator, healer workflows       | `.claude/agents/`                       | Claude Code         |
+| **CLAUDE.md** — project instructions template                | `CLAUDE.md` (project root)              | Claude Code, Cursor |
 | **Cursor rules** — agent workflow rules with `@file` refs    | `.cursor/rules/`                        | Cursor              |
-| **CLAUDE.md loader** — links your `CLAUDE.md` into Cursor    | `.cursor/rules/project.mdc`             | Cursor              |
+| **CLAUDE.md loader** — links `CLAUDE.md` into Cursor         | `.cursor/rules/project.mdc`             | Cursor              |
 
-Files are **copied** (not symlinked) into your project. Both Claude Code and Cursor auto-discover `.claude/skills/`. Claude Code also auto-discovers `.claude/agents/`. Cursor uses `.cursor/rules/` to reference agent files. If your project has a `CLAUDE.md`, the setup also creates a Cursor rule that loads it via `@file CLAUDE.md`, so both tools share the same project instructions.
+Files are **copied** (not symlinked) into your project. Both Claude Code and Cursor auto-discover `.claude/skills/`. Claude Code also auto-discovers `.claude/agents/`. Cursor uses `.cursor/rules/` to reference agent files. The setup copies a `CLAUDE.md` template to your project root (skipped if one already exists) and creates a Cursor rule that loads it via `@file CLAUDE.md`, so both tools share the same project instructions.
 
 ### For consumers
 
