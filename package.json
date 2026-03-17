@@ -39,16 +39,23 @@
   "publishConfig": {
     "access": "public"
   },
+  "bin": {
+    "vasu-pw-setup": "./bin/setup.js"
+  },
   "files": [
     "dist",
     "src",
-    "eslint.config.base.mjs"
+    "eslint.config.base.mjs",
+    "skills",
+    "agents",
+    "bin"
   ],
   "engines": {
     "node": ">=20.0.0"
   },
   "dependencies": {
     "@eslint/js": "^9.39.4",
+    "@playwright/cli": "^0.1.1",
     "@types/node": "^25.5.0",
     "@typescript-eslint/eslint-plugin": "^8.57.0",
     "@typescript-eslint/parser": "^8.57.0",
@@ -97,7 +104,8 @@
     "lint:fix": "cross-env eslint 'src/**/*.ts' 'tests/**/*.ts' 'test-setup/**/*.ts' 'playwright.config.ts' --fix",
     "prepare": "husky",
     "format": "cross-env prettier --write 'src/**/*.ts' 'tests/**/*.ts' 'test-setup/**/*.ts' 'playwright.config.ts' '**/*.json' '**/*.md' '!package-lock.json' '!dist/**/*' '!build/**/*'",
-    "postinstall": "playwright install chromium"
+    "postinstall": "playwright install chromium",
+    "setup": "node bin/setup.js"
   },
   "husky": {
     "hooks": {
