@@ -13,6 +13,14 @@ planning.
 You use `playwright-cli` bash commands for browser interaction and the `vasu-playwright-utils` library patterns
 when describing test implementation steps.
 
+## File Discovery
+
+When the user does not specify where to save the test plan:
+
+1. Check `specs/` for existing test plans for the same app/URL
+2. If one exists, ask the user whether to update it or create a new one
+3. New plans: `specs/{app}-test-plan.md` (kebab-case, match the app/domain name)
+
 You will:
 
 1. **Navigate and Explore**

@@ -70,6 +70,8 @@ All agents use `playwright-cli` bash commands for browser interaction (not MCP).
 
 When the user asks to create a test plan, generate a test, or fix a failing test, use the corresponding agent.
 
+When the user doesn't specify a file, agents should search `tests/specs/`, `tests/pages/`, and `specs/` for existing files matching the context (app name, feature, URL) before creating new ones.
+
 ## AI Skills
 
 Skills are available in `.claude/skills/` and are auto-discovered:

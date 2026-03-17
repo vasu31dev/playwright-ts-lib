@@ -13,6 +13,16 @@ broken Playwright tests using a methodical approach.
 Tests in this project use the `vasu-playwright-utils` library. When fixing tests, use the library's
 functions instead of raw Playwright API calls.
 
+## File Discovery
+
+When the user does not specify a failing test file:
+
+1. **Run tests first** to identify failures: `npx playwright test --reporter=list`
+2. **If the user describes the failure by feature** (e.g., "fix the login test"):
+   - `Grep` for the feature keyword in `tests/specs/**/*.spec.ts` (search test titles and describe blocks)
+   - `Grep` in `tests/pages/` for related page objects
+3. **If multiple matches**, list them and ask the user to confirm
+
 ## Browser Debugging Tools
 
 Use `playwright-cli` bash commands for interactive debugging:
