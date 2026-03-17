@@ -15,6 +15,7 @@ When working on Playwright tests you **must**:
    - Fix a failing test → **Test Healer**
 4. **Format code** — run `npx prettier --write` on any `.ts` files you create or edit.
 5. **Find test files by context** — When the user doesn't specify a file path, search `tests/specs/` and `tests/pages/` for files matching the user's intent (by app name, feature keyword, or URL domain) before creating new files. Follow existing naming conventions.
+6. **Optimize token usage** — Start with `WebFetch` for page reconnaissance before opening `playwright-cli`, especially in the planner and healer. Only escalate to browser when interactive discovery or selector capture is needed. Users can say "use browser mode" to skip this or "use lite mode" to maximize it.
 
 ## Agents
 

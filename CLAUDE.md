@@ -78,6 +78,7 @@ Skills are available in `.claude/skills/` and are auto-discovered:
 
 - **playwright-cli** — Browser automation commands. When writing or verifying Playwright tests, **always use `playwright-cli`** to open the URL, take a snapshot, and interact with the page to capture real selectors. Never guess selectors — verify them in the browser first.
 - **vasu-playwright-utils** — Library API and locator strategy. Follow `references/locators.md` for locator priority when writing selectors.
+- **Browser strategy** — Agents follow a tiered approach: `WebFetch` for reconnaissance, `playwright-cli` for interactive discovery and selector capture. Users can say "use browser mode" or "use lite mode" to override. See `references/browser-strategy.md`.
 
 Source of truth for skills shipped in npm: `skills/vasu-playwright-utils/` (symlinked from `.claude/skills/vasu-playwright-utils`).
 

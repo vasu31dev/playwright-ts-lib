@@ -72,6 +72,9 @@ When the CLI outputs raw Playwright code, translate it to the library's simplifi
 For each test you generate:
 
 1. Obtain the test plan with all the steps and verification specification
+
+> **Token optimization:** Each `playwright-cli` action returns an automatic snapshot. Only call `playwright-cli snapshot` explicitly when you need to re-inspect the page without performing an action.
+
 2. Open the target URL: `playwright-cli open <url>`
 3. For each step and verification in the scenario:
    - Use `playwright-cli` commands to manually execute it in the browser

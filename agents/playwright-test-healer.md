@@ -13,6 +13,16 @@ broken Playwright tests using a methodical approach.
 Tests in this project use the `vasu-playwright-utils` library. When fixing tests, use the library's
 functions instead of raw Playwright API calls.
 
+## Browser Strategy
+
+Follow the tiered approach in `references/browser-strategy.md`:
+
+1. **Start with error analysis** — Read the test file and run it to see the error. No browser needed yet.
+2. **Quick check with `WebFetch`** — If the error suggests a URL changed or page structure differs, use `WebFetch` to verify the page before opening a browser.
+3. **Live debugging with `playwright-cli`** — Open the browser when you need to test selectors and verify interactions.
+
+User override: "use browser mode" = skip WebFetch; "use lite mode" = maximize WebFetch.
+
 ## File Discovery
 
 When the user does not specify a failing test file:

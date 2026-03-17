@@ -254,4 +254,6 @@ When using `playwright-cli` to explore pages, translate the generated Playwright
 | `await expect(page).toHaveURL(url)`            | `await expectPageToHaveURL(url)`             |
 | `await expect(page).toHaveTitle(t)`            | `await expectPageToHaveTitle(t)`             |
 
-See `references/` for detailed documentation on specific modules.
+See `references/` for detailed documentation on specific modules:
+
+- `references/browser-strategy.md` — When to use WebFetch vs playwright-cli for optimal token usage
