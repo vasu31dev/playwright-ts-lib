@@ -1,6 +1,6 @@
 {
   "name": "vasu-playwright-utils",
-  "version": "1.23.1",
+  "version": "1.24.0",
   "description": "Playwright Typescript Library with reusable utilities",
   "main": "./dist/src/vasu-playwright-lib/index.js",
   "types": "./dist/src/vasu-playwright-lib/index.d.ts",
@@ -58,8 +58,8 @@
     "@eslint/js": "^9.39.4",
     "@playwright/cli": "^0.1.1",
     "@types/node": "^25.5.0",
-    "@typescript-eslint/eslint-plugin": "^8.57.0",
-    "@typescript-eslint/parser": "^8.57.0",
+    "@typescript-eslint/eslint-plugin": "^8.57.1",
+    "@typescript-eslint/parser": "^8.57.1",
     "cross-env": "^10.1.0",
     "dotenv": "^17.3.1",
     "eslint": "^9.39.4",
@@ -81,8 +81,8 @@
     "@playwright/test": ">=1.58.2"
   },
   "scripts": {
-    "ncu:check": "npx ncu --reject \"eslint,@eslint/js\" --dep prod,dev,optional,peer && npx ncu \"eslint,@eslint/js\" --target minor --deep peer",
-    "ncu:update": "npx ncu --reject \"eslint,@eslint/js\" --dep prod,dev,optional,peer -u && npx ncu \"eslint,@eslint/js\" --target minor --deep peer -u",
+    "ncu:check": "npx npm-check-updates --reject \"eslint,@eslint/js\" --dep prod,dev,optional,peer && npx npm-check-updates \"eslint,@eslint/js\" --target minor --deep peer",
+    "ncu:update": "npx npm-check-updates --reject \"eslint,@eslint/js\" --dep prod,dev,optional,peer -u && npx npm-check-updates \"eslint,@eslint/js\" --target minor --deep peer -u",
     "clean": "rimraf dist",
     "prebuild": "npm run clean",
     "build": "tsc -p tsconfig.build.json",

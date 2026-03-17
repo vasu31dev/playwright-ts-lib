@@ -1,5 +1,32 @@
 # Changelog
 
+## [1.24.0] - 2026-03-16
+
+### Added
+
+- **Checkout page (Sauce Demo):** `getCheckoutOverviewItemTotal()` and `verifyCheckoutOverviewItemTotal(expectedTotal)` for the new checkout overview test case.
+- **AI IDE support:** Skills and agents work in both **Claude Code** (`.claude/skills/`, `.claude/agents/`) and **Cursor** (`.cursor/rules/`, Cursor agents); symlinks and docs keep the same content available in both environments.
+
+### Skills
+
+- **vasu-playwright-utils:** Library API and locator strategy; references for locators, actions, assertions, and browser strategy.
+- **playwright-cli:** Browser automation (open, goto, click, fill, snapshot, etc.); references for request mocking, video recording, tracing, test generation, running code, session management, and storage state.
+
+### Agents
+
+- **playwright-test-planner:** Creates test plans from app exploration.
+- **playwright-test-generator:** Generates test files from test plan steps using vasu-playwright-utils.
+- **playwright-test-healer:** Debugs and fixes failing Playwright tests.
+
+### Updated Dependencies
+
+- `@eslint/js`: ^9.39.4
+- `@types/node`: ^25.3.1 → ^25.5.0
+- `@typescript-eslint/eslint-plugin`, `@typescript-eslint/parser`: ^8.56.1 → ^8.57.1
+- `eslint`: ^9.39.3 → ^9.39.4
+- `eslint-plugin-jsdoc`: ^62.7.1 → ^62.8.0
+- `eslint-plugin-playwright`: ^2.7.1 → ^2.10.0
+
 ## [1.23.1] - 2026-02-13
 
 ### Changed
