@@ -1,0 +1,29 @@
+---
+description: Playwright test agent workflows for planning, generating, and healing tests
+globs: ["**/*.spec.ts", "**/*.test.ts", "specs/**", "tests/**"]
+---
+
+# Playwright Test Agent Workflows
+
+When working on Playwright tests you **must**:
+
+1. **Use `playwright-cli`** to verify flows — run `playwright-cli open <url>`, `playwright-cli snapshot`, then interact (click, fill) to capture real selectors. Never guess selectors.
+2. **Follow the locator strategy** in `skills/vasu-playwright-utils/references/locators.md` when writing selectors.
+3. **Use the right agent workflow** when the user asks to:
+   - Create a test plan or explore an app → **Test Planner**
+   - Generate a test from a plan or scenario → **Test Generator**
+   - Fix a failing test → **Test Healer**
+4. **Format code** — run `npx prettier --write` on any `.ts` files you create or edit.
+5. **Find test files by context** — When the user doesn't specify a file path, search `tests/specs/` and `tests/pages/` for files matching the user's intent (by app name, feature keyword, or URL domain) before creating new files. Follow existing naming conventions.
+
+## Agents
+
+1. **Test Planner** - Explores a web app and creates a comprehensive test plan in `specs/`
+2. **Test Generator** - Executes test plan steps in the browser and generates test files using `vasu-playwright-utils`
+3. **Test Healer** - Debugs and fixes failing Playwright tests
+
+## Agent Details
+
+@file agents/playwright-test-planner.md
+@file agents/playwright-test-generator.md
+@file agents/playwright-test-healer.md

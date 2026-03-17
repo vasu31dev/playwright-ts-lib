@@ -48,6 +48,7 @@
     "eslint.config.base.mjs",
     "skills",
     "agents",
+    "cursor-rules",
     "bin"
   ],
   "engines": {

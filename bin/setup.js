@@ -66,10 +66,36 @@ function installComponent(name, src, dest) {
   installed.push(path.relative(projectRoot, dest));
 }
 
+/**
+ * Copy a Cursor rule file from the package, adjusting @file paths for consumer layout.
+ * In the repo, @file references use `skills/...` and `agents/...` (repo root paths).
+ * For consumers, these live under `.claude/`, so we prefix accordingly.
+ */
+function installCursorRule(srcFile, destFile) {
+  const rel = path.relative(projectRoot, destFile);
+  if (!FORCE && fs.existsSync(destFile)) {
+    console.log(`  [skip] ${rel} (exists, use --force to overwrite)`);
+    return;
+  }
+  if (!fs.existsSync(srcFile)) {
+    console.log(`  [skip] ${rel} (source not found)`);
+    return;
+  }
+  const content = fs.readFileSync(srcFile, 'utf8');
+  const adjusted = content
+    .replace(/@file skills\//g, '@file .claude/skills/')
+    .replace(/@file agents\//g, '@file .claude/agents/')
+    .replace(/`skills\/vasu-playwright-utils\//g, '`.claude/skills/vasu-playwright-utils/');
+  fs.mkdirSync(path.dirname(destFile), { recursive: true });
+  fs.writeFileSync(destFile, adjusted, 'utf8');
+  console.log(`  [copy] ${rel}`);
+}
+
 // --- Main ---
 
 const projectRoot = resolveProjectRoot();
 const pkgDir = path.resolve(__dirname, '..');
+const cursorRulesDir = path.join(pkgDir, 'cursor-rules');
 const installed = [];
 let step = 1;
 
@@ -91,6 +117,13 @@ if (INSTALL_SKILLS) {
     console.log('   Warning: Failed to install Playwright CLI skills. You can install them manually:');
     console.log('   npx @playwright/cli install --skills');
   }
+
+  // Install Cursor rule for skills
+  console.log(`\n${step++}. Installing Cursor rules (skills):`);
+  installCursorRule(
+    path.join(cursorRulesDir, 'vasu-playwright-utils.mdc'),
+    path.join(projectRoot, '.cursor', 'rules', 'vasu-playwright-utils.mdc'),
+  );
 }
 
 if (INSTALL_AGENTS) {
@@ -99,6 +132,22 @@ if (INSTALL_AGENTS) {
     path.join(pkgDir, 'agents'),
     path.join(projectRoot, '.claude', 'agents'),
   );
+
+  // Install Cursor rule for agents
+  console.log(`\n${step++}. Installing Cursor rules (agents):`);
+  installCursorRule(
+    path.join(cursorRulesDir, 'playwright-agents.mdc'),
+    path.join(projectRoot, '.cursor', 'rules', 'playwright-agents.mdc'),
+  );
+}
+
+// Install CLAUDE.md loader for Cursor (so Cursor reads the same project instructions as Claude Code)
+if (fs.existsSync(path.join(projectRoot, 'CLAUDE.md'))) {
+  console.log(`\n${step++}. Linking CLAUDE.md for Cursor:`);
+  installCursorRule(
+    path.join(cursorRulesDir, 'project.mdc'),
+    path.join(projectRoot, '.cursor', 'rules', 'project.mdc'),
+  );
 }
 
 // Summary
@@ -106,6 +155,7 @@ console.log('\nDone! Installed to:');
 for (const p of installed) {
   console.log(`  ${p}`);
 }
-console.log('\nThese help AI agents (like Claude Code) understand the vasu-playwright-utils API');
-console.log('and provide specialized test planning, generation, and healing workflows.');
-console.log('They are placed in .claude/ which Claude Code auto-discovers.\n');
+console.log('\nBoth Claude Code and Cursor will auto-discover:');
+console.log('  .claude/skills/   — API skills (Claude Code & Cursor)');
+console.log('  .claude/agents/   — Agent workflows (Claude Code)');
+console.log('  .cursor/rules/    — Agent rules (Cursor)\n');

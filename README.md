@@ -84,39 +84,63 @@ Later entries in the config array override earlier ones, so your overrides take 
 
 ## AI Agent Skills
 
-This library ships with [Claude Code](https://claude.com/claude-code) and [Cursor](https://cursor.com) skills that help AI agents understand and use the `vasu-playwright-utils` API and `playwright-cli` for browser automation.
+This library ships with AI skills and agent workflows for [Claude Code](https://claude.com/claude-code) and [Cursor](https://cursor.com) that help AI agents understand the `vasu-playwright-utils` API and use `playwright-cli` for browser automation.
 
-### How skills and agents are invoked
+### What gets installed
 
-- **Cursor** discovers skills from `.claude/skills/` (and `.cursor/skills/`, `.agents/skills/`). The agent decides when a skill is relevant from its **description** (trigger phrases like "writing Playwright tests", "login test", "playwright-cli"). Rules in `.cursor/rules/` that apply to `*.spec.ts`, `specs/**`, and `tests/**` **require** using the playwright-cli and vasu-playwright-utils skills and the correct agent workflow (Planner / Generator / Healer).
-- **Claude Code** discovers skills from `.claude/skills/`. `CLAUDE.md` instructs the agent to read and follow the playwright-cli and vasu-playwright-utils skills when writing or verifying Playwright tests, and to follow agent workflows when the user asks to plan, generate, or fix tests.
+| Component                                                    | Installed to                            | Used by             |
+| ------------------------------------------------------------ | --------------------------------------- | ------------------- |
+| **Skills** — API docs, locator strategy, function references | `.claude/skills/vasu-playwright-utils/` | Claude Code, Cursor |
+| **Playwright CLI skills** — browser automation commands      | `.claude/skills/playwright-cli/`        | Claude Code, Cursor |
+| **Agents** — test planner, generator, healer workflows       | `.claude/agents/`                       | Claude Code         |
+| **Cursor rules** — agent workflow rules with `@file` refs    | `.cursor/rules/`                        | Cursor              |
+| **CLAUDE.md loader** — links your `CLAUDE.md` into Cursor    | `.cursor/rules/project.mdc`             | Cursor              |
 
-To test: ask the agent to "write a test case to login for https://example.com" (or any URL). The agent should use the playwright-cli skill to verify the flow and the vasu-playwright-utils skill (which includes the locator strategy) when writing selectors. You can also invoke a skill manually: `/playwright-cli` or `/vasu-playwright-utils` in Cursor Agent chat.
-
-### For contributors
-
-Skills are pre-installed in `.claude/skills/` and are automatically discovered by Claude Code and Cursor when working in this repository.
+Files are **copied** (not symlinked) into your project. Both Claude Code and Cursor auto-discover `.claude/skills/`. Claude Code also auto-discovers `.claude/agents/`. Cursor uses `.cursor/rules/` to reference agent files. If your project has a `CLAUDE.md`, the setup also creates a Cursor rule that loads it via `@file CLAUDE.md`, so both tools share the same project instructions.
 
 ### For consumers
 
-Run the following command in your project to install AI agent skills:
+Install everything (skills + agents) with a single command:
 
 ```bash
-npx vasu-pw-setup-skills
+npx vasu-pw-setup
 ```
 
-This will:
-
-1. Copy `vasu-playwright-utils` API skills to `.claude/skills/vasu-playwright-utils/`
-2. Optionally install Playwright CLI skills if `@playwright/cli` is available
-
-The skills teach AI agents about the library's import patterns, available functions, the options pattern, and the `setPage()` setup requirement.
-
-To update skills after upgrading the library, run the command again with `--force`:
+Or install only what you need:
 
 ```bash
-npx vasu-pw-setup-skills --force
+# Skills only (API docs, locator strategy, playwright-cli)
+npx vasu-pw-setup --skills
+
+# Agents only (test planner, generator, healer)
+npx vasu-pw-setup --agents
 ```
+
+To update after upgrading the library, run the command again with `--force`:
+
+```bash
+npx vasu-pw-setup --force
+```
+
+### How skills and agents are invoked
+
+- **Claude Code** auto-discovers `.claude/skills/` and `.claude/agents/`. `CLAUDE.md` instructs the agent to use `playwright-cli` and `vasu-playwright-utils` skills when writing tests, and to follow agent workflows (Planner / Generator / Healer) when asked to plan, generate, or fix tests.
+- **Cursor** auto-discovers `.claude/skills/` for API reference. Rules in `.cursor/rules/` activate on `*.spec.ts`, `specs/**`, and `tests/**` files and include the agent workflows via `@file` directives pointing to `.claude/agents/`.
+
+To test: ask the agent to "write a test case to login for https://example.com" (or any URL). The agent should use `playwright-cli` to verify the flow and the `vasu-playwright-utils` skill (with locator strategy) when writing selectors.
+
+### For contributors
+
+Skills, agents, and cursor rules are pre-installed via symlinks — edit the source directories and changes are reflected everywhere:
+
+| Symlink                                   | Source of truth                          |
+| ----------------------------------------- | ---------------------------------------- |
+| `.claude/skills/vasu-playwright-utils`    | `skills/vasu-playwright-utils/`          |
+| `.claude/agents`                          | `agents/`                                |
+| `.cursor/rules/playwright-agents.mdc`     | `cursor-rules/playwright-agents.mdc`     |
+| `.cursor/rules/vasu-playwright-utils.mdc` | `cursor-rules/vasu-playwright-utils.mdc` |
+
+`.cursor/rules/project.mdc` loads `CLAUDE.md` into Cursor so both Claude Code and Cursor share the same project instructions.
 
 ## Issues and Feedback
 

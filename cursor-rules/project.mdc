@@ -1,0 +1,6 @@
+---
+description: Project-wide instructions and conventions for vasu-playwright-utils
+globs: ["**/*"]
+---
+
+@file CLAUDE.md
