@@ -1,4 +1,5 @@
 import { test } from '@pagesetup';
+import * as CheckoutPage from '@pages/sauce-demo/sauce-demo-checkout-page';
 import * as LoginPage from '@pages/sauce-demo/sauce-demo-login-page';
 import * as MiniCart from '@pages/sauce-demo/sauce-demo-mini-cart';
 import * as ProductsPage from '@pages/sauce-demo/sauce-demo-products-page';
@@ -36,5 +37,18 @@ test.describe('Saucedemo tests for successful, unsuccessful logins and add produ
     await ProductsPage.addToCartByProductNumber(1);
     // verifying mini cart count is updated to 1
     await MiniCart.verifyMiniCartCount('1');
+  });
+
+  test('Saucedemo test - Complete checkout flow', async () => {
+    await LoginPage.loginWithValidCredentials();
+    await ProductsPage.verifyProductsPageIsDisplayed();
+    await ProductsPage.addToCartByProductNumber(1);
+    await MiniCart.verifyMiniCartCount('1');
+    await CheckoutPage.goToCart();
+    await CheckoutPage.clickCheckout();
+    await CheckoutPage.fillCheckoutInfo();
+    await CheckoutPage.clickContinue();
+    await CheckoutPage.clickFinish();
+    await CheckoutPage.verifyOrderComplete();
   });
 });
