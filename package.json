@@ -121,8 +121,9 @@
     "*.{json,md,ts}": [
       "cross-env prettier --write"
     ],
-    "*.{ts}": [
-      "cross-env eslint --fix"
+    "*.ts": [
+      "cross-env eslint --fix",
+      "cross-env eslint"
     ]
   }
 }
