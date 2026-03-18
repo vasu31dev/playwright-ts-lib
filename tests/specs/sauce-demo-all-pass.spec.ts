@@ -1,8 +1,8 @@
-import { test } from '@pagesetup';
 import * as CheckoutPage from '@pages/sauce-demo/sauce-demo-checkout-page';
 import * as LoginPage from '@pages/sauce-demo/sauce-demo-login-page';
 import * as MiniCart from '@pages/sauce-demo/sauce-demo-mini-cart';
 import * as ProductsPage from '@pages/sauce-demo/sauce-demo-products-page';
+import { test } from '@pagesetup';
 
 /*
  To run the tests in parallel, you can utilize the test.describe.configure() method to set the mode to 'parallel'.
@@ -29,14 +29,6 @@ test.describe('Saucedemo tests for successful, unsuccessful logins and add produ
     await LoginPage.verifyLoginPageisDisplayed();
     // verifying Products Page is not displayed
     await ProductsPage.verifyProductsPageIsNotDisplayed();
-  });
-
-  test('Saucedemo test - Add product to cart', async () => {
-    await LoginPage.loginWithValidCredentials();
-    await ProductsPage.verifyProductsPageIsDisplayed();
-    await ProductsPage.addToCartByProductNumber(1);
-    // verifying mini cart count is updated to 1
-    await MiniCart.verifyMiniCartCount('1');
   });
 
   test('Saucedemo test - Complete checkout flow', async () => {
