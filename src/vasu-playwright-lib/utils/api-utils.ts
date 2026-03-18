@@ -1,5 +1,5 @@
-import { getPage } from './page-utils';
 import { APIRequestContext, APIResponse } from '@playwright/test';
+import { getPage } from './page-utils';
 
 /**
  * Retrieves the APIRequestContext from the current page equivalent to request from playwright fixture.

@@ -1,7 +1,7 @@
+import { checkoutInfo } from '@testdata/sauce-demo-test-data';
 import { clickAndNavigate, fill } from '@utils/action-utils';
 import { expectElementToContainText } from '@utils/assert-utils';
 import { getLocator, getLocatorByRole } from '@utils/locator-utils';
-import { checkoutInfo } from '@testdata/sauce-demo-test-data';
 
 const cartLink = () => getLocator('#shopping_cart_container').locator('a');
 const checkoutButton = () => getLocatorByRole('button', { name: 'Checkout' });

@@ -3,7 +3,8 @@
  * These actions include navigation, interaction with page elements, handling of dialogs, and more.
  */
 import test, { Locator } from '@playwright/test';
-import { getPage } from './page-utils';
+import { getDefaultLoadState } from '../constants/loadstate';
+import { SMALL_TIMEOUT, STANDARD_TIMEOUT } from '../constants/timeouts';
 import {
   ActionOptions,
   CheckOptions,
@@ -21,10 +22,9 @@ import {
   UploadValues,
   VisibilityOption,
 } from '../types/optional-parameter-types';
-import { SMALL_TIMEOUT, STANDARD_TIMEOUT } from '../constants/timeouts';
-import { getLocator, getVisibleLocator } from './locator-utils';
-import { getDefaultLoadState } from '../constants/loadstate';
 import { waitForElementToBeStable } from './element-utils';
+import { getLocator, getVisibleLocator } from './locator-utils';
+import { getPage } from './page-utils';
 
 /**
  * 1. Actions: This section contains functions for interacting with elements on a web page.

@@ -4,10 +4,10 @@
  * See https://playwright.dev/docs/test-configuration for more details.
  */
 
-import { ACTION_TIMEOUT, EXPECT_TIMEOUT, NAVIGATION_TIMEOUT, TEST_TIMEOUT } from '@constants/timeouts';
-import { defineConfig, devices } from '@playwright/test';
 import os from 'os';
+import { defineConfig, devices } from '@playwright/test';
 import dotenv from 'dotenv';
+import { ACTION_TIMEOUT, EXPECT_TIMEOUT, NAVIGATION_TIMEOUT, TEST_TIMEOUT } from '@constants/timeouts';
 dotenv.config({ path: '.env' });
 
 // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing

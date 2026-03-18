@@ -4,7 +4,7 @@
  */
 
 import { Frame, FrameLocator, Locator } from '@playwright/test';
-import { getPage } from './page-utils';
+import { defaultVisibleOnlyOption } from '../constants';
 import {
   FrameOptions,
   GetByPlaceholderOptions,
@@ -14,8 +14,8 @@ import {
   LocatorOptions,
   LocatorWaitOptions,
 } from '../types/optional-parameter-types';
-import { defaultVisibleOnlyOption } from '../constants';
 import { waitForFirstElementToBeAttached } from './element-utils';
+import { getPage } from './page-utils';
 
 /**
  * 1. Locators: This section contains functions and definitions related to locators.

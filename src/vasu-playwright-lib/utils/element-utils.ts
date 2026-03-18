@@ -6,11 +6,11 @@
  */
 
 import test, { Locator } from '@playwright/test';
+import { SMALL_TIMEOUT } from '../constants/timeouts';
+import { logger } from '../setup';
 import { LocatorWaitOptions, TimeoutOption } from '../types/optional-parameter-types';
 import { getAllLocators, getLocator } from './locator-utils';
-import { SMALL_TIMEOUT } from '../constants/timeouts';
 import { wait } from './page-utils';
-import { logger } from '../setup';
 
 /**
  * 1. Retreiving Data: Use these functions to retrieve text, values, and counts from web elements.

@@ -1,6 +1,6 @@
-import { test } from '@pagesetup';
 import * as LoginPage from '@pages/sauce-demo/sauce-demo-login-page';
 import * as ProductsPage from '@pages/sauce-demo/sauce-demo-products-page';
+import { test } from '@pagesetup';
 
 /*
  To run the tests sequentially and skip the remaining tests in the spec file upon encountering the first failure,

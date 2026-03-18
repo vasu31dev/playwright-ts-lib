@@ -1,5 +1,5 @@
-import { click, clickAndNavigate, fill } from '@utils/action-utils';
 import { failureLoginCredentials, sauceDemoCredentials } from '@testdata/sauce-demo-test-data';
+import { click, clickAndNavigate, fill } from '@utils/action-utils';
 import { expectElementToBeAttached, expectElementToBeVisible } from '@utils/assert-utils';
 import { getLocator, getLocatorByPlaceholder, getLocatorByRole } from '@utils/locator-utils';
 import { gotoURL } from '@utils/page-utils';
