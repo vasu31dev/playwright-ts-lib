@@ -108,6 +108,20 @@ export default [
       'import/no-self-import': 'error',
       'import/first': 'error',
       'import/no-mutable-exports': 'error',
+      // Declaration order: builtin → external → internal → parent → sibling → index (auto-fix via import/order)
+      'import/order': [
+        'error',
+        {
+          groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index', 'type'],
+          'newlines-between': 'never',
+          alphabetize: { order: 'asc', caseInsensitive: true },
+          pathGroups: [
+            { pattern: '@/**', group: 'internal', position: 'before' },
+          ],
+          pathGroupsExcludedImportTypes: ['builtin'],
+        },
+      ],
+      // Member order within named imports only (e.g. { b, a } → { a, b }); declaration order handled by import/order
       'sort-imports': ['error', { ignoreDeclarationSort: true }],
 
       // General Rules - Best Practices
