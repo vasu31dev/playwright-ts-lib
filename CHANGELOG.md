@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.24.2] - 2026-03-18
+
+### Added
+
+- **ESLint import/order:** `import/order` rule in `eslint.config.base.mjs` for consistent import declaration order (builtin → external → internal → parent → sibling → index) with alphabetize and path groups for `@/**`; auto-fix via `eslint --fix`. `sort-imports` kept with `ignoreDeclarationSort: true` for member order within named imports only.
+- **PostToolUse hook (Claude/Cursor):** `.claude/settings.json` config to run Prettier on edited `.ts`/`.tsx` files after Edit/Write tool use.
+
+### Changed
+
+- **Import order:** Sorted imports across source, tests, and config with `npm run lint:fix` to satisfy the new import/order rule.
+- **Assertions skill (references/assertions.md):** Do not use assertions in spec files—only in page `verify*` methods. Added good spec examples for readable tests.
+- **Tests:** Removed redundant add-to-cart test case.
+
+### Fixed
+
+- **lint-staged:** For staged `*.ts` files, lint-staged now runs `eslint --fix` then `eslint` so auto-fixable issues are applied in the index and remaining errors are reported (commit blocked until lint passes).
+
 ## [1.24.1] - 2026-03-17
 
 ### Added

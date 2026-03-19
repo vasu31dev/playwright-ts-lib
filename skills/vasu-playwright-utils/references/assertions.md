@@ -2,13 +2,15 @@
 
 Source: `src/vasu-playwright-lib/utils/assert-utils.ts`
 
-## Key Principle
+## Using Assertions in Spec Files
 
-**Use assertions in page files, NOT in spec files.** Spec files should read like plain English — all assertion logic lives inside page-object `verify*` methods.
+**Do not use assertions in spec files.** Assertions are for building and verifying behaviour inside page objects (e.g. `verify*` methods). Spec files should only orchestrate steps and call those methods so the test reads like a clear, readable scenario.
 
-### Good Example
+### Good Example — Readable Spec (No Assertions in Spec)
 
-**Spec file** — reads like a test plan, no assertions:
+The spec reads like a test plan; all assertions live in page files.
+
+**Spec file** — plain English, no assertion utils:
 
 ```typescript
 test('Complete checkout flow', async () => {
