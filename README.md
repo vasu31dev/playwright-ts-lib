@@ -123,6 +123,12 @@ To update after upgrading the library, run the command again with `--force`:
 npx vasu-pw-setup --force
 ```
 
+`--force` overwrites skills, agents, and cursor rules. To also overwrite `CLAUDE.md` (which is normally preserved), add `--force-claude`:
+
+```bash
+npx vasu-pw-setup --force --force-claude
+```
+
 ### How skills and agents are invoked
 
 - **Claude Code** auto-discovers `.claude/skills/` and `.claude/agents/`. `CLAUDE.md` instructs the agent to use `playwright-cli` and `vasu-playwright-utils` skills when writing tests, and to follow agent workflows (Planner / Generator / Healer) when asked to plan, generate, or fix tests.
@@ -132,16 +138,26 @@ To test: ask the agent to "write a test case to login for https://example.com" (
 
 ### For contributors
 
-Skills, agents, and cursor rules are pre-installed via symlinks — edit the source directories and changes are reflected everywhere:
+All distributable assets live under `templates/`. Symlinks make them available to Claude Code and Cursor during local development — edit the source in `templates/` and changes are reflected everywhere:
 
-| Symlink                                   | Source of truth                          |
-| ----------------------------------------- | ---------------------------------------- |
-| `.claude/skills/vasu-playwright-utils`    | `skills/vasu-playwright-utils/`          |
-| `.claude/agents`                          | `agents/`                                |
-| `.cursor/rules/playwright-agents.mdc`     | `cursor-rules/playwright-agents.mdc`     |
-| `.cursor/rules/vasu-playwright-utils.mdc` | `cursor-rules/vasu-playwright-utils.mdc` |
+| Symlink                                   | Source of truth                                    |
+| ----------------------------------------- | -------------------------------------------------- |
+| `.claude/skills/vasu-playwright-utils`    | `templates/skills/vasu-playwright-utils/`          |
+| `.claude/skills/playwright-cli`           | `templates/skills/playwright-cli/`                 |
+| `.claude/agents`                          | `templates/agents/`                                |
+| `.cursor/rules/playwright-agents.mdc`     | `templates/cursor-rules/playwright-agents.mdc`     |
+| `.cursor/rules/vasu-playwright-utils.mdc` | `templates/cursor-rules/vasu-playwright-utils.mdc` |
+| `.cursor/rules/project.mdc`               | `templates/cursor-rules/project.mdc`               |
 
 `.cursor/rules/project.mdc` loads `CLAUDE.md` into Cursor so both Claude Code and Cursor share the same project instructions.
+
+#### Syncing `playwright-cli` skill into `templates/`
+
+After refreshing the skill locally (e.g. `npx skills update microsoft/playwright-cli --skill playwright-cli -a claude-code` so `.claude/skills/playwright-cli` is current), sync it into templates and commit:
+
+```bash
+npm run sync:playwright-cli-skill
+```
 
 ## Issues and Feedback
 

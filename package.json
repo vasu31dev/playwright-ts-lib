@@ -1,6 +1,6 @@
 {
   "name": "vasu-playwright-utils",
-  "version": "1.24.2",
+  "version": "1.25.0",
   "description": "Playwright Typescript Library with reusable utilities",
   "main": "./dist/src/vasu-playwright-lib/index.js",
   "types": "./dist/src/vasu-playwright-lib/index.d.ts",
@@ -40,16 +40,13 @@
     "access": "public"
   },
   "bin": {
-    "vasu-pw-setup": "./bin/setup.js"
+    "vasu-pw-setup": "scripts/setup.js"
   },
   "files": [
     "dist",
     "src",
     "eslint.config.base.mjs",
-    "skills",
-    "agents",
-    "cursor-rules",
-    "bin",
+    "scripts",
     "templates"
   ],
   "engines": {
@@ -57,10 +54,9 @@
   },
   "dependencies": {
     "@eslint/js": "^9.39.4",
-    "@playwright/cli": "^0.1.1",
     "@types/node": "^25.5.0",
-    "@typescript-eslint/eslint-plugin": "^8.57.1",
-    "@typescript-eslint/parser": "^8.57.1",
+    "@typescript-eslint/eslint-plugin": "^8.57.2",
+    "@typescript-eslint/parser": "^8.57.2",
     "cross-env": "^10.1.0",
     "dotenv": "^17.3.1",
     "eslint": "^9.39.4",
@@ -81,12 +77,9 @@
   "peerDependencies": {
     "@playwright/test": ">=1.58.2"
   },
-  "overrides": {
-    "playwright": "^1.58.2"
-  },
   "scripts": {
-    "ncu:check": "npx npm-check-updates --reject \"eslint,@eslint/js\" --dep prod,dev,optional,peer && npx npm-check-updates \"eslint,@eslint/js\" --target minor --deep peer",
-    "ncu:update": "npx npm-check-updates --reject \"eslint,@eslint/js\" --dep prod,dev,optional,peer -u && npx npm-check-updates \"eslint,@eslint/js\" --target minor --deep peer -u",
+    "ncu:check": "npx npm-check-updates --reject \"eslint,@eslint/js,typescript\" --dep prod,dev,optional,peer && npx npm-check-updates \"eslint,@eslint/js\" --target minor --deep peer && npx npm-check-updates typescript --target minor",
+    "ncu:update": "npx npm-check-updates --reject \"eslint,@eslint/js,typescript\" --dep prod,dev,optional,peer -u && npx npm-check-updates \"eslint,@eslint/js\" --target minor --deep peer -u && npx npm-check-updates typescript --target minor -u",
     "clean": "rimraf dist",
     "prebuild": "npm run clean",
     "build": "tsc -p tsconfig.build.json",
@@ -110,7 +103,8 @@
     "prepare": "husky",
     "format": "cross-env prettier --write 'src/**/*.ts' 'tests/**/*.ts' 'test-setup/**/*.ts' 'playwright.config.ts' '**/*.json' '**/*.md' '!package-lock.json' '!dist/**/*' '!build/**/*'",
     "postinstall": "playwright install chromium",
-    "setup": "node bin/setup.js"
+    "setup": "node scripts/setup.js",
+    "sync:playwright-cli-skill": "rm -rf templates/skills/playwright-cli && cp -r .claude/skills/playwright-cli templates/skills/playwright-cli"
   },
   "husky": {
     "hooks": {

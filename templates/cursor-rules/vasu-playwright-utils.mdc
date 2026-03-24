@@ -20,7 +20,7 @@ Playwright TypeScript utility library with simplified helper functions for brows
 
 ## Full API Documentation
 
-@file skills/vasu-playwright-utils/SKILL.md
-@file skills/vasu-playwright-utils/references/actions.md
-@file skills/vasu-playwright-utils/references/assertions.md
-@file skills/vasu-playwright-utils/references/locators.md
+@file .claude/skills/vasu-playwright-utils/SKILL.md
+@file .claude/skills/vasu-playwright-utils/references/actions.md
+@file .claude/skills/vasu-playwright-utils/references/assertions.md
+@file .claude/skills/vasu-playwright-utils/references/locators.md

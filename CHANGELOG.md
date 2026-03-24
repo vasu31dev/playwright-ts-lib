@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.25.0] - 2026-03-23
+
+### Added
+
+- **`templates/` directory:** All distributable assets (skills, agents, cursor rules, CLAUDE.md) consolidated under `templates/` for reliable npm publishing — no root-level `skills/`, `agents/`, or `cursor-rules/` directories needed.
+- **`templates/skills/playwright-cli/`:** Playwright CLI skill bundled in the package (SKILL.md + references: request-mocking, running-code, session-management, storage-state, test-generation, tracing, video-recording). Consumers no longer need a separate `npx @playwright/cli install --skills` step.
+- **`scripts/setup.js`:** Setup script moved from `bin/setup.js` to `scripts/setup.js`. New implementation copies all assets from `templates/` with no path rewriting at install time — cursor rule `@file` paths are pre-baked as `.claude/` paths in templates.
+- **`--force-claude` flag:** `npx vasu-pw-setup --force-claude` overwrites `CLAUDE.md` independently of `--force`, preserving customised project instructions by default.
+- **`sync:playwright-cli-skill` script:** `npm run sync:playwright-cli-skill` wipes and copies `.claude/skills/playwright-cli` → `templates/skills/playwright-cli` for maintainers to sync upstream skill updates before publishing.
+
+### Changed
+
+- **Cursor rules in `templates/`:** `@file` directives use `.claude/` paths directly, so no runtime path rewriting is needed during install.
+- **`templates/cursor-rules/playwright-agents.mdc`:** Updated inline locator reference from `` `skills/vasu-playwright-utils/references/locators.md` `` to `` `.claude/skills/vasu-playwright-utils/references/locators.md` ``.
+- **Dev symlinks:** `.claude/agents`, `.claude/skills/vasu-playwright-utils`, and all `.cursor/rules/*.mdc` symlinks updated to point into `templates/` instead of the former root-level directories.
+- **README:** Contributor symlink table updated to reflect `templates/` as source of truth; `--force-claude` flag documented; `sync:playwright-cli-skill` usage added.
+
 ## [1.24.2] - 2026-03-18
 
 ### Added

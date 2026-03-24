@@ -8,7 +8,7 @@ globs: ["**/*.spec.ts", "**/*.test.ts", "specs/**", "tests/**"]
 When working on Playwright tests you **must**:
 
 1. **Use `playwright-cli`** to verify flows — run `playwright-cli open <url>`, `playwright-cli snapshot`, then interact (click, fill) to capture real selectors. Never guess selectors.
-2. **Follow the locator strategy** in `skills/vasu-playwright-utils/references/locators.md` when writing selectors.
+2. **Follow the locator strategy** in `.claude/skills/vasu-playwright-utils/references/locators.md` when writing selectors.
 3. **Use the right agent workflow** when the user asks to:
    - Create a test plan or explore an app → **Test Planner**
    - Generate a test from a plan or scenario → **Test Generator**
@@ -25,6 +25,6 @@ When working on Playwright tests you **must**:
 
 ## Agent Details
 
-@file agents/playwright-test-planner.md
-@file agents/playwright-test-generator.md
-@file agents/playwright-test-healer.md
+@file .claude/agents/playwright-test-planner.md
+@file .claude/agents/playwright-test-generator.md
+@file .claude/agents/playwright-test-healer.md
